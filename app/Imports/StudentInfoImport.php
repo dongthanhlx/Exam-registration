@@ -20,7 +20,7 @@ class StudentInfoImport implements ToModel, WithHeadingRow
     {
         $email = $row['email'];
         $userModel = new User();
-        $user = $userModel->getUserByEmail($email);
+        $user = $userModel->getByEmail($email);
         $user_id = $user->id;
         return new Student([
             'student_code'  => $row['student_code'],
@@ -30,5 +30,4 @@ class StudentInfoImport implements ToModel, WithHeadingRow
             'user_id'       => $user_id,
         ]);
     }
-
 }

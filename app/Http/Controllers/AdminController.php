@@ -30,6 +30,6 @@ class AdminController extends Controller
     public function import($object)
     {
         $result = Excel::import($object, \request()->file('file'));
-        return back()->with('message', 'Import File Successfully');
+        return redirect()->route('admin');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\StudentAccountImport;
 use App\Imports\StudentInfoImport;
-use App\Imports\StudentListOfSubjectClassImport;
+use App\Imports\StudentListOfSubjectImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -37,6 +37,6 @@ class ImportController extends AdminController
 
     public function importStudentListOfSubject()
     {
-        $this->import(new StudentListOfSubjectClassImport());
+        $this->import(new StudentListOfSubjectImport());
     }
 }

@@ -9,7 +9,6 @@ use App\Notifications\AdminResetPasswordNotification;
 class Admin extends Authenticatable
 {
     use Notifiable;
-
     protected $guard = 'admin';
 
     /**
@@ -18,7 +17,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'job_title',
+        'name', 'email', 'password',
     ];
 
     /**

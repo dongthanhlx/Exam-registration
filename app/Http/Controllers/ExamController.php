@@ -108,4 +108,9 @@ class ExamController extends Controller
     {
         //
     }
+
+    public function showCreateForm()
+    {
+        return view('admin.createExamSite');
+    }
 }
