@@ -43,6 +43,9 @@ Route::prefix('admin')->group(function() {
 
         Route::get('StudentListOfSubject', 'ImportController@showStudentListOfSubjectImportForm')->name('admin.import.StudentListOfSubject');
         Route::post('StudentListOfSubject', 'ImportController@importStudentListOfSubject')->name('admin.import.StudentListOfSubject');
+
+        Route::get('SubjectList', 'ImportController@showSubjectListImportForm')->name('admin.import.SubjectList');
+        Route::post('SubjectList', 'ImportController@importSubjectList')->name('admin.import.SubjectList');
     });
 
     Route::prefix('create')->group(function () {

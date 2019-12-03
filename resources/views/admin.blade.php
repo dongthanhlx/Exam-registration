@@ -10,6 +10,7 @@
                     <a href="{{ route('admin.import.StudentAccount') }}"><button class="btn btn-primary">Import Student Account</button></a>
                     <a href="{{ route('admin.import.StudentInfo') }}"><button class="btn btn-primary">Import Student Info </button></a>
                     <a href="{{ route('admin.import.StudentListOfSubject') }}"><button class="btn btn-primary">Import Student List Of Subject</button></a>
+                    <a href="{{ route('admin.import.SubjectList') }}"><button class="btn btn-primary">Import Subject List</button></a>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\StudentAccountImport;
 use App\Imports\StudentInfoImport;
 use App\Imports\StudentListOfSubjectImport;
+use App\Imports\SubjectListImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -15,19 +16,14 @@ class ImportController extends AdminController
         return view('admin.import', ['route' => route('admin.import.StudentAccount')]);
     }
 
-    public function showStudentInfoImportForm()
-    {
-        return view('admin.import', ['route' => route('admin.import.StudentInfo')]);
-    }
-
-    public function showStudentListOfSubjectImportForm()
-    {
-        return view('admin.import', ['route' => route('admin.import.StudentListOfSubject')]);
-    }
-
     public function importStudentAccount()
     {
         $this->import(new StudentAccountImport());
+    }
+
+    public function showStudentInfoImportForm()
+    {
+        return view('admin.import', ['route' => route('admin.import.StudentInfo')]);
     }
 
     public function importStudentInfo()
@@ -35,8 +31,23 @@ class ImportController extends AdminController
         $this->import(new StudentInfoImport());
     }
 
+    public function showStudentListOfSubjectImportForm()
+    {
+        return view('admin.import', ['route' => route('admin.import.StudentListOfSubject')]);
+    }
+
     public function importStudentListOfSubject()
     {
         $this->import(new StudentListOfSubjectImport());
+    }
+
+    public function showSubjectListImportForm()
+    {
+        return view('admin.import', ['route' => route('admin.import.SubjectList')]);
+    }
+
+    public function importSubjectList()
+    {
+        $this->import(new SubjectListImport());
     }
 }

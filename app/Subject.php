@@ -2,14 +2,13 @@
 
 namespace App;
 
-use Illuminate\Support\Collection;
 
 class Subject extends BaseModel
 {
     protected $table = 'subjects';
 
     protected $fillable = [
-        'subject_code', 'name', 'number_of_credits', 'create_by'
+        'name', 'subject_code', 'number_of_credits', 'create_by'
     ];
 /*
     public function getObjectCollection($subjects): Collection
@@ -31,23 +30,5 @@ class Subject extends BaseModel
         return $collection;
     }
 */
-
-    public function getSubjectBySubjectCode($subjectCode)
-    {
-        return $this->getWithCondition(['subject_code', '=', $subjectCode])->first();
-    }
-/*
-    public function insert($input)
-    {
-        $this::firstOrCreate(
-            [
-                'subject_code' => $input->subject_code
-            ],
-            [
-                'name' => $input->name,
-                'number_of_credits' => $input->number_of_credits,
-            ]
-        );
-    }*/
 
 }
