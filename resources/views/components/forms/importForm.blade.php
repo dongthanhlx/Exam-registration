@@ -1,4 +1,3 @@
-
 <div class="card-body">
     <form action="{{ $route }}" method="POST" enctype="multipart/form-data">
         @csrf

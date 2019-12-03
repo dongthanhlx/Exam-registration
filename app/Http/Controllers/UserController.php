@@ -15,15 +15,14 @@ class UserController extends Controller
         $this->model = new User();
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function showStudentAccountImportForm()
     {
-        //
+        $records = $this->model->allAccount();
+
+        return view('admin.import', ['route' => route('admin.import.StudentAccount'), 'table' => 'studentAccountTable', 'records' => $records]);
     }
+
 
     /**
      * Show the form for creating a new resource.

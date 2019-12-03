@@ -20,14 +20,21 @@ class StudentController extends Controller
         $this->model = new Student();
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function showStudentInfoImportForm()
     {
-        //
+        $records = $this->model->getAllInfo();
+
+        return view('admin.import', ['route' => route('admin.import.StudentInfo'), 'table' => 'studentInfoTable', 'records' => $records]);
+    }
+
+    public function showStudentListOfSubjectImportForm()
+    {
+        return view('admin.import', ['route' => route('admin.import.StudentListOfSubject'), 'table' => 'studentOfSubjectTable']);
+    }
+
+    public function showSubjectListImportForm()
+    {
+        return view('admin.import', ['route' => route('admin.import.SubjectList')]);
     }
 
     /**

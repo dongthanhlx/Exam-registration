@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "faf35a8ebebaac8738b515346f53d95f",
+    "content-hash": "3483bbfde6bb26659c63ca9b6fc55c91",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1307,6 +1307,66 @@
             "time": "2019-11-08T13:50:10+00:00"
         },
         {
+            "name": "noprotocol/php-mysql-aes-crypt",
+            "version": "v2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/noprotocol/php-mysql-aes-crypt.git",
+                "reference": "c70c88cdfc81796d0fd2c92113a568bb6f00fc66"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/noprotocol/php-mysql-aes-crypt/zipball/c70c88cdfc81796d0fd2c92113a568bb6f00fc66",
+                "reference": "c70c88cdfc81796d0fd2c92113a568bb6f00fc66",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "6.0.*",
+                "symfony/stopwatch": "^3.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "NoProtocol\\Encryption\\MySQL\\AES\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bob Fanger",
+                    "email": "bob.fanger@noprotocol.nl"
+                },
+                {
+                    "name": "Anne Jan Brouwer",
+                    "email": "anne.jan.brouwer@noprotocol.nl"
+                },
+                {
+                    "name": "Govert Verschuur",
+                    "email": "govert.verschuur@noprotocol.nl"
+                },
+                {
+                    "name": "Renan Martins Pimentel",
+                    "email": "renan.pimentel@gmail.com"
+                }
+            ],
+            "description": "Encrypt/decrypt data in PHP to a format compatible with MySQL AES_ENCRYPT & AES_DECRYPT functions.",
+            "keywords": [
+                "aes",
+                "decryption",
+                "encryption",
+                "mysql",
+                "noprotocol",
+                "php"
+            ],
+            "time": "2019-12-02T14:43:14+00:00"
+        },
+        {
             "name": "opis/closure",
             "version": "3.5.1",
             "source": {
@@ -1414,16 +1474,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.10.0",
+            "version": "1.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "f734783d826bd84c3d54fcf7b71c37ab9bac4b04"
+                "reference": "1648dc9ebef6ebe0c5a172e16cf66732918416e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/f734783d826bd84c3d54fcf7b71c37ab9bac4b04",
-                "reference": "f734783d826bd84c3d54fcf7b71c37ab9bac4b04",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/1648dc9ebef6ebe0c5a172e16cf66732918416e0",
+                "reference": "1648dc9ebef6ebe0c5a172e16cf66732918416e0",
                 "shasum": ""
             },
             "require": {
@@ -1503,7 +1563,7 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2019-11-18T11:33:05+00:00"
+            "time": "2019-12-01T23:13:51+00:00"
         },
         {
             "name": "phpoption/phpoption",

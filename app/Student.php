@@ -4,6 +4,8 @@ namespace App;
 
 
 
+use Illuminate\Support\Facades\DB;
+
 class Student extends User
 {
     protected $table    = 'student_details';
@@ -63,5 +65,13 @@ class Student extends User
     public function studentInfoOfStudentCode($studentCode)
     {
         return $this->getWithCondition(['student_code', '=', $studentCode]);
+    }
+
+    public function getAllInfo()
+    {
+        return DB::table('users')
+            ->join('student_details', 'users.id', '=', 'student_details.user_id')
+            ->select('first_name', 'last_name', 'birthday', 'gender', 'student_code', 'class')
+            ->get();
     }
 }

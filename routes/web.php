@@ -35,16 +35,16 @@ Route::prefix('admin')->group(function() {
     Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 
     Route::prefix('import')->group(function () {
-        Route::get('StudentAccount', 'ImportController@showStudentAccountImportForm')->name('admin.import.StudentAccount');
+        Route::get('StudentAccount', 'UserController@showStudentAccountImportForm')->name('admin.import.StudentAccount');
         Route::post('StudentAccount', 'ImportController@importStudentAccount')->name('admin.import.StudentAccount');
 
-        Route::get('StudentInfo', 'ImportController@showStudentInfoImportForm')->name('admin.import.StudentInfo');
+        Route::get('StudentInfo', 'StudentController@showStudentInfoImportForm')->name('admin.import.StudentInfo');
         Route::post('StudentInfo', 'ImportController@importStudentInfo')->name('admin.import.StudentInfo');
 
-        Route::get('StudentListOfSubject', 'ImportController@showStudentListOfSubjectImportForm')->name('admin.import.StudentListOfSubject');
+        Route::get('StudentListOfSubject', 'StudentController@showStudentListOfSubjectImportForm')->name('admin.import.StudentListOfSubject');
         Route::post('StudentListOfSubject', 'ImportController@importStudentListOfSubject')->name('admin.import.StudentListOfSubject');
 
-        Route::get('SubjectList', 'ImportController@showSubjectListImportForm')->name('admin.import.SubjectList');
+        Route::get('SubjectList', 'StudentController@showSubjectListImportForm')->name('admin.import.SubjectList');
         Route::post('SubjectList', 'ImportController@importSubjectList')->name('admin.import.SubjectList');
     });
 
