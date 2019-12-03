@@ -16,7 +16,7 @@
         @csrf
         <div class="form-group">
             <label for="exam">Kỳ thi</label>
-            <input type="text" id="exam" name="vocabulary" class="form-control mt-2"/ value = "Thi cuối kì" disabled>
+            <input type="text" id="exam" name="exam" class="form-control mt-2"/ value = "Thi cuối kì" disabled>
         </div>
         <div class="form-group">
             <label for="semester">Học kỳ</label>
