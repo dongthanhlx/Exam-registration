@@ -2,4 +2,5 @@
 
 @section('content')
     @include('components.forms.importForm')
+    @include('components.tables.{{ $table }}')
 @endsection
