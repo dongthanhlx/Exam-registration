@@ -12,17 +12,17 @@ class ImportController extends AdminController
 {
     public function showStudentAccountImportForm()
     {
-        return view('admin.import', ['route' => route('admin.import.StudentAccount')]);
+        return view('admin.import', ['route' => route('admin.import.StudentAccount'), 'table' => 'studentAccountTable']);
     }
 
     public function showStudentInfoImportForm()
     {
-        return view('admin.import', ['route' => route('admin.import.StudentInfo')]);
+        return view('admin.import', ['route' => route('admin.import.StudentInfo'), 'table' => 'studentInforTable']);
     }
 
     public function showStudentListOfSubjectImportForm()
     {
-        return view('admin.import', ['route' => route('admin.import.StudentListOfSubject')]);
+        return view('admin.import', ['route' => route('admin.import.StudentListOfSubject'), 'table' => 'studentOfSubjectTable']);
     }
 
     public function importStudentAccount()
