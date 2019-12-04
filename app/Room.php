@@ -3,6 +3,8 @@
 namespace App;
 
 
+use Illuminate\Support\Facades\DB;
+
 class Room extends BaseModel
 {
     protected $table    = 'rooms';
@@ -35,5 +37,13 @@ class Room extends BaseModel
     public function numComputerOfRoom($rooms)
     {
         return $rooms->number_of_computer;
+    }
+
+    public function allRoom()
+    {
+        return DB::table('rooms')
+            ->join('locations', 'rooms.location_id', '=', 'locations.id')
+            ->select('locations.name AS location', 'name', 'number_of_computer')
+            ->get();
     }
 }

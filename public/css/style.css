@@ -1,19 +1,20 @@
 .dropdown>.dropdown-menu {
     top: 200%;
     transition: 0.3s all ease-in-out;
-  }
-  .hover:hover>.dropdown-menu {
+}
+
+.dropdown:hover>.dropdown-menu {
     display: block;
     top: 100%;
-  }
-  
-  .dropdown>.dropdown-toggle:active {
-    /*Without this, clicking will make it sticky*/
-      pointer-events: none;
-  }
+}
+
+.dropdown>.dropdown-toggle:active {
+/*Without this, clicking will make it sticky*/
+  pointer-events: none;
+}
 
   @media only screen and (min-width: 600px){
-    .form{
+    .form {
       width: 600px;
     }
   }

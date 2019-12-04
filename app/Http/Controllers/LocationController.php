@@ -104,4 +104,11 @@ class LocationController extends Controller
     {
         //
     }
+
+    public function showImportForm()
+    {
+        $records = $this->model->allLocation();
+
+        return view('admin.import', ['route' => route('admin.import.location'), 'table' => '']);
+    }
 }

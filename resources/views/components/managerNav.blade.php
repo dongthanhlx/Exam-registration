@@ -2,7 +2,7 @@
 <div class="navbar-header" id="navbarNavDropdown">
     <ul class="nav navbar-nav">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle hover" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Sinh viên
             </a>
 

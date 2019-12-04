@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\LocationImport;
+use App\Imports\RoomImport;
 use App\Imports\StudentAccountImport;
 use App\Imports\StudentInfoImport;
 use App\Imports\StudentListOfSubjectImport;
@@ -17,19 +19,9 @@ class ImportController extends AdminController
         $this->middleware('auth:admin');
     }
 
-    public function showStudentAccountImportForm()
-    {
-        return view('admin.import', ['route' => route('admin.import.StudentAccount'), 'table' => 'studentAccountTable']);
-    }
-
     public function importStudentAccount()
     {
         $this->import(new StudentAccountImport());
-    }
-
-    public function showStudentInfoImportForm()
-    {
-        return view('admin.import', ['route' => route('admin.import.StudentInfo'), 'table' => 'studentInforTable']);
     }
 
     public function importStudentInfo()
@@ -37,23 +29,23 @@ class ImportController extends AdminController
         $this->import(new StudentInfoImport());
     }
 
-    public function showStudentListOfSubjectImportForm()
-    {
-        return view('admin.import', ['route' => route('admin.import.StudentListOfSubject'), 'table' => 'studentOfSubjectTable']);
-    }
-
     public function importStudentListOfSubject()
     {
         $this->import(new StudentListOfSubjectImport());
     }
 
-    public function showSubjectListImportForm()
-    {
-        return view('admin.import', ['route' => route('admin.import.SubjectList')]);
-    }
-
     public function importSubjectList()
     {
         $this->import(new SubjectListImport());
+    }
+
+    public function importLocation()
+    {
+        $this->import(new LocationImport());
+    }
+
+    public function importRoom()
+    {
+        $this->import(new RoomImport());
     }
 }

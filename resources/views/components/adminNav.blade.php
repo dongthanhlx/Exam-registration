@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-static-top navbar-expand-lg navbar-light bg-light">
     <div class="container">
 
-        
+
         <div class="navbar-header">
             <!-- Collapsed Hamburger -->
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
@@ -30,7 +30,7 @@
                 @if (Auth::guest())
                     <li><a href="{{ route('login') }}">Login</a></li>
                 @else
-                    <li class="dropdown">
+                    <li>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->last_name }} <span class="caret"></span>
                         </a>
@@ -53,6 +53,5 @@
             </ul>
         </div>
     </div>
-
 
 </nav>

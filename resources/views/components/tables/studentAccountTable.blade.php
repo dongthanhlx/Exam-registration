@@ -1,4 +1,3 @@
-
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -12,6 +11,7 @@
         {{ session()->get('message') }}
     </div>
 @endif
+
 <table class="table table-hover">
     <thead>
     <tr>

@@ -3,6 +3,8 @@
 namespace App;
 
 
+use Illuminate\Support\Facades\DB;
+
 class Location extends BaseModel
 {
     protected $table    = 'locations';
@@ -29,4 +31,19 @@ class Location extends BaseModel
 
         return $collection;
     }*/
+
+    public function getByName($name)
+    {
+        return DB::table('locations')
+                ->where('name', '=', $name)
+                ->get()
+                ->first();
+    }
+
+    public function allLocation()
+    {
+        return DB::table('locations')
+            ->select('name')
+            ->get();
+    }
 }
