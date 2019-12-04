@@ -11,6 +11,12 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ImportController extends AdminController
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     public function showStudentAccountImportForm()
     {
         return view('admin.import', ['route' => route('admin.import.StudentAccount'), 'table' => 'studentAccountTable']);

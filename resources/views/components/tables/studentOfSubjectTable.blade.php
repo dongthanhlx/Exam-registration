@@ -29,19 +29,19 @@
         <tbody>
         @foreach ($records as $record)
             <tr>
-                <th scope="row">{{ $record->id }}</th>
+                <th scope="row">{{ $loop->index + 1 }}</th>
                 <th scope="row">{{ $record->first_name }}</th>
                 <th scope="row">{{ $record->last_name }}</th>
                 <th scope="row">{{ $record->birthday }}</th>
                 <th scope="row">{{ $record->student_code }}</th>
                 <th scope="row">{{ $record->subject_code }}</th>
                 <th scope="row">
-                    <form action="{{ route('vocabulary.destroy', $record->id) }}" method="post" class="float-right">
+                    <form action="" method="post" class="float-right">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-outline-primary" onclick="return confirm('Chắc cú ?')">Delete</button>
+                        <button class="btn btn-outline-primary" onclick="return confirm('Chắc không ?')">Delete</button>
                     </form>
-                    <a href="{{ route('vocabulary.edit', $record->id) }}"><button class="btn btn-outline-primary float-right">Edit</button></a>
+                    <a href="#"><button class="btn btn-outline-primary float-right">Edit</button></a>
                 </th>
             </tr>
         @endforeach

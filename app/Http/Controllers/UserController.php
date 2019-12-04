@@ -13,8 +13,8 @@ class UserController extends Controller
     public function __construct()
     {
         $this->model = new User();
+        $this->middleware('auth:admin');
     }
-
 
     public function showStudentAccountImportForm()
     {

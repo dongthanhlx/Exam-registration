@@ -37,7 +37,7 @@
                     <form action="" method="post" class="float-right">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-outline-primary" onclick="return confirm('Chắc cú ?')">Delete</button>
+                        <button class="btn btn-outline-primary" onclick="return confirm('Chắc không ?')">Delete</button>
                     </form>
                     <a href="#"><button class="btn btn-outline-primary float-right">Edit</button></a>
                 </th>
