@@ -4,7 +4,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">import</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Import file excel</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -15,9 +15,9 @@
                 @csrf
                 <input type="file" name="file" class="form-control" />
                 
-                <!-- <div class="float-right">
+                <div class="float-right">
                     <button style="width:100px" class="btn btn-success ml-5">Import</button>
-                </div> -->
+                </div>
             </form>
         </div>
       </div>
@@ -28,3 +28,14 @@
     </div>
   </div>
 </div>
+
+<!-- <div class="card-body float-right" >
+            <form action="{{ $route }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="file" class="form-control" />
+                
+                <div class="float-right">
+                    <button style="width:100px" class="btn btn-success ml-5">Import</button>
+                </div>
+            </form>
+        </div> -->
