@@ -19,7 +19,6 @@
         <th scope="col">Họ và tên</th>
         <th scope="col">Mã sinh viên</th>
         <th scope="col">Email</th>
-        <th scope="col">Mật khẩu</th>
         <th scope="col"></th>
     </tr>
     </thead>
@@ -30,14 +29,13 @@
             <th scope="row">{{ $record->full_name }}</th>
             <th scope="row">{{ $record->student_code }}</th>
             <th scope="row">{{ $record->email }}</th>
-            <th scope="row">{{ $record->password }}</th>
             <th scope="row">
-                <form action="" method="post" class="float-right">
+                <form action="{{ route('admin.user.delete', $record->id) }}" method="POST" class="float-right">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-outline-primary" onclick="return confirm('Chắc không ?')">Delete</button>
                 </form>
-                <a href="#"><button class="btn btn-outline-primary float-right">Edit</button></a>
+                <a href="{{ route('admin.user.edit', $record->id) }}"><button class="btn btn-outline-primary float-right">Edit</button></a>
             </th>
         </tr>
     @endforeach

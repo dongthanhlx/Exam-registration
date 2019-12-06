@@ -15,14 +15,10 @@ class RoomImport implements ToModel
     */
     public function model(array $row)
     {
-        $locationName = $row['location'];
-        $locationModel = new Location();
-        $locationID = $locationModel->getByName($locationName)->id;
-
         return new Room([
+            'location' => $row['location'],
             'name' => $row['name'],
-            'number_of_computer' => $row['number_of_computer'],
-            'location_id' => $locationID,
+            'number_of_computer' => $row['number_of_computer']
         ]);
     }
 }

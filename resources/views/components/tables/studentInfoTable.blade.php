@@ -35,12 +35,12 @@
             <th scope="row">{{ $record->student_code }}</th>
             <th scope="row">{{ $record->class }}</th>
             <th scope="row">
-                <form action="" method="post" class="float-right">
+                <form action="{{ route('admin.student.delete', $record->id) }}" method="post" class="float-right">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-outline-primary" onclick="return confirm('Chắc không ?')">Delete</button>
                 </form>
-                <a href="#"><button class="btn btn-outline-primary float-right">Edit</button></a>
+                <a href="{{ route('admin.student.edit', $record->id) }}"><button class="btn btn-outline-primary float-right">Edit</button></a>
             </th>
         </tr>
     @endforeach

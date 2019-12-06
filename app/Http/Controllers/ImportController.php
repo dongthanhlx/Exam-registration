@@ -39,13 +39,13 @@ class ImportController extends AdminController
         $this->import(new SubjectListImport());
     }
 
-    public function importLocation()
-    {
-        $this->import(new LocationImport());
-    }
-
     public function importRoom()
     {
         $this->import(new RoomImport());
+    }
+
+    public function importSubjectInfo()
+    {
+        $this->import(new SubjectListImport());
     }
 }

@@ -36,9 +36,41 @@ class User extends Authenticatable
     public function allAccount()
     {
         return DB::table('users')
+            ->where('users.deleted', '=', false)
             ->join('student_details',
                 'users.id', '=', 'student_details.user_id')
-            ->select(DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"), 'student_code', 'email', 'password')
+            ->select('users.id', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"), 'student_code', 'email', 'password')
             ->get();
+    }
+
+    public function getWhere($conditions = [])
+    {
+        return DB::table('users')
+            ->where([$conditions])
+            ->get()
+            ->first();
+    }
+
+    public function deleteWhere($conditions = [])
+    {
+        DB::table('users')
+            ->where([$conditions])
+            ->update(['deleted' => true]);
+    }
+
+    public function updateWhere($input, $conditions = [])
+    {
+        $firstName = $input['firstName'];
+        $lastName = $input['lastName'];
+        $email = $input['email'];
+
+        DB::table('users')
+            ->where([$conditions])
+            ->update([
+                'first_name' => $firstName,
+                'last_name' => $lastName,
+                'email' => $email
+            ]);
+
     }
 }

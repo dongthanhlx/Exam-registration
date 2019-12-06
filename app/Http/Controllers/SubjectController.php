@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\subjectInfoImport;
+use App\Imports\SubjectListImport;
 use App\Subject;
 use Illuminate\Http\Request;
 
@@ -108,8 +109,4 @@ class SubjectController extends Controller
         //
     }
 
-    public function subjectInfoImport()
-    {
-        $this->import(new SubjectInfoImport());
-    }
 }

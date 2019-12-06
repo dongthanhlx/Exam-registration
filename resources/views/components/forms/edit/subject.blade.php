@@ -14,8 +14,9 @@
     @endif
 
 
-    <form class="" action="" method="POST">
+    <form action="{{ $route }}" method="POST">
         @csrf
+        @method('PATCH')
         <div class="form-group">
             <label for="name">Tên môn học</label>
             <input type="text" id="name" name="name" class="form-control mt-2" value="{{ $record->name }}" >

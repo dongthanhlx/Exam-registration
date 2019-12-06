@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Student;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -23,37 +25,13 @@ class UserController extends Controller
         return view('admin.import', ['route' => route('admin.import.StudentAccount'), 'table' => 'studentAccountTable', 'records' => $records]);
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function validator(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $this->model->insert($request->all());
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-
+        $request->validate([
+            'firstName' => 'required|max:20',
+            'lastName' => 'required|max:20',
+            'email' => 'required',
+        ]);
     }
 
     /**
@@ -64,7 +42,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $record = $this->model->getWhere(['id', '=', $id]);
 
+        return view('admin.edit', ['route' => route('admin.user.update', $id), 'record' => $record, 'form' => 'studentAccount']);
     }
 
     /**
@@ -76,6 +56,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validator($request);
+        $input = $request->all();
+        $this->model->updateWhere($input, ['id', '=', $id]);
+
+        return redirect()->route('admin.import.StudentAccount')->with('message', 'Edit Successfully');
     }
 
     /**
@@ -86,6 +71,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->model->where('id', $id)->update(['deleted' => true]);
+        $this->model->deleteWhere(['id', '=', $id]);
+        $student = new Student();
+        $student->deleteWhere(['user_id', '=', $id]);
+
+        return back()->with('message', 'Delete Successfully');
     }
 }

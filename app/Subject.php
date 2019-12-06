@@ -3,6 +3,9 @@
 namespace App;
 
 
+use App\Imports\SubjectListImport;
+use Illuminate\Support\Facades\DB;
+
 class Subject extends BaseModel
 {
     protected $table = 'subjects';
@@ -30,5 +33,16 @@ class Subject extends BaseModel
         return $collection;
     }
 */
+
+    public function updateWhere($input, $condition = [])
+    {
+        DB::table('subjects')
+            ->where([$condition])
+            ->update([
+                'subject_code' => $input['subjectCode'],
+                'name' => $input['name'],
+                'number_of_credits' => $input['numberOfCredits'],
+            ]);
+    }
 
 }

@@ -47,7 +47,31 @@ Route::prefix('admin')->group(function() {
 
         Route::get('SubjectList', 'StudentController@showSubjectListImportForm')->name('admin.import.SubjectList');
         Route::post('SubjectList', 'ImportController@importSubjectList')->name('admin.import.SubjectList');
+
+        Route::get('RoomList', 'RoomController@showImportForm')->name('admin.import.RoomList');
+        Route::post('RoomList', 'ImportController@importRoom')->name('admin.import.RoomList');
     });
+
+    Route::resource('student', 'StudentController')->names([
+        /*'showStudentInfoImportForm' => 'admin.student.info',
+        'showStudentListOfSubjectImportForm' => 'admin.StudentListOfSubject',
+        'showSubjectListImportForm' => 'admin.SubjectList',*/
+
+        'edit' => 'admin.student.edit',
+        'update' => 'admin.student.update',
+        'destroy' => 'admin.student.delete',
+    ]);
+
+    Route::resource('account', 'UserController')->names([
+//        'showStudentAccountImportForm' => 'admin.StudentAccount',
+
+        'edit' => 'admin.user.edit',
+        'update' => 'admin.user.update',
+        'destroy' => 'admin.user.delete'
+    ]);
+
+    Route::resource('location', 'LocationController');
+    Route::resource('room', 'RoomController');
 
     Route::prefix('create')->group(function () {
         Route::get('exam', 'ExamController@showCreateForm')->name('admin.create.exam');

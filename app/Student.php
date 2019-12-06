@@ -6,7 +6,7 @@ namespace App;
 
 use Illuminate\Support\Facades\DB;
 
-class Student extends User
+class Student extends BaseModel
 {
     protected $table    = 'student_details';
 
@@ -36,30 +36,11 @@ class Student extends User
     {
         return $this->getWithCondition(['student_code', '=', $studentCode])->first();
     }
-/*
-    public function insert($input)
-    {
-        $email = $input->email;
-        $user_id = (new User())->getUserByEmail($email)->id;
-
-        $this::firstOrCreate(
-            [
-                'student_code' => $input->student_code
-            ],
-            [
-                'birthday' => $input->birthday,
-                'class' => $input->class,
-                'gender' => $input->gender,
-                'user_id' => $user_id,
-            ]
-        );
-    }
-*/
 
     public function accountOfStudent($student)
     {
         $user_id = $student->user_id;
-        return (new User())->getByID($user_id);
+        return (new User())->getWhere(['user_id', '=', $user_id]);
     }
 
     public function studentInfoOfStudentCode($studentCode)
@@ -71,7 +52,42 @@ class Student extends User
     {
         return DB::table('users')
             ->join('student_details', 'users.id', '=', 'student_details.user_id')
-            ->select('first_name', 'last_name', 'birthday', 'gender', 'student_code', 'class')
+            ->where('student_details.deleted', '=', false)
+            ->select('student_details.id', 'first_name', 'last_name', 'birthday', 'gender', 'student_code', 'class')
             ->get();
+    }
+
+    public function getInfoStudentByID($id)
+    {
+        return DB::table('student_details')
+            ->where('student_details.id', '=', $id)
+            ->join('users', 'student_details.user_id', '=', 'users.id')
+            ->select('student_details.id', 'first_name', 'last_name', 'birthday', 'gender', 'student_code', 'class')
+            ->get()
+            ->first();
+    }
+
+    public function deleteWhere($conditions = [])
+    {
+        DB::table('student_details')
+            ->where([$conditions])
+            ->update(['deleted' => true]);
+    }
+
+    public function updateWhere($input, $conditions = [])
+    {
+        $studentCode = $input['student_code'];
+        $birthday = $input['birthday'];
+        $class = $input['class'];
+        $gender = $input['gender'];
+
+        DB::table('student_details')
+            ->where([$conditions])
+            ->update([
+                'student_code' => $studentCode,
+                'birthday' => $birthday,
+                'class' => $class,
+                'gender' => $gender,
+            ]);
     }
 }

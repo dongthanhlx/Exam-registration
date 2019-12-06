@@ -44,7 +44,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">Địa điểm</a>
+            <a class="nav-link" href="{{ route('admin.import.RoomList') }}">Địa điểm</a>
         </li>
     </ul>
 </div>

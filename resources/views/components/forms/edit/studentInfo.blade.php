@@ -7,41 +7,43 @@
                 @endforeach
             </ul>
         </div>
-    @elseif(session()->has('message'))
+    {{--@elseif(session()->has('message'))
         <div class="alert alert-success">
             {{ session()->get('message') }}
-        </div>
+        </div>--}}
     @endif
-    <form class="" action="" method="POST">
+
+
+    <form action="{{ $route }}" method="POST">
         @csrf
+        @method('PATCH')
         <div class="form-group">
             <label for="firstName">Họ và tên đệm</label>
-            <input type="text" id="firstName" name="firstName" class="form-control mt-2" value="{{ $record->first_name }}" >
+            <input type="text" id="firstName" name="firstName" class="form-control mt-2" value="{{ $record->first_name }}" disabled>
         </div>
         
         <div class="form-group">
             <label for="lastName">Tên</label>
-            <input type="text" id="lastName" name="lastName" class="form-control mt-2" value="{{ $record->last_name }}" >
+            <input type="text" id="lastName" name="lastName" class="form-control mt-2" value="{{ $record->last_name }}" disabled>
         </div>
 
         <div class="form-group">
             <label for="lastName">Ngày sinh</label>
-            <input type="text" id="lastName" name="lastName" class="form-control mt-2" value="{{ $record->birthday }}" >
+            <input type="text" id="lastName" name="birthday" class="form-control mt-2" value="{{ $record->birthday }}" >
         </div>
 
         <div class="form-group">    
             <label for="gender" >Giới tính</label>
             <select name="gender" id="gender" class="form-control mt-2">
-                <option value="male" @if($record->gender == "male") selected @endif>Nam</option>
-                <option value="female" @if($record->gender == "female") selected @endif>Nữ</option>
+                <option value="nam" @if($record->gender == "nam") selected @endif>Nam</option>
+                <option value="nữ" @if($record->gender == "nữ") selected @endif>Nữ</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="studentCode">Mã sinh viên</label>
-            <input type="text" id="studentCode" name="studentCode" class="form-control mt-2" value="{{ $record->student_code }}" >
+            <input type="text" id="studentCode" name="student_code" class="form-control mt-2" value="{{ $record->student_code }}" >
         </div>
-
 
         <div class="form-group">
             <label for="class">Lớp</label>
