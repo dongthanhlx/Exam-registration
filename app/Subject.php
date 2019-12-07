@@ -39,10 +39,9 @@ class Subject extends BaseModel
         DB::table('subjects')
             ->where([$condition])
             ->update([
-                'subject_code' => $input['subjectCode'],
                 'name' => $input['name'],
-                'number_of_credits' => $input['numberOfCredits'],
+                'subject_code' => $input['subject_code'],
+                'number_of_credits' => $input['number_of_credits'],
             ]);
     }
-
 }

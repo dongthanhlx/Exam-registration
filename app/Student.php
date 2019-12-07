@@ -90,4 +90,6 @@ class Student extends BaseModel
                 'gender' => $gender,
             ]);
     }
+
+
 }

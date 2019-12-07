@@ -37,9 +37,7 @@ class User extends Authenticatable
     {
         return DB::table('users')
             ->where('users.deleted', '=', false)
-            ->join('student_details',
-                'users.id', '=', 'student_details.user_id')
-            ->select('users.id', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"), 'student_code', 'email', 'password')
+            ->select('users.id', DB::raw("CONCAT(first_name, ' ', last_name) AS full_name"), 'email')
             ->get();
     }
 

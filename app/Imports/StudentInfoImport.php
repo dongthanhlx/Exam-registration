@@ -18,7 +18,14 @@ class StudentInfoImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
+        if (!$this->validation($row)) {
+            return redirect()->route('admin.import.StudentInfo')->withErrors('File Not successful')->withInput();
+        }
+
         $email = $row['email'];
+        $studentCode = $row['student_code'];
+        if ($studentCode != null) return null;
+        
         $userModel = new User();
         $user = $userModel->getByEmail($email);
         if ($user == null) return null;
@@ -30,5 +37,21 @@ class StudentInfoImport implements ToModel, WithHeadingRow
             'gender'        => $row['gender'],
             'user_id'       => $user_id,
         ]);
+    }
+
+
+    public function validation(array $row)
+    {
+        if (array_keys([
+            'student_code',
+            'birthday',
+            'class',
+            'gender'
+        ], $row))
+
+        {
+            return true;
+        }
+        return false;
     }
 }

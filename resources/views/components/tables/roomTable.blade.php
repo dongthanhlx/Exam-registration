@@ -19,7 +19,7 @@
         <th scope="col">#</th>
         <th scope="col">Toà nhà</th>
         <th scope="col">Tên phòng</th>
-        <th scope="col">Số máy</th>
+        <th scope="col">Số máy tính</th>
         <th scope="col"></th>
     </tr>
     </thead>
@@ -31,12 +31,12 @@
             <th scope="row">{{ $record->name }}</th>
             <th scope="row">{{ $record->number_of_computer }}</th>
             <th scope="row">
-                <form action="" method="post" class="float-right">
+                <form action="{{ route('admin.room.delete', $record->id) }}" method="post" class="float-right">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-outline-primary" onclick="return confirm('Chắc không ?')">Delete</button>
                 </form>
-                <a href="#"><button class="btn btn-outline-primary float-right">Edit</button></a>
+                <a href="{{ route('admin.room.edit', $record->id) }}"><button class="btn btn-outline-primary float-right">Edit</button></a>
             </th>
         </tr>
     @endforeach

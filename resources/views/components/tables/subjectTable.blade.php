@@ -1,4 +1,3 @@
-
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -29,14 +28,13 @@
             <th scope="row">{{ $record->name }}</th>
             <th scope="row">{{ $record->subject_code }}</th>
             <th scope="row">{{ $record->number_of_credits }}</th>
-            <th scope="row">{{ $record->subject_code }}</th>
             <th scope="row">
-                <form action="{{ route('vocabulary.destroy', $record->id) }}" method="post" class="float-right">
+                <form action="{{ route('admin.subject.delete', $record->id) }}" method="post" class="float-right">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-outline-primary" onclick="return confirm('Chắc cú ?')">Delete</button>
                 </form>
-                <a href="{{ route('vocabulary.edit', $record->id) }}"><button class="btn btn-outline-primary float-right">Edit</button></a>
+                <a href="{{ route('admin.subject.edit', $record->id) }}"><button class="btn btn-outline-primary float-right">Edit</button></a>
             </th>
         </tr>
     @endforeach

@@ -30,6 +30,5 @@ class AdminController extends Controller
     public function import($object)
     {
         $result = Excel::import($object, \request()->file('file'));
-        return redirect()->route('admin.dashboard');
     }
 }

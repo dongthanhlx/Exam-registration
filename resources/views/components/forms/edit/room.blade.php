@@ -13,23 +13,22 @@
         </div>
     @endif
 
-
-    <form action="{{ route('admin.subject.update', $record->id) }}" method="POST">
+    <form action="{{ route('admin.room.update', $record->id) }}" method="POST">
         @csrf
         @method('PATCH')
         <div class="form-group">
-            <label for="name">Tên môn học</label>
-            <input type="text" id="name" name="name" class="form-control mt-2" value="{{ $record->name }}" >
-        </div>
-        
-        <div class="form-group">
-            <label for="subject_code">Mã môn học</label>
-            <input type="text" id="subject_code" name="subject_code" class="form-control mt-2" value="{{ $record->subject_code }}" >
+            <label for="location">Tòa nhà</label>
+            <input type="text" id="location" name="location" class="form-control mt-2" value="{{ $record->location }}" >
         </div>
 
         <div class="form-group">
-            <label for="numberOfCredits">Số tín chỉ</label>
-            <input type="text" id="numberOfCredits" name="number_of_credits" class="form-control mt-2" value="{{ $record->number_of_credits }}" >
+            <label for="name">Tên phòng</label>
+            <input type="text" id="name" name="name" class="form-control mt-2" value="{{ $record->name }}" >
+        </div>
+
+        <div class="form-group">
+            <label for="numberOfCredits">Số máy tính</label>
+            <input type="text" id="numberOfCredits" name="number_of_computer" class="form-control mt-2" value="{{ $record->number_of_computer }}" >
         </div>
 
         <button type="submit" class="btn btn-primary btn-outline-primary rounded">Cập nhật</button>

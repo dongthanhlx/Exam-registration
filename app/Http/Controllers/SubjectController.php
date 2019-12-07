@@ -6,6 +6,7 @@ use App\Imports\subjectInfoImport;
 use App\Imports\SubjectListImport;
 use App\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
 {
@@ -13,6 +14,7 @@ class SubjectController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth:admin');
         $this->model = new Subject();
     }
 
@@ -39,8 +41,8 @@ class SubjectController extends Controller
     public function validator(Request $request)
     {
         $request->validate([
-            'subject_code' => 'required',
             'name' => 'required',
+            'subject_code' => 'required',
             'number_of_credits' => 'required|numeric'
         ]);
     }
@@ -84,7 +86,9 @@ class SubjectController extends Controller
      */
     public function edit($id)
     {
+        $record = $this->model->getByID($id);
 
+        return view('admin.edit', ['record' => $record, 'form' => 'subject']);
     }
 
     /**
@@ -96,6 +100,11 @@ class SubjectController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validator($request);
+        $input = $request->all();
+
+        $this->model->updateWhere($input, ['id', '=', $id]);
+        return redirect()->route('admin.import.SubjectList')->with('message', 'Edit Successfully');
     }
 
     /**
@@ -106,7 +115,15 @@ class SubjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('subjects')
+            ->delete($id);
+        return redirect()->route('admin.import.SubjectList')->with('message', 'Delete Successfully');
     }
 
+    public function showSubjectListImportForm()
+    {
+        $records = $this->model->getAll();
+
+        return view('admin.import', ['route' => route('admin.import.SubjectList'), 'table' => 'subjectTable', 'records' => $records]);
+    }
 }

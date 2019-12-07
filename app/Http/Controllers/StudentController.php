@@ -34,10 +34,6 @@ class StudentController extends Controller
         return view('admin.import', ['route' => route('admin.import.StudentListOfSubject'), 'table' => 'studentOfSubjectTable']);
     }
 
-    public function showSubjectListImportForm()
-    {
-        return view('admin.import', ['route' => route('admin.import.SubjectList')]);
-    }
 
     public function validator(Request $request)
     {
@@ -59,7 +55,7 @@ class StudentController extends Controller
     {
         $record = $this->model->getInfoStudentByID($id);
 
-        return view('admin.edit', ['route' => route('admin.student.update', $id), 'record' => $record, 'form' => 'studentInfo']);
+        return view('admin.edit', ['record' => $record, 'form' => 'studentInfo']);
     }
 
     /**

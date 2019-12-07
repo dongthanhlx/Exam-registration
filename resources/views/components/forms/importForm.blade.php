@@ -1,4 +1,4 @@
-<button style="width:100px;margin-left:90%" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" >Import</button>
+<button {{--style="width:100px;margin-left:90%" --}}class="btn btn-success mr-3" data-toggle="modal" data-target="#exampleModal" >Import</button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -16,7 +16,7 @@
                 <input type="file" name="file" class="form-control" />
                 
                 <div class="float-right">
-                    <button style="width:100px" class="btn btn-success ml-5">Import</button>
+                    <button style="width:100px" class="btn btn-success ml-5" type="submit">Import</button>
                 </div>
             </form>
         </div>

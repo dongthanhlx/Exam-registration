@@ -44,7 +44,7 @@ class UserController extends Controller
     {
         $record = $this->model->getWhere(['id', '=', $id]);
 
-        return view('admin.edit', ['route' => route('admin.user.update', $id), 'record' => $record, 'form' => 'studentAccount']);
+        return view('admin.edit', ['record' => $record, 'form' => 'studentAccount']);
     }
 
     /**

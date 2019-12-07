@@ -10,7 +10,7 @@ class Room extends BaseModel
     protected $table    = 'rooms';
 
     protected $fillable = [
-        'name', 'number_of_computer', 'location_id', 'create_by'
+        'location', 'name', 'number_of_computer', 'create_by'
     ];
 /*
     public function getObjectCollection($rooms): Collection
@@ -30,8 +30,7 @@ class Room extends BaseModel
 
     public function roomsAtLocation($location)
     {
-        $locationID = $location->id;
-        return $this->getWithCondition(['location_id', '=', $locationID]);
+        return $this->getWithCondition(['location', '=', $location]);
     }
 
     public function numComputerOfRoom($rooms)
@@ -45,5 +44,22 @@ class Room extends BaseModel
             ->join('locations', 'rooms.location_id', '=', 'locations.id')
             ->select('locations.name AS location', 'name', 'number_of_computer')
             ->get();
+    }
+
+    public function updateWhere($input, $condition = [])
+    {
+        DB::table('rooms')
+            ->where([$condition])
+            ->update([
+                'location' => $input['location'],
+                'name' => $input['name'],
+                'number_of_computer' => $input['number_of_computer']
+            ]);
+    }
+
+    public function deleteById($id)
+    {
+        DB::table('rooms')
+            ->delete($id);
     }
 }

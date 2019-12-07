@@ -17,7 +17,6 @@
     <tr>
         <th scope="col">#</th>
         <th scope="col">Họ và tên</th>
-        <th scope="col">Mã sinh viên</th>
         <th scope="col">Email</th>
         <th scope="col"></th>
     </tr>
@@ -27,7 +26,6 @@
         <tr>
             <th scope="row">{{ $loop->index + 1 }}</th>
             <th scope="row">{{ $record->full_name }}</th>
-            <th scope="row">{{ $record->student_code }}</th>
             <th scope="row">{{ $record->email }}</th>
             <th scope="row">
                 <form action="{{ route('admin.user.delete', $record->id) }}" method="POST" class="float-right">

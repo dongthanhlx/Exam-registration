@@ -14,7 +14,7 @@
     @endif
 
 
-    <form action="{{ $route }}" method="POST">
+    <form action="{{ route('admin.user.update', $record->id) }}" method="POST">
         @csrf
         @method('PATCH')
         <div class="form-group">

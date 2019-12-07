@@ -42,36 +42,36 @@ Route::prefix('admin')->group(function() {
         Route::get('StudentInfo', 'StudentController@showStudentInfoImportForm')->name('admin.import.StudentInfo');
         Route::post('StudentInfo', 'ImportController@importStudentInfo')->name('admin.import.StudentInfo');
 
-        Route::get('StudentListOfSubject', 'StudentController@showStudentListOfSubjectImportForm')->name('admin.import.StudentListOfSubject');
-        Route::post('StudentListOfSubject', 'ImportController@importStudentListOfSubject')->name('admin.import.StudentListOfSubject');
-
-        Route::get('SubjectList', 'StudentController@showSubjectListImportForm')->name('admin.import.SubjectList');
+        Route::get('SubjectList', 'SubjectController@showSubjectListImportForm')->name('admin.import.SubjectList');
         Route::post('SubjectList', 'ImportController@importSubjectList')->name('admin.import.SubjectList');
 
-        Route::get('RoomList', 'RoomController@showImportForm')->name('admin.import.RoomList');
-        Route::post('RoomList', 'ImportController@importRoom')->name('admin.import.RoomList');
+        Route::get('RoomList', 'RoomController@showRoomListImportForm')->name('admin.import.RoomList');
+        Route::post('RoomList', 'ImportController@importRoomList')->name('admin.import.RoomList');
     });
 
     Route::resource('student', 'StudentController')->names([
-        /*'showStudentInfoImportForm' => 'admin.student.info',
-        'showStudentListOfSubjectImportForm' => 'admin.StudentListOfSubject',
-        'showSubjectListImportForm' => 'admin.SubjectList',*/
-
         'edit' => 'admin.student.edit',
         'update' => 'admin.student.update',
         'destroy' => 'admin.student.delete',
     ]);
 
     Route::resource('account', 'UserController')->names([
-//        'showStudentAccountImportForm' => 'admin.StudentAccount',
-
         'edit' => 'admin.user.edit',
         'update' => 'admin.user.update',
         'destroy' => 'admin.user.delete'
     ]);
 
-    Route::resource('location', 'LocationController');
-    Route::resource('room', 'RoomController');
+    Route::resource('subject', 'SubjectController')->names([
+        'edit' => 'admin.subject.edit',
+        'update' => 'admin.subject.update',
+        'destroy' => 'admin.subject.delete'
+    ]);
+
+    Route::resource('room', 'RoomController')->names([
+        'edit' => 'admin.room.edit',
+        'update' => 'admin.room.update',
+        'destroy' => 'admin.room.delete'
+    ]);
 
     Route::prefix('create')->group(function () {
         Route::get('exam', 'ExamController@showCreateForm')->name('admin.create.exam');

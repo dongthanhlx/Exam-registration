@@ -22,16 +22,13 @@ class ImportController extends AdminController
     public function importStudentAccount()
     {
         $this->import(new StudentAccountImport());
+        return redirect()->route('admin.import.StudentAccount')->with('message', 'Import file successfully');
     }
 
     public function importStudentInfo()
     {
         $this->import(new StudentInfoImport());
-    }
-
-    public function importStudentListOfSubject()
-    {
-        $this->import(new StudentListOfSubjectImport());
+        return redirect()->route('admin.import.StudentInfo')->with('message', 'Import file successfully');
     }
 
     public function importSubjectList()
@@ -39,13 +36,13 @@ class ImportController extends AdminController
         $this->import(new SubjectListImport());
     }
 
+    public function importStudentListOfSubject()
+    {
+        $this->import(new StudentListOfSubjectImport());
+    }
+
     public function importRoom()
     {
         $this->import(new RoomImport());
-    }
-
-    public function importSubjectInfo()
-    {
-        $this->import(new SubjectListImport());
     }
 }

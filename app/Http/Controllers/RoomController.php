@@ -13,6 +13,7 @@ class RoomController extends Controller
     public function __construct()
     {
         $this->model = new Room();
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -38,9 +39,9 @@ class RoomController extends Controller
     public function validator(Request $request)
     {
         $request->validate([
+            'location' => 'required',
             'name' => 'required',
-            'number_of_computer' => 'required|numeric',
-            'location_id' => 'required'
+            'number_of_computer' => 'required|numeric'
         ]);
     }
 
@@ -82,7 +83,9 @@ class RoomController extends Controller
      */
     public function edit($id)
     {
+        $record = $this->model->getByID($id);
 
+        return view('admin.edit', ['record' => $record, 'form' => 'room']);
     }
 
     /**
@@ -95,15 +98,11 @@ class RoomController extends Controller
     public function update(Request $request, $id)
     {
         $this->validator($request);
+        $input = $request->all();
 
-        $room = $this->model->getByID($id);
-        $room->name = $request->input('name');
-        $room->number_of_computer = $request->input('number_of_computer');
-        $room->location_id = $request->input('location_id');
+        $this->model->updateWhere($input, ['id', '=', $id]);
 
-        $room->save();
-
-        return back()->with('message', 'Edit successfully');
+        return redirect()->route('admin.import.RoomList')->with('message', 'Edit successfully');;
     }
 
     /**
@@ -114,10 +113,15 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->model->deleteById($id);
+
+        return redirect()->route('admin.import.RoomList')->with('message', 'Delete successfully');
     }
 
-    public function showImportForm()
+    public function showRoomListImportForm()
     {
+        $records = $this->model->getAll();
+
+        return view('admin.import', ['route' => route('admin.import.RoomList'), 'table' => 'roomTable', 'records' => $records]);
     }
 }

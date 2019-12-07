@@ -22,9 +22,8 @@
 
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li>
-                    <a class="dropdown-item" href="{{ route('admin.import.StudentListOfSubject') }}">Môn học</a>
+                    <a class="dropdown-item" href="{{ route('admin.import.SubjectList') }}">Môn học</a>
                     <a class="dropdown-item" href="#">Học phần</a>
-
                 </li>
             </ul>
         </li>
@@ -38,7 +37,6 @@
                 <li>
                     <a class="dropdown-item" href="#">Tạo kỳ thi</a>
                     <a class="dropdown-item" href="#">Lập lịch</a>
-
                 </li>
             </ul>
         </li>
