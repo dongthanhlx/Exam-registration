@@ -42,11 +42,14 @@ Route::prefix('admin')->group(function() {
         Route::get('StudentInfo', 'StudentController@showStudentInfoImportForm')->name('admin.import.StudentInfo');
         Route::post('StudentInfo', 'ImportController@importStudentInfo')->name('admin.import.StudentInfo');
 
-        Route::get('SubjectList', 'SubjectController@showSubjectListImportForm')->name('admin.import.SubjectList');
-        Route::post('SubjectList', 'ImportController@importSubjectList')->name('admin.import.SubjectList');
+        Route::get('Subject', 'SubjectController@showSubjectImportForm')->name('admin.import.subject');
+        Route::post('Subject', 'ImportController@importSubject')->name('admin.import.subject');
 
-        Route::get('RoomList', 'RoomController@showRoomListImportForm')->name('admin.import.RoomList');
-        Route::post('RoomList', 'ImportController@importRoomList')->name('admin.import.RoomList');
+        Route::get('RoomList', 'RoomController@showRoomImportForm')->name('admin.import.room');
+        Route::post('RoomList', 'ImportController@importRoom')->name('admin.import.room');
+
+        Route::get('SubjectClass', 'SubjectClassController@showSubjectClassImportForm')->name('admin.import.SubjectClass');
+        Route::post('SubjectClass', 'ImportController@importSubjectClass')->name('admin.import.SubjectClass');
     });
 
     Route::resource('student', 'StudentController')->names([
@@ -71,6 +74,12 @@ Route::prefix('admin')->group(function() {
         'edit' => 'admin.room.edit',
         'update' => 'admin.room.update',
         'destroy' => 'admin.room.delete'
+    ]);
+
+    Route::resource('subjectClass', 'SubjectClassController')->names([
+        'edit' => 'admin.SubjectClass.edit',
+        'update' => 'admin.SubjectClass.update',
+        'destroy' => 'admin.SubjectClass.delete'
     ]);
 
     Route::prefix('create')->group(function () {

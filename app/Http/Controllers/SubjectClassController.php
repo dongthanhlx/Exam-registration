@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\SubjectClassImport;
 use App\SubjectClass;
 use Illuminate\Http\Request;
 
@@ -17,6 +16,7 @@ class SubjectClassController extends Controller
     public function __construct()
     {
         $this->model = new SubjectClass();
+        $this->middleware('auth:admin');
     }
 
 
@@ -43,10 +43,10 @@ class SubjectClassController extends Controller
     public function validator(Request $request)
     {
         $request->validate([
-            'serial' => 'required',
             'subject_code' => 'required',
+            'serial' => 'required',
             'teacher' => 'required',
-            'maximum_number_of_student' =>  'required|numeric'
+            'maximum_number_of_student' =>  'required'
         ]);
     }
 
@@ -89,7 +89,9 @@ class SubjectClassController extends Controller
      */
     public function edit($id)
     {
-        //
+        $record = $this->model->getByID($id);
+
+        return view('admin.edit', ['record' => $record, 'form' => 'subjectClass']);
     }
 
     /**
@@ -101,7 +103,12 @@ class SubjectClassController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validator($request);
+        $input = $request->all();
+
+        $this->model->updateWhere($input, ['id', '=', $id]);
+
+        return redirect()->route('admin.import.SubjectClass')->with('message', 'Edit Successfully');
     }
 
     /**
@@ -112,11 +119,15 @@ class SubjectClassController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->model->deleteById($id);
+
+        return redirect()->route('admin.import.SubjectClass')->with('message', 'Delete Successfully');
     }
 
-    public function subjectClassImport()
+    public function showSubjectClassImportForm()
     {
-        $this->import(new SubjectClassImport());
+        $records = $this->model->getAll();
+
+        return view('admin.import', ['route' => route('admin.import.SubjectClass'), 'table' => 'subjectClassTable', 'records' => $records]);
     }
 }

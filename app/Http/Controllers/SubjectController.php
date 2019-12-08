@@ -104,7 +104,7 @@ class SubjectController extends Controller
         $input = $request->all();
 
         $this->model->updateWhere($input, ['id', '=', $id]);
-        return redirect()->route('admin.import.SubjectList')->with('message', 'Edit Successfully');
+        return redirect()->route('admin.import.subject')->with('message', 'Edit Successfully');
     }
 
     /**
@@ -117,13 +117,13 @@ class SubjectController extends Controller
     {
         DB::table('subjects')
             ->delete($id);
-        return redirect()->route('admin.import.SubjectList')->with('message', 'Delete Successfully');
+        return redirect()->route('admin.import.subject')->with('message', 'Delete Successfully');
     }
 
-    public function showSubjectListImportForm()
+    public function showSubjectImportForm()
     {
         $records = $this->model->getAll();
 
-        return view('admin.import', ['route' => route('admin.import.SubjectList'), 'table' => 'subjectTable', 'records' => $records]);
+        return view('admin.import', ['route' => route('admin.import.subject'), 'table' => 'subjectTable', 'records' => $records]);
     }
 }

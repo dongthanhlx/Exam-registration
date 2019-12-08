@@ -20,8 +20,8 @@
 
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li>
-                    <a class="dropdown-item" href="{{ route('admin.import.SubjectList') }}">Môn học</a>
-                    <a class="dropdown-item" href="#">Học phần</a>
+                    <a class="dropdown-item" href="{{ route('admin.import.subject') }}">Môn học</a>
+                    <a class="dropdown-item" href="{{ route('admin.import.SubjectClass') }}">Học phần</a>
                 </li>
             </ul>
         </li>
@@ -40,7 +40,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.import.RoomList') }}">Địa điểm</a>
+            <a class="nav-link" href="{{ route('admin.import.room') }}">Địa điểm</a>
         </li>
     </ul>
 </div>

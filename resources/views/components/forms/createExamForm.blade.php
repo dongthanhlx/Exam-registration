@@ -26,7 +26,7 @@
             </select>
         </div>
         <div class="form-group">    
-            <label for="school_year" >Năm học</label>
+            <label for="school_year">Năm học</label>
             <select name="school_year" id="school_year" class="form-control mt-2">
                 <option value="2013-2014">2013-2014</option>
                 <option value="2014-2015">2014-2015</option>

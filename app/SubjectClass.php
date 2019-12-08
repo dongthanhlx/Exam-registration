@@ -3,12 +3,14 @@
 namespace App;
 
 
+use Illuminate\Support\Facades\DB;
+
 class SubjectClass extends BaseModel
 {
     protected $table = 'subject_classes';
 
     protected $fillable = [
-        'serial', 'subject_code', 'teacher', 'maximum_number_of_student', 'create_by'
+        'subject_code', 'serial', 'teacher', 'maximum_number_of_student', 'create_by'
     ];
 
     public function getAllSubjectClassBySubjectCode($subjectCode)
@@ -38,4 +40,21 @@ class SubjectClass extends BaseModel
         return $this->getWithConditions([['subject_code', '=', $subjectCode],['serial', '=', $serial]])->first();
     }
 
+    public function updateWhere($input, $condition = [])
+    {
+        DB::table('subject_classes')
+            ->where([$condition])
+            ->update([
+                'serial' => $input['serial'],
+                'subject_code' => $input['subject_code'],
+                'teacher' => $input['teacher'],
+                'maximum_number_of_student' => $input['maximum_number_of_student']
+            ]);
+    }
+
+    public function deleteById($id)
+    {
+        DB::table('subject_classes')
+            ->delete($id);
+    }
 }

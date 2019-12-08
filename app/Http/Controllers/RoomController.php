@@ -102,7 +102,7 @@ class RoomController extends Controller
 
         $this->model->updateWhere($input, ['id', '=', $id]);
 
-        return redirect()->route('admin.import.RoomList')->with('message', 'Edit successfully');;
+        return redirect()->route('admin.import.room')->with('message', 'Edit successfully');;
     }
 
     /**
@@ -115,13 +115,13 @@ class RoomController extends Controller
     {
         $this->model->deleteById($id);
 
-        return redirect()->route('admin.import.RoomList')->with('message', 'Delete successfully');
+        return redirect()->route('admin.import.room')->with('message', 'Delete successfully');
     }
 
-    public function showRoomListImportForm()
+    public function showRoomImportForm()
     {
         $records = $this->model->getAll();
 
-        return view('admin.import', ['route' => route('admin.import.RoomList'), 'table' => 'roomTable', 'records' => $records]);
+        return view('admin.import', ['route' => route('admin.import.room'), 'table' => 'roomTable', 'records' => $records]);
     }
 }
