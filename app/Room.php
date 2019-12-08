@@ -38,14 +38,6 @@ class Room extends BaseModel
         return $rooms->number_of_computer;
     }
 
-    public function allRoom()
-    {
-        return DB::table('rooms')
-            ->join('locations', 'rooms.location_id', '=', 'locations.id')
-            ->select('locations.name AS location', 'name', 'number_of_computer')
-            ->get();
-    }
-
     public function updateWhere($input, $condition = [])
     {
         DB::table('rooms')

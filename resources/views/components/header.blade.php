@@ -15,6 +15,9 @@
 
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <!-- Scripts -->
+    <script src=
+            "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+    </script>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),

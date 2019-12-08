@@ -411,28 +411,7 @@ module.exports = {
 /* 1 */
 /***/ (function(module, exports) {
 
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'F:\\Workspace\\web\\Projects\\Exam-registration\\node_modules\\webpack\\buildin\\global.js'");
 
 /***/ }),
 /* 2 */
@@ -11832,7 +11811,7 @@ var app = new Vue({
 /* 14 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed: ModuleBuildError: Module build failed: \r\nundefined\r\n                                   ^\r\n      Incompatible units: 'rem' and 'px'.\r\n      in F:\\Workspace\\web\\Projects\\Exam-registration\\node_modules\\bootstrap\\scss\\_variables.scss (line 729, column 37)\n    at F:\\Workspace\\web\\Projects\\Exam-registration\\node_modules\\webpack\\lib\\NormalModule.js:192:19\n    at F:\\Workspace\\web\\Projects\\Exam-registration\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at F:\\Workspace\\web\\Projects\\Exam-registration\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (F:\\Workspace\\web\\Projects\\Exam-registration\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at Object.callback (F:\\Workspace\\web\\Projects\\Exam-registration\\node_modules\\sass-loader\\lib\\loader.js:51:13)\n    at Object.<anonymous> (F:\\Workspace\\web\\Projects\\Exam-registration\\node_modules\\sass-loader\\node_modules\\async\\dist\\async.js:2271:31)\n    at Object.callback (F:\\Workspace\\web\\Projects\\Exam-registration\\node_modules\\sass-loader\\node_modules\\async\\dist\\async.js:969:16)\n    at options.error (F:\\Workspace\\web\\Projects\\Exam-registration\\node_modules\\node-sass\\lib\\index.js:294:32)");
 
 /***/ }),
 /* 15 */
@@ -44695,29 +44674,7 @@ var e=Object.freeze({});function t(e){return null==e}function n(e){return null!=
 /* 43 */
 /***/ (function(module, exports) {
 
-module.exports = function(module) {
-	if(!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if(!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'F:\\Workspace\\web\\Projects\\Exam-registration\\node_modules\\webpack\\buildin\\module.js'");
 
 /***/ }),
 /* 44 */

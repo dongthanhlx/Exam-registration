@@ -1,4 +1,3 @@
-
 <div class="navbar-header" id="navbarNavDropdown">
     <ul class="nav navbar-nav">
         <li class="nav-item dropdown">
@@ -10,7 +9,6 @@
                 <li>
                     <a class="dropdown-item" href="{{ route('admin.import.StudentInfo') }}">Danh sách sinh viên</a>
                     <a class="dropdown-item" href="{{ route('admin.import.StudentAccount') }}">Danh sách tài khoản</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
                 </li>
             </ul>
         </li>

@@ -34,6 +34,7 @@ class ImportController extends AdminController
     public function importSubjectList()
     {
         $this->import(new SubjectListImport());
+        return redirect()->route('admin.import.SubjectList');
     }
 
     public function importStudentListOfSubject()
@@ -41,8 +42,9 @@ class ImportController extends AdminController
         $this->import(new StudentListOfSubjectImport());
     }
 
-    public function importRoom()
+    public function importRoomList()
     {
         $this->import(new RoomImport());
+        return redirect()->route('admin.import.RoomList');
     }
 }
