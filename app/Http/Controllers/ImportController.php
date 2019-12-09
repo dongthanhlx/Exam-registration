@@ -31,7 +31,7 @@ class ImportController extends AdminController
         return redirect()->route('admin.import.StudentInfo')->with('message', 'Import file successfully');
     }
 
-    public function importSubjectList()
+    public function importSubject()
     {
         $this->import(new SubjectListImport());
         return redirect()->route('admin.import.subject');
@@ -43,7 +43,7 @@ class ImportController extends AdminController
 
     }
 
-    public function importRoomList()
+    public function importRoom()
     {
         $this->import(new RoomImport());
         return redirect()->route('admin.import.room')->with('message', 'Import successfully');

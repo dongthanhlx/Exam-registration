@@ -7,8 +7,9 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class StudentAccountImport implements ToModel, WithHeadingRow
+class StudentAccountImport implements ToModel, WithHeadingRow, WithValidation
 {
     /**
      * @param array $row
@@ -17,8 +18,6 @@ class StudentAccountImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        $this->validation($row);
-
         $email = $row['email'];
         $user = new User();
         $record = $user->getByEmail($email);
@@ -33,17 +32,14 @@ class StudentAccountImport implements ToModel, WithHeadingRow
         ]);
     }
 
-    public function validation(array $row)
+    public function rules(): array
     {
-        if (!array_key_exists([
-            'first_name',
-            'last_name',
-            'email',
-            'password'
-        ], $row))
-
-        {
-            return back()->withErrors('File Not successful')->withInput();
-        }
+        return [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'unique:users,email',
+            'password' => 'required'
+        ];
     }
+
 }

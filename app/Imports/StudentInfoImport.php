@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class StudentInfoImport implements ToModel, WithHeadingRow
+class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation
 {
 
     /**
@@ -39,19 +39,15 @@ class StudentInfoImport implements ToModel, WithHeadingRow
         ]);
     }
 
-
-    public function validation(array $row)
+    public function rules(): array
     {
-        if (array_keys([
-            'student_code',
-            'birthday',
-            'class',
-            'gender'
-        ], $row))
-
-        {
-            return true;
-        }
-        return false;
+        return [
+            'student_code' => 'required',
+            'birthday' => 'required',
+            'class' => 'required',
+            'gender' => 'required',
+            'email' => 'unique:users,email'
+        ];
     }
+
 }

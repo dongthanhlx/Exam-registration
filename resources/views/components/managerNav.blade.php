@@ -33,7 +33,7 @@
 
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li>
-                    <a class="dropdown-item" href="#">Tạo kỳ thi</a>
+                    <a class="dropdown-item" href="{{ route('admin.exam.create') }}">Tạo kỳ thi</a>
                     <a class="dropdown-item" href="#">Lập lịch</a>
                 </li>
             </ul>

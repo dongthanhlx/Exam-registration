@@ -13,6 +13,7 @@ class ExamController extends Controller
     public function __construct()
     {
         $this->model = new Exam();
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -25,6 +26,15 @@ class ExamController extends Controller
         //
     }
 
+    public function validator(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'semester' => 'required',
+            'year' => 'required'
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -33,16 +43,7 @@ class ExamController extends Controller
 
     public function create()
     {
-
-    }
-
-    public function validator(Request $request)
-    {
-        $request->validate([
-            'name' => $request->input('name'),
-            'semester' => $request->input('semester'),
-            'year' => $request->input('year')
-        ]);
+        return view('admin.createExamSite');
     }
 
     /**
@@ -54,12 +55,9 @@ class ExamController extends Controller
     public function store(Request $request)
     {
         $this->validator($request);
+        $input = $request->all();
 
-        $this->model->name = $request->input('name');
-        $this->model->semester = $request->input('semester');
-        $this->model->year = $request->input('year');
-
-        $this->model->save();
+        $this->model->store($input);
 
         return back()->with('message', 'Add Successfully');
     }
@@ -109,8 +107,4 @@ class ExamController extends Controller
         //
     }
 
-    public function showCreateForm()
-    {
-        return view('admin.createExamSite');
-    }
 }

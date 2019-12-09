@@ -3,6 +3,8 @@
 namespace App;
 
 
+use Illuminate\Support\Facades\DB;
+
 class Exam extends BaseModel
 {
     protected $table = 'exams';
@@ -32,5 +34,19 @@ class Exam extends BaseModel
             return $collection;
         }
     */
+
+
+    public function store($input)
+    {
+        try {
+            $this->saveOrFail([
+                'name' => $input['name'],
+                'semester' => $input['semester'],
+                'year' => $input['year']
+            ]);
+        } catch (\Throwable $e) {
+            return back()->withErrors('Exam exists')->withInput();
+        }
+    }
 
 }

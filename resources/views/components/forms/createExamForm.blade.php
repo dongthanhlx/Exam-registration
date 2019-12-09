@@ -12,11 +12,12 @@
             {{ session()->get('message') }}
         </div>
     @endif
-    <form class="" action="" method="POST">
+
+    <form action="{{ route('admin.exam.store') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="exam">Kỳ thi</label>
-            <input type="text" id="exam" name="exam" class="form-control mt-2"/ value = "Thi cuối kì" disabled>
+            <label for="name">Kỳ thi</label>
+            <input type="text" id="name" name="name" class="form-control mt-2" value="Thi cuối kỳ" readonly />
         </div>
         <div class="form-group">
             <label for="semester">Học kỳ</label>
@@ -26,8 +27,8 @@
             </select>
         </div>
         <div class="form-group">    
-            <label for="school_year">Năm học</label>
-            <select name="school_year" id="school_year" class="form-control mt-2">
+            <label for="year">Năm học</label>
+            <select name="year" id="year" class="form-control mt-2">
                 <option value="2013-2014">2013-2014</option>
                 <option value="2014-2015">2014-2015</option>
                 <option value="2015-2016">2015-2016</option>
