@@ -29,7 +29,7 @@
 
         <div class="form-group">
             <label for="lastName">Ngày sinh</label>
-            <input type="text" id="lastName" name="birthday" class="form-control mt-2" value="{{ $record->birthday }}" >
+            <input type="date" id="lastName" name="birthday" class="form-control mt-2" value="{{ $record->birthday }}" >
         </div>
 
         <div class="form-group">    

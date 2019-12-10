@@ -20,6 +20,7 @@ class CreateStudentDetailsTable extends Migration
             $table->string('class');
             $table->string('gender');
             $table->integer('user_id');
+            $table->boolean('deleted')->nullable()->default(false);
             $table->integer('create_by')->nullable()->default(1);
             $table->timestamps();
         });

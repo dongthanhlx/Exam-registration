@@ -27,8 +27,8 @@ class SubjectListImport implements ToModel, WithHeadingRow, WithValidation
     {
         return [
             'name' => 'required',
-            'subject_code' => 'required',
-            'number_of_credits' => 'required'
+            'subject_code' => 'unique:subjects',
+            'number_of_credits' => 'required|numeric'
         ];
     }
 

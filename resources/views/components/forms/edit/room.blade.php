@@ -28,7 +28,7 @@
 
         <div class="form-group">
             <label for="numberOfCredits">Số máy tính</label>
-            <input type="text" id="numberOfCredits" name="number_of_computer" class="form-control mt-2" value="{{ $record->number_of_computer }}" >
+            <input type="number" id="numberOfCredits" name="number_of_computer" class="form-control mt-2" value="{{ $record->number_of_computer }}" >
         </div>
 
         <button type="submit" class="btn btn-primary btn-outline-primary rounded">Cập nhật</button>

@@ -42,7 +42,7 @@ class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
-            'student_code' => 'required',
+            'student_code' => 'unique:student_details',
             'birthday' => 'required',
             'class' => 'required',
             'gender' => 'required',

@@ -29,7 +29,7 @@
 
         <div class="form-group">
             <label for="numberOfCredits">Số tín chỉ</label>
-            <input type="text" id="numberOfCredits" name="number_of_credits" class="form-control mt-2" value="{{ $record->number_of_credits }}" >
+            <input type="number" id="numberOfCredits" name="number_of_credits" class="form-control mt-2" value="{{ $record->number_of_credits }}" >
         </div>
 
         <button type="submit" class="btn btn-primary btn-outline-primary rounded">Cập nhật</button>

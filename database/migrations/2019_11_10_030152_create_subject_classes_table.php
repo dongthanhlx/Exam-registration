@@ -15,8 +15,8 @@ class CreateSubjectClassesTable extends Migration
     {
         Schema::create('subject_classes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('serial');
             $table->string('subject_code');
+            $table->integer('serial');
             $table->string('teacher');
             $table->integer('maximum_number_of_student');
             $table->integer('create_by')->nullable()->default(1);

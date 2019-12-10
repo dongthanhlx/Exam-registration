@@ -29,7 +29,7 @@
 
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" id="email" name="email" class="form-control mt-2" value="{{ $record->email }}" >
+            <input type="email" id="email" name="email" class="form-control mt-2" value="{{ $record->email }}" >
         </div>
 
         <button type="submit" class="btn btn-primary btn-outline-primary rounded">Cập nhật</button>

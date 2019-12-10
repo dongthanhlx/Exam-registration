@@ -1,29 +1,19 @@
 <nav class="navbar navbar-default navbar-static-top navbar-expand-lg navbar-light bg-light">
     <div class="container">
-
-
         <div class="navbar-header">
-            <!-- Collapsed Hamburger -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/admin') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
         </div>
 
-        @if (Auth::user())
-            @include('components.managerNav')
-        @endif
 
-        <div class="collapse navbar-collapse" id="app-navbar-collapse">
+        <div class="collapse navbar-collapse my-2 my-sm-0" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
 
+            @if (Auth::user())
+                @include('components.managerNav')
+            @endif
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->

@@ -17,7 +17,7 @@ class CreateSubjectsTable extends Migration
             $table->increments('id');
             $table->string('subject_code');
             $table->string('name');
-            $table->string('number_of_credits')->nullable()->default(1);
+            $table->string('number_of_credits');
             $table->integer('create_by')->nullable()->default(1);
             $table->timestamps();
         });

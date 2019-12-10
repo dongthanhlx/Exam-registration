@@ -23,8 +23,8 @@
         </div>
         
         <div class="form-group">
-            <label for="serial">Mã học phần</label>
-            <input type="text" id="serial" name="serial" class="form-control mt-2" value="{{ $record->serial }}" >
+            <label for="serial">Lớp học phần</label>
+            <input type="number" id="serial" name="serial" class="form-control mt-2" value="{{ $record->serial }}" >
         </div>
 
         <div class="form-group">
@@ -34,7 +34,7 @@
 
         <div class="form-group">
             <label for="maximum_student">Số lượng sinh viên tối đa</label>
-            <input type="text" id="maximum_student" name="maximum_number_of_student" class="form-control mt-2" value="{{ $record->maximum_number_of_student}}" >
+            <input type="number" id="maximum_student" name="maximum_number_of_student" class="form-control mt-2" value="{{ $record->maximum_number_of_student}}" >
         </div>
 
         <button type="submit" class="btn btn-primary btn-outline-primary rounded">Cập nhật</button>

@@ -12,7 +12,6 @@
     </div>
 @endif
 
-
 <table class="table table-hover">
     <thead>
     <tr>

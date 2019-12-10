@@ -37,7 +37,7 @@ class StudentAccountImport implements ToModel, WithHeadingRow, WithValidation
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'unique:users,email',
+            'email' => 'unique:users',
             'password' => 'required'
         ];
     }
