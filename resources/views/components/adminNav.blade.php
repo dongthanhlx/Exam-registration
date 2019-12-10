@@ -21,7 +21,7 @@
             @include('components.managerNav')
         @endif
 
-        <div class="collapse navbar-collapse" id="app-navbar-collapse">
+        <div class="collapse navbar-collapse my-2 my-sm-0" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
 
             <!-- Right Side Of Navbar -->
