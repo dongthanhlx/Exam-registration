@@ -39,15 +39,15 @@
         <div class="form-group">
             <label for="examshift">Ca thi</label>
             <select name="examshift" id="examshift" class="form-control mt-2">
-                <option value="1">1</option>
+                <option value="1" disabled>1</option>
                 <option value="2">2</option>
-                <option value="3">1</option>
-                <option value="4">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="place">Ca thi</label>
+            <label for="place">Địa điểm</label>
             <select name="place" id="place" class="form-control mt-2">
                 <option value="E3">E3</option>
                 <option value="G2">G2</option>
@@ -56,7 +56,7 @@
         </div>
 
         <div class="form-group">
-            <label for="room">Học kỳ</label>
+            <label for="room">Phòng thi</label>
             <select name="room" id="room" class="form-control mt-2">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -68,3 +68,25 @@
     </form>
 
 </div>
+
+<script>
+    
+    function createOption(id,arr){
+        var select = document.getElementById(id);
+        // arr = ["html","css","java","javascript","php","c++","node.js","ASP","JSP","SQL"];
+             
+             for (var i = 0; i < arr.length; i++)
+             {
+                 var option = document.createElement("OPTION"),
+                     txt = document.createTextNode(arr[i]);
+                 option.appendChild(txt);
+                 option.setAttribute("value",arr[i]);
+                 select.insertBefore(option,select.lastChild);
+             }
+    }
+    var array=["3","4","5"];
+    createOption("room",array);
+</script>
+<script>
+
+</script>

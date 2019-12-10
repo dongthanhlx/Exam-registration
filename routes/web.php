@@ -50,6 +50,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
 
         Route::get('SubjectClass', 'SubjectClassController@showSubjectClassImportForm')->name('SubjectClass');
         Route::post('SubjectClass', 'ImportController@importSubjectClass')->name('SubjectClass');
+
+        Route::get('test', 'RoomController@test')->name('test');
     });
 
     Route::resource('student', 'StudentController')->names([
@@ -83,4 +85,11 @@ Route::prefix('admin')->name('admin.')->group(function() {
     ]);
 
     Route::resource('exam', 'ExamController');
+
+    Route::get('test', function () {
+        return view('admin.scheduling');
+    })->name('test');
+
 });
+
+Route::get('test', 'RoomController@test');

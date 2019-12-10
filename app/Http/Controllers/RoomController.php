@@ -72,7 +72,7 @@ class RoomController extends Controller
      */
     public function show($id)
     {
-        //
+        return Room::find($id);
     }
 
     /**
@@ -85,7 +85,7 @@ class RoomController extends Controller
     {
         $record = $this->model->getByID($id);
 
-        return view('admin.edit', ['record' => $record, 'form' => 'room']);
+        return view('admin.edit', ['record' => $record->toJson(), 'form' => 'room']);
     }
 
     /**
@@ -97,12 +97,18 @@ class RoomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validator($request);
-        $input = $request->all();
+        $room = Room::find($id);
+        $room->location = $request->location;
+        $room->name = $request->name;
+        $room->number_of_computer = $request->number_of_computer;
+        $room->save();
+        return $room;
+        // $this->validator($request);
+        // $input = $request->all();
 
-        $this->model->updateWhere($input, ['id', '=', $id]);
+        // $this->model->updateWhere($input, ['id', '=', $id]);
 
-        return redirect()->route('admin.import.room')->with('message', 'Edit successfully');;
+        // return redirect()->route('admin.import.room')->with('message', 'Edit successfully');;
     }
 
     /**
@@ -114,14 +120,22 @@ class RoomController extends Controller
     public function destroy($id)
     {
         $this->model->deleteById($id);
-
-        return redirect()->route('admin.import.room')->with('message', 'Delete successfully');
+            return "OK";
+        // return redirect()->route('admin.import.room')->with('message', 'Delete successfully');
     }
 
     public function showRoomImportForm()
     {
         $records = $this->model->getAll();
 
-        return view('admin.import', ['route' => route('admin.import.room'), 'table' => 'roomTable', 'records' => $records]);
+        return view('admin.import', ['route' => route('admin.import.room'), 'table' => 'roomTable', 'records' => $records->toJson()]);
+        // var_dump($records->toJson());
+    }
+
+    public function test() {
+        $records = $this->model->getAll();
+
+        return response()->json($records)
+                        ->header('Content-Type', 'application/json');
     }
 }

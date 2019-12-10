@@ -15,9 +15,22 @@
 
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <!-- Scripts -->
-    <script src=
+    <!-- <script src=
             "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
-    </script>
+    </script> -->
+    <!-- jquery cdn -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.slim.js"
+    integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI="
+    crossorigin="anonymous"></script>
+
+    <!-- font awesome -->
+    
+    <!-- <script src="https://kit.fontawesome.com/146de142d9.js" crossorigin="anonymous"></script> -->
+
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
