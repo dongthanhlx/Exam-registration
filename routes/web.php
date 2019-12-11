@@ -84,5 +84,4 @@ Route::prefix('admin')->name('admin.')->group(function() {
 
     Route::resource('exam', 'ExamController');
 
-    Route::get('test', 'RoomController@test');
 });

@@ -125,10 +125,4 @@ class RoomController extends Controller
         return view('admin.import', ['route' => route('admin.import.room'), 'table' => 'roomTable', 'records' => $records]);
     }
 
-    public function test()
-    {
-        $records = $this->model->getAll();
-
-        return response()->json($records)->header('Content-Type', 'application/json;');
-    }
 }

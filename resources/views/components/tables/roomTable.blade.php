@@ -41,16 +41,3 @@
     @endforeach
     </tbody>
 </table>
-
-<script>
-    window.onload = function () {
-        document.getElementById("action").innerHTML = '<tr>\n' +
-            '            <th scope="row">\n' +
-            '                <form action="" method="post" class="float-right">\n' +
-            '                    <button class="btn btn-outline-primary" onclick="return confirm(\'Chắc không ?\')">Delete</button>\n' +
-            '                </form>\n' +
-            '                <a href=""><button class="btn btn-outline-primary float-right">Edit</button></a>\n' +
-            '            </th>\n' +
-            '        </tr>';
-    }
-</script>
