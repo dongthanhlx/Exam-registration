@@ -13,7 +13,7 @@ class RoomController extends Controller
     public function __construct()
     {
         $this->model = new Room();
-        $this->middleware('auth:admin');
+//        $this->middleware('auth:admin');
     }
 
     /**
@@ -85,7 +85,7 @@ class RoomController extends Controller
     {
         $record = $this->model->getByID($id);
 
-        return view('admin.edit', ['record' => $record, 'form' => 'room']);
+        return view('admin.edit', ['record' => $record->toJson(), 'form' => 'room']);
     }
 
     /**
@@ -123,5 +123,12 @@ class RoomController extends Controller
         $records = $this->model->getAll();
 
         return view('admin.import', ['route' => route('admin.import.room'), 'table' => 'roomTable', 'records' => $records]);
+    }
+
+    public function test()
+    {
+        $records = $this->model->getAll();
+
+        return response()->json($records)->header('Content-Type', 'application/json;');
     }
 }

@@ -18,3 +18,7 @@
       width: 600px;
     }
   }
+
+li.dropdown {
+    padding: 0 10px 0 10px;
+}

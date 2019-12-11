@@ -1,5 +1,5 @@
 <div class="container">
-    <button type="button" class="btn btn-primary float-right my-3" data-toggle="modal" data-target="#staticBackdrop">
+    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#staticBackdrop">
     Import
     </button>
 </div>

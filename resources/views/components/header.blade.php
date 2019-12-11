@@ -18,6 +18,7 @@
     <script src=
             "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
     </script>
+    <script src="https://kit.fontawesome.com/146de142d9.js" crossorigin="anonymous"></script>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
