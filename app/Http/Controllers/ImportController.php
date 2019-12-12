@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Imports\RoomImport;
 use App\Imports\StudentAccountImport;
 use App\Imports\StudentInfoImport;
-use App\Imports\StudentListOfSubjectImport;
+use App\Imports\StudentListOfSubjectClassImport;
 use App\Imports\SubjectClassImport;
 use App\Imports\SubjectListImport;
-use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ImportController extends AdminController
 {
@@ -37,9 +35,9 @@ class ImportController extends AdminController
         return redirect()->route('admin.subject.index');
     }
 
-    public function studentListOfSubject()
+    public function studentOfSubjectClass()
     {
-        $this->import(new StudentListOfSubjectImport());
+        $this->import(new StudentListOfSubjectClassImport());
 
     }
 

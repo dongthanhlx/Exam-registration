@@ -60,8 +60,8 @@ class User extends Authenticatable
 
     public function updateById($input, $id)
     {
-        $firstName = $input['firstName'];
-        $lastName = $input['lastName'];
+        $firstName = $input['first_name'];
+        $lastName = $input['last_name'];
         $email = $input['email'];
 
         $result = DB::table('users')

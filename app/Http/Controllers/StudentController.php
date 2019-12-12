@@ -26,7 +26,10 @@ class StudentController extends Controller
 
     public function showStudentListOfSubjectImportForm()
     {
-        return view('admin.import', ['route' => route('admin.import.StudentListOfSubject'), 'table' => 'studentOfSubjectTable']);
+        return view('admin.import', [
+            'route' => route('admin.import.StudentListOfSubject'),
+            'table' => 'studentOfSubjectTable'
+        ]);
     }
 
     public function validator(Request $request)

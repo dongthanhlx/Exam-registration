@@ -22,6 +22,7 @@ class SubjectClassImport implements ToModel, WithHeadingRow, WithValidation
 
         $model = new Exam();
         $exam = $model->getBySemesterAndYear($semester, $year);
+        if ($exam == null) return null;
         $exam_id = $exam->id;
 
         return new SubjectClass([

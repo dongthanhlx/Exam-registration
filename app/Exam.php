@@ -49,11 +49,6 @@ class Exam extends BaseModel
         }
     }
 
-    public function allYear()
-    {
-
-    }
-
     public function getBySemesterAndYear($semester, $year)
     {
         return DB::table('exams')
