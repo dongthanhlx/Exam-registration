@@ -7,15 +7,14 @@
             </a>
         </div>
 
-
-        <div class="collapse navbar-collapse my-2 my-sm-0" id="app-navbar-collapse">
+        <div class="collapse navbar-collapse my-2 my-sm-0 position-relative" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
 
             @if (Auth::user())
                 @include('components.managerNav')
             @endif
             <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav position-absolute" style="right: 0;">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li><a href="{{ route('login') }}">Login</a></li>

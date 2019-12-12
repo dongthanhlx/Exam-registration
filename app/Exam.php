@@ -49,4 +49,8 @@ class Exam extends BaseModel
         }
     }
 
+    public function allYear()
+    {
+
+    }
 }

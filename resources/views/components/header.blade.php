@@ -17,6 +17,7 @@
     <!-- Scripts -->
     <!-- <script src=
             "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+<<<<<<< HEAD
     </script> -->
     <!-- jquery cdn -->
     
@@ -31,6 +32,10 @@
     
     <!-- <script src="https://kit.fontawesome.com/146de142d9.js" crossorigin="anonymous"></script> -->
 
+=======
+    </script>
+    <script src="https://kit.fontawesome.com/146de142d9.js" crossorigin="anonymous"></script>
+>>>>>>> fa7bddd415a809b2b7ef7c3920012df7d80facdf
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),

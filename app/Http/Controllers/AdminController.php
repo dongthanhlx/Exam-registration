@@ -29,6 +29,10 @@ class AdminController extends Controller
 
     public function import($object)
     {
+        $this->validate(\request(), [
+            'file' => 'required|mimes:xls,xlsx'
+        ]);
+
         $result = Excel::import($object, \request()->file('file'));
     }
 }

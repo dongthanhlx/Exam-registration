@@ -21,6 +21,7 @@
         </tr>
     </tbody>
 </table>
+<<<<<<< HEAD
 
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -133,3 +134,5 @@ const App = new Vue({
 
 </script>
 
+=======
+>>>>>>> fa7bddd415a809b2b7ef7c3920012df7d80facdf

@@ -13,7 +13,7 @@ class RoomController extends Controller
     public function __construct()
     {
         $this->model = new Room();
-        $this->middleware('auth:admin');
+//        $this->middleware('auth:admin');
     }
 
     /**
@@ -138,4 +138,5 @@ class RoomController extends Controller
         return response()->json($records)
                         ->header('Content-Type', 'application/json');
     }
+
 }

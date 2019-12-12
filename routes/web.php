@@ -86,10 +86,13 @@ Route::prefix('admin')->name('admin.')->group(function() {
 
     Route::resource('exam', 'ExamController');
 
+<<<<<<< HEAD
     Route::get('test', function () {
         return view('admin.scheduling');
     })->name('test');
 
+=======
+>>>>>>> fa7bddd415a809b2b7ef7c3920012df7d80facdf
 });
 
 Route::get('test', 'RoomController@test');
