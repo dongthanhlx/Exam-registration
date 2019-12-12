@@ -22,7 +22,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach ( json_decode($records) as $record)
+    @foreach ($records as $record)
         <tr>
             <th scope="row">{{ $loop->index + 1 }}</th>
             <th scope="row">{{ $record->full_name }}</th>

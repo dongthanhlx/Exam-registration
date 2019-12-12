@@ -24,8 +24,7 @@ class UserController extends Controller
 
         return view('admin.import', [
             'route' => route('admin.import.StudentAccount'),
-            'table' => 'studentAccountTable',
-            'records' => $all
+            'table' => 'studentAccountTable'
         ]);
     }
 
@@ -35,6 +34,14 @@ class UserController extends Controller
 
         return response()->json($record)
                 ->header('Content-Type', 'application/json; charset=UTF-8');
+    }
+
+    public function showAll()
+    {
+        $all = $this->model->allAccount();
+
+        return response()->json($all)
+            ->header('Content-Type', 'application/json; charset=UTF-8');
     }
 
     public function validator(Request $request)

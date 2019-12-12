@@ -38,8 +38,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('import')->name('import.')->group(function () {
         Route::post('StudentAccount', 'ImportController@studentAccount')->name('StudentAccount');
         Route::post('StudentInfo', 'ImportController@studentInfo')->name('StudentInfo');
-        Route::post('Subject', 'ImportController@subject')->name('subject');
-        Route::post('RoomList', 'ImportController@room')->name('room');
+        Route::post('subject', 'ImportController@subject')->name('subject');
+        Route::post('room', 'ImportController@room')->name('room');
         Route::post('SubjectClass', 'ImportController@subjectClass')->name('SubjectClass');
     });
 
@@ -52,5 +52,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('scheduling', 'SchedulingController');
 
     Route::get('allRoom', 'RoomController@showAll')->name('allRoom');
+    Route::get('allAccount', 'UserController@showAll')->name('allAccount');
+    Route::get('allStudent', 'StudentController@showAll')->name('allStudent');
+    Route::get('allSubject', 'SubjectController@showAll')->name('allSubject');
 
 });

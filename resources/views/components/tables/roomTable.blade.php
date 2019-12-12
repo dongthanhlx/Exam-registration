@@ -9,8 +9,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr v-for="row in rows">
-        <td>@{{row.id}}</td>
+    <tr v-for="(row, index) in rows">
+        <td>@{{ index+1 }}</td>
         <td>@{{row.location}}</td>
         <td>@{{row.name}}</td>
         <td>@{{row.number_of_computer}}</td>
@@ -95,7 +95,6 @@
                 axios.get('/admin/allRoom')
                     .then((response) => {
                         this.rows = response.data;
-                        console.log(this.rows);
                     })
                     .catch(function (error) {
 

@@ -22,19 +22,19 @@ class ImportController extends AdminController
     public function studentAccount()
     {
         $this->import(new StudentAccountImport());
-        return redirect()->route('admin.import.StudentAccount')->with('message', 'Import file successfully');
+        return redirect()->route('admin.account.index')->with('message', 'Import file successfully');
     }
 
     public function studentInfo()
     {
         $this->import(new StudentInfoImport());
-        return redirect()->route('admin.import.StudentInfo')->with('message', 'Import file successfully');
+        return redirect()->route('admin.student.index')->with('message', 'Import file successfully');
     }
 
     public function subject()
     {
         $this->import(new SubjectListImport());
-        return redirect()->route('admin.import.subject');
+        return redirect()->route('admin.subject.index');
     }
 
     public function studentListOfSubject()
@@ -46,12 +46,12 @@ class ImportController extends AdminController
     public function room()
     {
         $this->import(new RoomImport());
-        return redirect()->route('admin.import.room')->with('message', 'Import successfully');
+        return redirect()->route('admin.room.index')->with('message', 'Import successfully');
     }
 
     public function subjectClass()
     {
         $this->import(new SubjectClassImport());
-        return redirect()->route('admin.import.SubjectClass')->with('message', 'Import Successfully');
+        return redirect()->route('admin.SubjectClass.index')->with('message', 'Import Successfully');
     }
 }
