@@ -38,20 +38,24 @@ class Room extends BaseModel
         return $rooms->number_of_computer;
     }
 
-    public function updateWhere($input, $condition = [])
+    public function updateById($input, $id)
     {
-        DB::table('rooms')
-            ->where([$condition])
+        $result = DB::table('rooms')
+            ->where('id', '=', $id)
             ->update([
                 'location' => $input['location'],
                 'name' => $input['name'],
                 'number_of_computer' => $input['number_of_computer']
             ]);
+
+        return $result;
     }
 
     public function deleteById($id)
     {
-        DB::table('rooms')
+        $result = DB::table('rooms')
             ->delete($id);
+
+        return $result;
     }
 }

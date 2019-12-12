@@ -36,52 +36,21 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('password.reset');
 
     Route::prefix('import')->name('import.')->group(function () {
-        Route::get('StudentAccount', 'UserController@showStudentAccountImportForm')->name('StudentAccount');
-        Route::post('StudentAccount', 'ImportController@importStudentAccount')->name('StudentAccount');
-
-        Route::get('StudentInfo', 'StudentController@showStudentInfoImportForm')->name('.StudentInfo');
-        Route::post('StudentInfo', 'ImportController@importStudentInfo')->name('StudentInfo');
-
-        Route::get('Subject', 'SubjectController@showSubjectImportForm')->name('subject');
-        Route::post('Subject', 'ImportController@importSubject')->name('subject');
-
-        Route::get('RoomList', 'RoomController@showRoomImportForm')->name('room');
-        Route::post('RoomList', 'ImportController@importRoom')->name('room');
-
-        Route::get('SubjectClass', 'SubjectClassController@showSubjectClassImportForm')->name('SubjectClass');
-        Route::post('SubjectClass', 'ImportController@importSubjectClass')->name('SubjectClass');
+        Route::post('StudentAccount', 'ImportController@studentAccount')->name('StudentAccount');
+        Route::post('StudentInfo', 'ImportController@studentInfo')->name('StudentInfo');
+        Route::post('Subject', 'ImportController@subject')->name('subject');
+        Route::post('RoomList', 'ImportController@room')->name('room');
+        Route::post('SubjectClass', 'ImportController@subjectClass')->name('SubjectClass');
     });
 
-    Route::resource('student', 'StudentController')->names([
-        'edit' => 'student.edit',
-        'update' => 'student.update',
-        'destroy' => 'student.delete',
-    ]);
-
-    Route::resource('account', 'UserController')->names([
-        'edit' => 'user.edit',
-        'update' => 'user.update',
-        'destroy' => 'user.delete'
-    ]);
-
-    Route::resource('subject', 'SubjectController')->names([
-        'edit' => 'subject.edit',
-        'update' => 'subject.update',
-        'destroy' => 'subject.delete'
-    ]);
-
-    Route::resource('room', 'RoomController')->names([
-        'edit' => 'room.edit',
-        'update' => 'room.update',
-        'destroy' => 'room.delete'
-    ]);
-
-    Route::resource('subjectClass', 'SubjectClassController')->names([
-        'edit' => 'SubjectClass.edit',
-        'update' => 'SubjectClass.update',
-        'destroy' => 'SubjectClass.delete'
-    ]);
-
+    Route::resource('student', 'StudentController');
+    Route::resource('account', 'UserController');
+    Route::resource('subject', 'SubjectController');
+    Route::resource('room', 'RoomController');
+    Route::resource('SubjectClass', 'SubjectClassController');
     Route::resource('exam', 'ExamController');
+    Route::resource('scheduling', 'SchedulingController');
+
+    Route::get('allRoom', 'RoomController@showAll')->name('allRoom');
 
 });

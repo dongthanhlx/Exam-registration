@@ -19,37 +19,37 @@ class ImportController extends AdminController
         $this->middleware('auth:admin');
     }
 
-    public function importStudentAccount()
+    public function studentAccount()
     {
         $this->import(new StudentAccountImport());
         return redirect()->route('admin.import.StudentAccount')->with('message', 'Import file successfully');
     }
 
-    public function importStudentInfo()
+    public function studentInfo()
     {
         $this->import(new StudentInfoImport());
         return redirect()->route('admin.import.StudentInfo')->with('message', 'Import file successfully');
     }
 
-    public function importSubject()
+    public function subject()
     {
         $this->import(new SubjectListImport());
         return redirect()->route('admin.import.subject');
     }
 
-    public function importStudentListOfSubject()
+    public function studentListOfSubject()
     {
         $this->import(new StudentListOfSubjectImport());
 
     }
 
-    public function importRoom()
+    public function room()
     {
         $this->import(new RoomImport());
         return redirect()->route('admin.import.room')->with('message', 'Import successfully');
     }
 
-    public function importSubjectClass()
+    public function subjectClass()
     {
         $this->import(new SubjectClassImport());
         return redirect()->route('admin.import.SubjectClass')->with('message', 'Import Successfully');

@@ -39,9 +39,9 @@
                     <form action="{{ route('admin.student.delete', $record->id) }}" method="post" class="float-right">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-outline-primary" onclick="return confirm('Chắc không ?')">Delete</button>
+                        <button class="btn btn-outline-primary ml-2" onclick="return confirm('Chắc không ?')"><i class="fas fa-trash-alt"></i></button>
                     </form>
-                    <a href="{{ route('admin.student.edit', $record->id) }}"><button class="btn btn-outline-primary float-right">Edit</button></a>
+                    <a href="{{ route('admin.student.edit', $record->id) }}"><button class="btn btn-outline-primary float-right"><i class="far fa-edit"></button></a>
                 </th>
             </tr>
         @endforeach

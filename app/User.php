@@ -49,26 +49,29 @@ class User extends Authenticatable
             ->first();
     }
 
-    public function deleteWhere($conditions = [])
+    public function deleteById($id)
     {
-        DB::table('users')
-            ->where([$conditions])
+        $result = DB::table('users')
+            ->where('id', '=', $id)
             ->update(['deleted' => true]);
+
+        return $result;
     }
 
-    public function updateWhere($input, $conditions = [])
+    public function updateById($input, $id)
     {
         $firstName = $input['firstName'];
         $lastName = $input['lastName'];
         $email = $input['email'];
 
-        DB::table('users')
-            ->where([$conditions])
-            ->update([
-                'first_name' => $firstName,
-                'last_name' => $lastName,
-                'email' => $email
-            ]);
+        $result = DB::table('users')
+                ->where('id', '=', $id)
+                ->update([
+                    'first_name' => $firstName,
+                    'last_name' => $lastName,
+                    'email' => $email
+                ]);
 
+        return $result;
     }
 }

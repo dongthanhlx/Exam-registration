@@ -7,8 +7,8 @@
 
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li>
-                    <a class="dropdown-item" href="{{ route('admin.import.StudentInfo') }}">Danh sách sinh viên</a>
-                    <a class="dropdown-item" href="{{ route('admin.import.StudentAccount') }}">Danh sách tài khoản</a>
+                    <a class="dropdown-item" href="{{ route('admin.student.index') }}">Danh sách sinh viên</a>
+                    <a class="dropdown-item" href="{{ route('admin.account.index') }}">Danh sách tài khoản</a>
                 </li>
             </ul>
         </li>
@@ -34,13 +34,13 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li>
                     <a class="dropdown-item" href="{{ route('admin.exam.create') }}">Tạo kỳ thi</a>
-                    <a class="dropdown-item" href="#">Lập lịch</a>
+                    <a class="dropdown-item" href="{{ route('admin.scheduling.index') }}">Lập lịch</a>
                 </li>
             </ul>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.import.room') }}">Địa điểm</a>
+            <a class="nav-link" href="{{ route('admin.room.index') }}">Địa điểm</a>
         </li>
     </ul>
 </div>

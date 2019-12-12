@@ -22,7 +22,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach ($records as $record)
+    @foreach ( json_decode($records) as $record)
         <tr>
             <th scope="row">{{ $loop->index + 1 }}</th>
             <th scope="row">{{ $record->full_name }}</th>
@@ -31,9 +31,9 @@
                 <form action="{{ route('admin.user.delete', $record->id) }}" method="POST" class="float-right">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-outline-primary" onclick="return confirm('Chắc không ?')">Delete</button>
+                    <button class="btn btn-outline-danger ml-2" onclick="return confirm('Chắc không ?')"><i class="fas fa-trash-alt"></i></button>
                 </form>
-                <a href="{{ route('admin.user.edit', $record->id) }}"><button class="btn btn-outline-primary float-right">Edit</button></a>
+                <a href="{{ route('admin.user.edit', $record->id) }}"><button class="btn btn-outline-primary float-right"><i class="far fa-edit"></i></button></a>
             </th>
         </tr>
     @endforeach
