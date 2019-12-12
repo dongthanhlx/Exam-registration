@@ -25,12 +25,10 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $all = $this->model->getAll();
 
         return view('admin.import', [
             'route' => route('admin.import.subject'),
-            'table' => 'subjectTable',
-            'records' => $all
+            'table' => 'subjectTable'
         ]);
     }
 
@@ -83,6 +81,14 @@ class SubjectController extends Controller
         $record = $this->model->getByID($id);
 
         return response()->json($record)
+                ->header('Content-Type', 'application/json; charset=UTF-8');
+    }
+
+    public function showAll()
+    {
+        $all = $this->model->getAll();
+
+        return response()->json($all)
                 ->header('Content-Type', 'application/json; charset=UTF-8');
     }
 

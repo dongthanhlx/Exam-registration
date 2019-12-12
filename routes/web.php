@@ -57,3 +57,4 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('allSubject', 'SubjectController@showAll')->name('allSubject');
 
 });
+

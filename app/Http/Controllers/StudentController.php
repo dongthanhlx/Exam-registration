@@ -39,6 +39,22 @@ class StudentController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        $record = $this->model->getById($id);
+
+        return response()->json($record)
+                ->header('Content-Type', 'application/json; charset=UTF-8');
+    }
+
+    public function showAll()
+    {
+        $all = $this->model->getAll();
+
+        return response()->json($all)
+                ->header('Content-Type', 'application/json; charset=UTF-8');
+    }
+
     /**
      * Update the specified resource in storage.
      *
