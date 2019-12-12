@@ -2,14 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\StudentAccountImport;
-use App\Imports\StudentInfoImport;
-use App\Imports\StudentListOfSubjectClassImport;
-use App\Imports\StudentNotEligibleImport;
 use App\Student;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -22,18 +16,18 @@ class StudentController extends Controller
         $this->middleware('auth:admin');
     }
 
-    public function showStudentInfoImportForm()
+    public function index()
     {
-        $records = $this->model->getAllInfo();
-
-        return view('admin.import', ['route' => route('admin.import.StudentInfo'), 'table' => 'studentInfoTable', 'records' => $records]);
+        return view('admin.import', [
+            'route' => route('admin.import.StudentInfo'),
+            'table' => 'studentInfoTable'
+        ]);
     }
 
     public function showStudentListOfSubjectImportForm()
     {
         return view('admin.import', ['route' => route('admin.import.StudentListOfSubject'), 'table' => 'studentOfSubjectTable']);
     }
-
 
     public function validator(Request $request)
     {
@@ -45,17 +39,20 @@ class StudentController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function show($id)
     {
-        $record = $this->model->getInfoStudentByID($id);
+        $record = $this->model->getById($id);
 
-        return view('admin.edit', ['record' => $record, 'form' => 'studentInfo']);
+        return response()->json($record)
+                ->header('Content-Type', 'application/json; chartset=UTF-8')
+    }
+
+    public function showAll()
+    {
+        $all = $this->model->getAll();
+
+        return response()->json($all)
+                ->header('Content-Type', 'application/json; chartset=UTF-8')
     }
 
     /**
@@ -69,9 +66,9 @@ class StudentController extends Controller
     {
         $this->validator($request);
         $input = $request->all();
-        $this->model->updateWhere($input, ['id', '=', $id]);
+        $result = $this->model->updateById($input, $id);
 
-        return redirect()->route('admin.import.StudentInfo')->with('message', 'Edit successfully');
+        return $result;
     }
 
     /**
@@ -82,8 +79,8 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $this->model->deleteWhere(['id', '=', $id]);
+        $result = $this->model->deleteById(['id', '=', $id]);
 
-        return redirect()->route('admin.import.StudentInfo')->with('message', 'Delete Successfully');
+        return $result;
     }
 }

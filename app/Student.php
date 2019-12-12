@@ -67,29 +67,28 @@ class Student extends BaseModel
             ->first();
     }
 
-    public function deleteWhere($conditions = [])
+    public function deleteById($id)
     {
-        DB::table('student_details')
-            ->where([$conditions])
-            ->update(['deleted' => true]);
-    }
-
-    public function updateWhere($input, $conditions = [])
-    {
-        $studentCode = $input['student_code'];
-        $birthday = $input['birthday'];
-        $class = $input['class'];
-        $gender = $input['gender'];
-
-        DB::table('student_details')
-            ->where([$conditions])
+        $result = DB::table('student_details')
+            ->where('id', '=', $id)
             ->update([
-                'student_code' => $studentCode,
-                'birthday' => $birthday,
-                'class' => $class,
-                'gender' => $gender,
+                'deleted' => true
             ]);
+
+        return $result;
     }
 
+    public function updateById($input, $id)
+    {
+        $result = DB::table('student_details')
+            ->where('id', '=', $id)
+            ->update([
+                'student_code' => $input['student_code'],
+                'birthday' => $input['birthday'],
+                'class' => $input['class'],
+                'gender' => $input['gender'],
+            ]);
 
+        return $result;
+    }
 }

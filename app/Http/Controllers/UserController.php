@@ -18,11 +18,30 @@ class UserController extends Controller
         $this->middleware('auth:admin');
     }
 
-    public function showStudentAccountImportForm()
+    public function index()
     {
-        $records = $this->model->allAccount();
+        $all = $this->model->allAccount();
 
-        return view('admin.import', ['route' => route('admin.import.StudentAccount'), 'table' => 'studentAccountTable', 'records' => $records]);
+        return view('admin.import', [
+            'route' => route('admin.import.StudentAccount'),
+            'table' => 'studentAccountTable'
+        ]);
+    }
+
+    public function show($id)
+    {
+        $record = $this->model->getWhere(['id', '=', $id]);
+
+        return response()->json($record)
+                ->header('Content-Type', 'application/json; charset=UTF-8');
+    }
+
+    public function showAll()
+    {
+        $all = $this->model->allAccount();
+
+        return response()->json($all)
+                ->header('Content-Type', 'application/json; charset=UTF-8');
     }
 
     public function validator(Request $request)
@@ -32,19 +51,6 @@ class UserController extends Controller
             'lastName' => 'required|max:20',
             'email' => 'required',
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $record = $this->model->getWhere(['id', '=', $id]);
-
-        return view('admin.edit', ['record' => $record, 'form' => 'studentAccount']);
     }
 
     /**
@@ -58,9 +64,9 @@ class UserController extends Controller
     {
         $this->validator($request);
         $input = $request->all();
-        $this->model->updateWhere($input, ['id', '=', $id]);
+        $result = $this->model->updateById($input, $id);
 
-        return redirect()->route('admin.import.StudentAccount')->with('message', 'Edit Successfully');
+        return $result;
     }
 
     /**
@@ -71,10 +77,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->model->deleteWhere(['id', '=', $id]);
-        $student = new Student();
-        $student->deleteWhere(['user_id', '=', $id]);
+        $result = $this->model->deleteById($id);
+        if ($result) {
+            $student = new Student();
+            $result = $student->deleteById($id);
+        }
 
-        return back()->with('message', 'Delete Successfully');
+        return $result;
     }
 }

@@ -40,21 +40,25 @@ class SubjectClass extends BaseModel
         return $this->getWithConditions([['subject_code', '=', $subjectCode],['serial', '=', $serial]])->first();
     }
 
-    public function updateWhere($input, $condition = [])
+    public function updateById($input, $id)
     {
-        DB::table('subject_classes')
-            ->where([$condition])
+        $result = DB::table('subject_classes')
+            ->where('id', '=', $id)
             ->update([
                 'serial' => $input['serial'],
                 'subject_code' => $input['subject_code'],
                 'teacher' => $input['teacher'],
                 'maximum_number_of_student' => $input['maximum_number_of_student']
             ]);
+
+        return $result;
     }
 
     public function deleteById($id)
     {
-        DB::table('subject_classes')
+        $result = DB::table('subject_classes')
             ->delete($id);
+
+        return $result;
     }
 }

@@ -27,17 +27,11 @@ class SubjectClassController extends Controller
      */
     public function index()
     {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('admin.import', [
+            'route' => route('admin.import.SubjectClass'),
+            'table' => 'subjectClassTable'
+        ]);
     }
 
     public function validator(Request $request)
@@ -78,20 +72,19 @@ class SubjectClassController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
         $record = $this->model->getByID($id);
 
-        return view('admin.edit', ['record' => $record, 'form' => 'subjectClass']);
+        return response()->json($record)
+                ->header('Content-Type', 'application/json; charset=UTF-8');
+    }
+
+    public function showAll()
+    {
+        $all = $this->model->getAll();
+
+        return response()->json($all)
+                ->header('Content-Type', 'application/json; charset=UTF-8');
+
     }
 
     /**
@@ -106,9 +99,9 @@ class SubjectClassController extends Controller
         $this->validator($request);
         $input = $request->all();
 
-        $this->model->updateWhere($input, ['id', '=', $id]);
+        $result = $this->model->updateById($input, ['id', '=', $id]);
 
-        return redirect()->route('admin.import.SubjectClass')->with('message', 'Edit Successfully');
+        return $result;
     }
 
     /**
@@ -119,15 +112,8 @@ class SubjectClassController extends Controller
      */
     public function destroy($id)
     {
-        $this->model->deleteById($id);
+        $result = $this->model->deleteById($id);
 
-        return redirect()->route('admin.import.SubjectClass')->with('message', 'Delete Successfully');
-    }
-
-    public function showSubjectClassImportForm()
-    {
-        $records = $this->model->getAll();
-
-        return view('admin.import', ['route' => route('admin.import.SubjectClass'), 'table' => 'subjectClassTable', 'records' => $records]);
+        return $result;
     }
 }

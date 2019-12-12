@@ -34,14 +34,24 @@ class Subject extends BaseModel
     }
 */
 
-    public function updateWhere($input, $condition = [])
+    public function updateById($input, $id)
     {
-        DB::table('subjects')
-            ->where([$condition])
+        $result = DB::table('subjects')
+            ->where('id', '=', $id)
             ->update([
                 'name' => $input['name'],
                 'subject_code' => $input['subject_code'],
                 'number_of_credits' => $input['number_of_credits'],
             ]);
+
+        return $result;
+    }
+
+    public function deleteById($id)
+    {
+        $result = DB::table('subjects')
+            ->delete($id);
+
+        return $result;
     }
 }

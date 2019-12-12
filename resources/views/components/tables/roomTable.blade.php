@@ -9,106 +9,103 @@
     </tr>
     </thead>
     <tbody>
-        <tr v-for="row in rows">
-            <td>@{{row.id}}</td>
-            <td>@{{row.location}}</td>
-            <td>@{{row.name}}</td>
-            <td>@{{row.number_of_computer}}</td>
-            <td>
-                <button @click="deletingRoomId = row.id" data-toggle="modal" data-target="#deleteModal">Delete</button>
-                <button @click="getRoom(row.id)" data-toggle="modal" data-target="#editModal">Edit</button>
-            </td>
-        </tr>
+    <tr v-for="(row,index) in rows">
+        <td>@{{index + 1}}</td>
+        <td>@{{row.location}}</td>
+        <td>@{{row.name}}</td>
+        <td>@{{row.number_of_computer}}</td>
+        <td>
+            <button @click="deletingRoomId = row.id" data-toggle="modal" data-target="#deleteModal">Delete</button>
+            <button @click="getRoom(row.id)" data-toggle="modal" data-target="#editModal">Edit</button>
+        </td>
+    </tr>
     </tbody>
 </table>
-<<<<<<< HEAD
 
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <div class="form-group">
-            <label for="location">Tòa nhà</label>
-            <input type="text" id="location" name="location" class="form-control mt-2" v-model="editingRoom.location" >
-        </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="location">Tòa nhà</label>
+                    <input type="text" id="location" name="location" class="form-control mt-2" v-model="editingRoom.location" >
+                </div>
 
-        <div class="form-group">
-            <label for="name">Tên phòng</label>
-            <input type="text" id="name" name="name" class="form-control mt-2" v-model="editingRoom.name" >
-        </div>
+                <div class="form-group">
+                    <label for="name">Tên phòng</label>
+                    <input type="text" id="name" name="name" class="form-control mt-2" v-model="editingRoom.name" >
+                </div>
 
-        <div class="form-group">
-            <label for="numberOfCredits">Số máy tính</label>
-            <input type="number" id="numberOfCredits" name="number_of_computer" class="form-control mt-2" v-model="editingRoom.number_of_computer" >
-        </div>
+                <div class="form-group">
+                    <label for="numberOfCredits">Số máy tính</label>
+                    <input type="number" id="numberOfCredits" name="number_of_computer" class="form-control mt-2" v-model="editingRoom.number_of_computer" >
+                </div>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" ref="close" data-dismiss="modal">Huỷ</button>
-        <button type="button" class="btn btn-primary" @click="editRoom(editingRoom.id)">Sửa</button>
-      </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" ref="close" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary" @click="editRoom(editingRoom.id)">Sửa</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Bạn có chắc chắn muốn xoá ?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" ref="delete" data-dismiss="modal">Huỷ</button>
-        <button type="button" class="btn btn-primary" @click="deleteRoom(deletingRoomId)">Xoá</button>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xoá ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" ref="delete" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary" @click="deleteRoom(deletingRoomId)">Xoá</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 
 
 
 <script>
-    
 
-const App = new Vue({
+    const App = new Vue({
         el: '#app',
         data: {
             deletingRoomId:'',
             editingRoom: {},
-          rows:[
-          ]
+            rows:[
+            ]
         },
         methods: {
             getAllRooms() {
-                axios.get('/test')
-                .then((response) => {
-                    this.rows = response.data;
-                    console.log(this.rows);
-                })
-                .catch(function (error) {
-                
-                }); 
+                axios.get('/admin/allRoom')
+                    .then((response) => {
+                        this.rows = response.data;
+                        console.log(this.rows);
+                    })
+                    .catch(function (error) {
+
+                    });
             },
             deleteRoom(roomId) {
                 this.$refs.delete.click();
                 axios.delete('/admin/room/' +roomId).then(res =>{
-                    
-                    this.getAllRooms();
 
+                    this.getAllRooms();
                 }).catch(err =>{
                     console.log(err);
                 });
@@ -116,7 +113,7 @@ const App = new Vue({
             getRoom(roomId) {
                 axios.get('/admin/room/' + roomId).then(res => {
                     this.editingRoom = res.data;
-                    
+
                 })
             },
             editRoom(roomId) {
@@ -125,14 +122,9 @@ const App = new Vue({
                     this.getAllRooms();
                 })
             }
-
         },
         created () {
             this.getAllRooms();
         }
-      })
-
+    })
 </script>
-
-=======
->>>>>>> fa7bddd415a809b2b7ef7c3920012df7d80facdf

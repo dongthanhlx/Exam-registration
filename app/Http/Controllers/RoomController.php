@@ -13,7 +13,7 @@ class RoomController extends Controller
     public function __construct()
     {
         $this->model = new Room();
-//        $this->middleware('auth:admin');
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -23,7 +23,10 @@ class RoomController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.import', [
+            'route' => route('admin.import.room'),
+            'table' => 'roomTable'
+        ]);
     }
 
     /**
@@ -72,20 +75,18 @@ class RoomController extends Controller
      */
     public function show($id)
     {
-        return Room::find($id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
         $record = $this->model->getByID($id);
 
-        return view('admin.edit', ['record' => $record->toJson(), 'form' => 'room']);
+        return response()->json($record)
+            ->header('Content-Type', 'application/json; charset=utf-8');
+    }
+
+    public function showAll()
+    {
+        $records = $this->model->getAll();
+
+        return response()->json($records)
+            ->header('Content-Type', 'application/json; charset=UTF-8');
     }
 
     /**
@@ -97,18 +98,12 @@ class RoomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $room = Room::find($id);
-        $room->location = $request->location;
-        $room->name = $request->name;
-        $room->number_of_computer = $request->number_of_computer;
-        $room->save();
-        return $room;
-        // $this->validator($request);
-        // $input = $request->all();
+         $this->validator($request);
+         $input = $request->all();
 
-        // $this->model->updateWhere($input, ['id', '=', $id]);
+         $result = $this->model->updateById($input, $id);
 
-        // return redirect()->route('admin.import.room')->with('message', 'Edit successfully');;
+         return $result;
     }
 
     /**
@@ -119,24 +114,8 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
-        $this->model->deleteById($id);
-            return "OK";
-        // return redirect()->route('admin.import.room')->with('message', 'Delete successfully');
+        $result = $this->model->deleteById($id);
+
+        return $result;
     }
-
-    public function showRoomImportForm()
-    {
-        $records = $this->model->getAll();
-
-        return view('admin.import', ['route' => route('admin.import.room'), 'table' => 'roomTable', 'records' => $records->toJson()]);
-        // var_dump($records->toJson());
-    }
-
-    public function test() {
-        $records = $this->model->getAll();
-
-        return response()->json($records)
-                        ->header('Content-Type', 'application/json');
-    }
-
 }

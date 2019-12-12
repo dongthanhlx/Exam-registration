@@ -25,7 +25,11 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('admin.import', [
+            'route' => route('admin.import.subject'),
+            'table' => 'subjectTable'
+        ]);
     }
 
     /**
@@ -74,21 +78,18 @@ class SubjectController extends Controller
      */
     public function show($id)
     {
-        $subject = $this->model->getByID($id);
-        return $subject->toJson();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
         $record = $this->model->getByID($id);
 
-        return view('admin.edit', ['record' => $record, 'form' => 'subject']);
+        return response()->json($record)
+                ->header('Content-Type', 'application/json; charset=UTF-8');
+    }
+
+    public function showAll()
+    {
+        $all = $this->model->getAll();
+
+        return response()->json($all)
+                ->header('Content-Type', 'application/json; charset=UTF-8');
     }
 
     /**
@@ -103,8 +104,9 @@ class SubjectController extends Controller
         $this->validator($request);
         $input = $request->all();
 
-        $this->model->updateWhere($input, ['id', '=', $id]);
-        return redirect()->route('admin.import.subject')->with('message', 'Edit Successfully');
+        $result = $this->model->updateById($input, $id);
+
+        return $result;
     }
 
     /**
@@ -115,15 +117,8 @@ class SubjectController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('subjects')
-            ->delete($id);
-        return redirect()->route('admin.import.subject')->with('message', 'Delete Successfully');
-    }
+        $result = $this->model->deleteById($id);
 
-    public function showSubjectImportForm()
-    {
-        $records = $this->model->getAll();
-
-        return view('admin.import', ['route' => route('admin.import.subject'), 'table' => 'subjectTable', 'records' => $records]);
+        return $result;
     }
 }
