@@ -42,5 +42,9 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.room.index') }}">Địa điểm</a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.room.index') }}">Kết quả đăng ký</a>
+        </li>
     </ul>
 </div>

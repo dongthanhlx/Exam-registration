@@ -32,18 +32,18 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="location">Họ và tên đệm</label>
-                    <input type="text" id="location" name="location" class="form-control mt-2" v-model="editingStudentAccount.first_name" >
+                    <label for="firstName">Họ và tên đệm</label>
+                    <input type="text" id="firstName" name="first_name" class="form-control mt-2" v-model="editingStudentAccount.first_name" >
                 </div>
 
                 <div class="form-group">
                     <label for="name">Tên</label>
-                    <input type="text" id="name" name="name" class="form-control mt-2" v-model="editingStudentAccount.last_name" >
+                    <input type="text" id="name" name="last_name" class="form-control mt-2" v-model="editingStudentAccount.last_name" >
                 </div>
 
                 <div class="form-group">
-                    <label for="numberOfCredits">Email</label>
-                    <input type="number" id="numberOfCredits" name="number_of_computer" class="form-control mt-2" v-model="editingStudentAccount.email" >
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" class="form-control mt-2" v-model="editingStudentAccount.email" >
                 </div>
 
             </div>

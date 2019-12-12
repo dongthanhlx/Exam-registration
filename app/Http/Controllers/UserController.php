@@ -62,7 +62,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validator($request);
+        // $this->validator($request);
         $input = $request->all();
         $result = $this->model->updateById($input, $id);
 
