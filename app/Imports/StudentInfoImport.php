@@ -18,10 +18,6 @@ class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation
      */
     public function model(array $row)
     {
-        if (!$this->validation($row)) {
-            return redirect()->route('admin.import.StudentInfo')->withErrors('File Not successful')->withInput();
-        }
-
         $email = $row['email'];
         $studentCode = $row['student_code'];
         if ($studentCode != null) return null;
