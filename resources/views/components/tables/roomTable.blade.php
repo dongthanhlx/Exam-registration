@@ -9,8 +9,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr v-for="(row, index) in rows">
-        <td>@{{ index+1  }}</td>
+    <tr v-for="row in rows">
+        <td>@{{row.id}}</td>
         <td>@{{row.location}}</td>
         <td>@{{row.name}}</td>
         <td>@{{row.number_of_computer}}</td>
@@ -78,7 +78,10 @@
 </div>
 
 
+
+
 <script>
+
     const App = new Vue({
         el: '#app',
         data: {
@@ -92,6 +95,7 @@
                 axios.get('/admin/allRoom')
                     .then((response) => {
                         this.rows = response.data;
+                        console.log(this.rows);
                     })
                     .catch(function (error) {
 
@@ -99,10 +103,9 @@
             },
             deleteRoom(roomId) {
                 this.$refs.delete.click();
-                axios.delete('/admin/room/' +roomId).then(res => {
+                axios.delete('/admin/room/' +roomId).then(res =>{
 
                     this.getAllRooms();
-
                 }).catch(err =>{
                     console.log(err);
                 });
@@ -110,6 +113,7 @@
             getRoom(roomId) {
                 axios.get('/admin/room/' + roomId).then(res => {
                     this.editingRoom = res.data;
+
                 })
             },
             editRoom(roomId) {
@@ -123,5 +127,4 @@
             this.getAllRooms();
         }
     })
-
 </script>
