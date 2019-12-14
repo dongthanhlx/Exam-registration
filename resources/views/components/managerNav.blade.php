@@ -20,8 +20,8 @@
 
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li>
-                    <a class="dropdown-item" href="{{ route('admin.import.subject') }}">Môn học</a>
-                    <a class="dropdown-item" href="{{ route('admin.import.SubjectClass') }}">Học phần</a>
+                    <a class="dropdown-item" href="{{ route('admin.subject.index') }}">Môn học</a>
+                    <a class="dropdown-item" href="{{ route('admin.SubjectClass.index') }}">Học phần</a>
                 </li>
             </ul>
         </li>
