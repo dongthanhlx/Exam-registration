@@ -14,7 +14,7 @@ class SubjectController extends Controller
 
     public function __construct()
     {
-        // $this->middleware('auth:admin');
+        $this->middleware('auth:admin');
         $this->model = new Subject();
     }
 
@@ -120,5 +120,12 @@ class SubjectController extends Controller
         $result = $this->model->deleteById($id);
 
         return $result;
+    }
+
+    public function getByYearAndSemester($year, $semester)
+    {
+        $records = $this->model->getByYearAndSemester($year, $semester);
+
+        return response()->json($records);
     }
 }

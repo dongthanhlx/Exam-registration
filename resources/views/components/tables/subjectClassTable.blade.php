@@ -1,3 +1,23 @@
+<label for="year">Năm học</label>                     
+    <select v-model="years.year" name="year" >
+            <option value="0">--Chọn năm học</option>
+            <option v-for="year in years" v-model= year >@{{ year.year }}</option>
+        </select>
+<br>
+
+<label for="semester">Học kỳ</label>                     
+    <select name="semester" id="semester" class="form-control" v-model="selected" @click="">
+            <option>--Chọn học kỳ</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+    </select>
+
+    
+ <br>
+ <div>
+     Selected value is : @{{ years.year }}
+ </div>
+
 <table class="table table-hover">
     <thead>
     <tr>
@@ -87,12 +107,26 @@
     const App = new Vue({
         el: '#app',
         data: {
+            selected='',
             deletingSubjectId:'',
             editingSubject: {},
+            years:[],
             rows:[
             ]
         },
         methods: {
+
+            getSchoolYear(){
+                axios.get('/admin/allYear')
+                    .then((response) => {
+                        this.years = response.data;
+                        console.log(this.years);
+                    })
+                    .catch(function (error) {
+
+                    });
+            },
+
             getAllSubjects() {
                 axios.get('/admin/allSubject')
                     .then((response) => {
@@ -125,7 +159,8 @@
             }
         },
         created () {
-            this.getAllSubjects();
+            this.getSchoolYear();
+            // this.getAllSubjects();
         }
     })
 </script>

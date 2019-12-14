@@ -57,5 +57,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('allStudent', 'StudentController@showAll')->name('allStudent');
     Route::get('allSubject', 'SubjectController@showAll')->name('allSubject');
     Route::get('allYear', 'ExamController@allYear')->name('allYear');
+    Route::get('allSubjectByExam', 'SubjectController@getByYearAndSemester/{year}/{semester}')->name('allSubjectByExam');
 });
 

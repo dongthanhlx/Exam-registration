@@ -37,6 +37,17 @@
         </div>
 
         <div class="form-group">
+            <label for="subject">Môn thi</label>
+            <select name="subject" id="subject" class="form-control mt-2">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="duration">Thời lượng</label>
+            <input name="subject" id="subject" class="form-control mt-2">
+        </div>
+
+        <div class="form-group">
             <label for="examshift">Ca thi</label>
             <select name="examshift" id="examshift" class="form-control mt-2">
                 <option value="1" disabled>1</option>
@@ -70,23 +81,65 @@
 </div>
 
 <script>
-    
-    function createOption(id,arr){
-        var select = document.getElementById(id);
-        // arr = ["html","css","java","javascript","php","c++","node.js","ASP","JSP","SQL"];
-             
-             for (var i = 0; i < arr.length; i++)
-             {
-                 var option = document.createElement("OPTION"),
-                     txt = document.createTextNode(arr[i]);
-                 option.appendChild(txt);
-                 option.setAttribute("value",arr[i]);
-                 select.insertBefore(option,select.lastChild);
-             }
-    }
-    var array=["3","4","5"];
-    createOption("room",array);
-</script>
-<script>
+    const App = new Vue({
+        el: '#app',
+        data: {
+            selected:'',
+            deletingSubjectId:'',
+            editingSubject: {},
+            years:[],
+            rows:[
+            ]
+        },
+        methods: {
+            
 
+            getSchoolYear(){
+                axios.get('/admin/allYear')
+                    .then((response) => {
+                        this.years = response.data;
+                        console.log(this.years);
+                    })
+                    .catch(function (error) {
+
+                    });
+            },
+
+            getSubjectsByYearAndSemester(year,semester) {
+                console.log(year, semester);
+                axios.get('/admin/all/allSubjectByExam/' + year + "/" + semester )
+                    .then((response) => {
+                        this.rows = response.data;
+                    })
+                    .catch(function (error) {
+
+                    });
+            },
+            deleteSubject(subjectId) {
+                this.$refs.delete.click();
+                axios.delete('/admin/subject/' +subjectId).then(res =>{
+
+                    this.getSubjectsByYearAndSemester();
+                }).catch(err =>{
+                    console.log(err);
+                });
+            },
+            getSubject(subjectId) {
+                axios.get('/admin/subject/' + subjectId).then(res => {
+                    this.editingSubject = res.data;
+
+                })
+            },
+            editSubject(subjectId) {
+                axios.put('/admin/subject/' + subjectId, this.editingSubject).then(res => {
+                    this.$refs.close.click();
+                    this.getSubjectsByYearAndSemester();
+                })
+            }
+        },
+        created () {
+            // this.getSubjectsByYearAndSemester();
+            this.getSchoolYear();
+        }
+    })
 </script>
