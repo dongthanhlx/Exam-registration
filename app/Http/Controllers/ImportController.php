@@ -14,7 +14,7 @@ class ImportController extends AdminController
 
     public function __construct()
     {
-        $this->middleware('auth:admin');
+        // $this->middleware('auth:admin');
     }
 
     public function studentAccount()

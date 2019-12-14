@@ -16,7 +16,7 @@ class SubjectClassController extends Controller
     public function __construct()
     {
         $this->model = new SubjectClass();
-        $this->middleware('auth:admin');
+        // $this->middleware('auth:admin');
     }
 
 

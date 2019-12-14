@@ -13,7 +13,7 @@ class ExamController extends Controller
     public function __construct()
     {
         $this->model = new Exam();
-        $this->middleware('auth:admin');
+        // $this->middleware('auth:admin');
     }
 
     /**

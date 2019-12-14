@@ -10,9 +10,9 @@
         <div class="collapse navbar-collapse my-2 my-sm-0 position-relative" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
 
-            @if (Auth::user())
+            <!-- @if (Auth::user()) -->
                 @include('components.managerNav')
-            @endif
+            <!-- @endif -->
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav position-absolute" style="right: 0;">
                 <!-- Authentication Links -->
