@@ -5,8 +5,9 @@ namespace App\Imports;
 use App\StudentDetailSubjectClass;
 use App\SubjectClass;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class StudentNotEligibleImport implements ToModel
+class StudentNotEligibleImport implements ToModel, WithValidation
 {
     /**
      * @param array $row
@@ -23,9 +24,17 @@ class StudentNotEligibleImport implements ToModel
 
         return new StudentDetailSubjectClass([
             'student_code' => $row['student_code'],
-            'subject_class_id' => $subjectClassID,
-            'contest_conditions' => $row['contest_conditions'],
-            'comments' => $row['comments'],
+            'subject_class_id' => $subjectClassID
         ]);
     }
+
+    public function rules(): array
+    {
+        return [
+            'subject_code' => 'required',
+            'serial' => 'required|numeric',
+            'student_code' => 'required'
+        ];
+    }
+
 }

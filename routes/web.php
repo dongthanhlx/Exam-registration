@@ -41,6 +41,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::post('subject', 'ImportController@subject')->name('subject');
         Route::post('room', 'ImportController@room')->name('room');
         Route::post('SubjectClass', 'ImportController@subjectClass')->name('SubjectClass');
+        Route::post('StudentOfSubjectClass', 'ImportController@studentOfSubjectClass')->name('StudentOfSubjectClass');
     });
 
     Route::resource('student', 'StudentController');
@@ -55,6 +56,5 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('allAccount', 'UserController@showAll')->name('allAccount');
     Route::get('allStudent', 'StudentController@showAll')->name('allStudent');
     Route::get('allSubject', 'SubjectController@showAll')->name('allSubject');
-
 });
 
