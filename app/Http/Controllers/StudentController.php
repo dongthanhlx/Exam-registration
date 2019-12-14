@@ -41,7 +41,7 @@ class StudentController extends Controller
 
     public function show($id)
     {
-        $record = $this->model->getById($id);
+        $record = $this->model->getInfoStudentByID($id);
 
         return response()->json($record)
                 ->header('Content-Type', 'application/json; charset=UTF-8');
@@ -49,7 +49,7 @@ class StudentController extends Controller
 
     public function showAll()
     {
-        $all = $this->model->getAll();
+        $all = $this->model->getAllInfo();
 
         return response()->json($all)
                 ->header('Content-Type', 'application/json; charset=UTF-8');
@@ -79,7 +79,7 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $result = $this->model->deleteById(['id', '=', $id]);
+        $result = $this->model->deleteById($id);
 
         return $result;
     }

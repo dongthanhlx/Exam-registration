@@ -21,7 +21,7 @@
         <td>@{{row.student_code}}</td>
         <td>@{{row.class}}</td>
         <td>
-            <button @click="deletingStudentAccountId = row.id" data-toggle="modal" data-target="#deleteModal">Delete</button>
+            <button @click="deletingStudentInfoId = row.id" data-toggle="modal" data-target="#deleteModal">Delete</button>
             <button @click="getStudentAccount(row.id)" data-toggle="modal" data-target="#editModal">Edit</button>
         </td>
     </tr>
@@ -41,23 +41,46 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="firstName">Họ và tên đệm</label>
-                    <input type="text" id="firstName" name="first_name" class="form-control mt-2" v-model="editingStudentAccount.first_name" >
+                    <input type="text" id="firstName" name="first_name" class="form-control mt-2" v-model="editingStudentInfo.first_name" disabled>
                 </div>
 
                 <div class="form-group">
                     <label for="name">Tên</label>
-                    <input type="text" id="name" name="last_name" class="form-control mt-2" v-model="editingStudentAccount.last_name" >
+                    <input type="text" id="name" name="last_name" class="form-control mt-2" v-model="editingStudentInfo.last_name" disabled>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" id="email" name="email" class="form-control mt-2" v-model="editingStudentAccount.email" >
+                    <label for="birthday">Ngày sinh</label>
+                    <input type="text" id="birthday" name="birthday" class="form-control mt-2" v-model="editingStudentInfo.birthday" >
+                </div>
+                <div class="form-group">    
+                    <label for="gender">Giới tính</label>
+                            <template v-if="editingStudentInfo.gender === 'nam'">
+                        <select name="gender" id="gender" class="form-control mt-2">
+                                <option value="nam">Nam</option>
+                                <option value="nữ">Nữ</option>
+                            </template>
+                            <template v-else>
+                        <select name="gender" id="gender" class="form-control mt-2">
+                                <option value="nữ">Nữ</option>
+                                <option value="nam">Nam</option>
+                            </template>
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="studentCode">Mã sinh viên</label>
+                    <input type="text" id="studentCode" name="studentCode" class="form-control mt-2" v-model="editingStudentInfo.student_code" >
+                </div>
+
+                <div class="form-group">
+                    <label for="class">Lớp</label>
+                    <input type="text" id="class" name="class" class="form-control mt-2" v-model="editingStudentInfo.class" >
                 </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" ref="close" data-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-primary" @click="editStudentAccount(editingStudentAccount.id)">Sửa</button>
+                <button type="button" class="btn btn-primary" @click="editStudentAccount(editingStudentInfo.id)">Sửa</button>
             </div>
         </div>
     </div>
@@ -77,7 +100,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" ref="delete" data-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-primary" @click="deleteStudentAccount(deletingStudentAccountId)">Xoá</button>
+                <button type="button" class="btn btn-primary" @click="deleteStudentInfo(deletingStudentInfoId)">Xoá</button>
             </div>
         </div>
     </div>
@@ -91,13 +114,13 @@
     const App = new Vue({
         el: '#app',
         data: {
-            deletingStudentAccountId:'',
-            editingStudentAccount: {},
+            deletingStudentInfoId:'',
+            editingStudentInfo: {},
             rows:[
             ]
         },
         methods: {
-            getAllStudentAccounts() {
+            getAllStudentInfo() {
                 axios.get('/admin/allStudent')
                     .then((response) => {
                         this.rows = response.data;
@@ -107,30 +130,30 @@
 
                     });
             },
-            deleteStudentAccount(studentAccountId) {
+            deleteStudentInfo(studentInfoId) {
                 this.$refs.delete.click();
-                axios.delete('/admin/student/' +studentAccountId).then(res =>{
+                axios.delete('/admin/student/' +studentInfoId).then(res =>{
 
-                    this.getAllStudentAccounts();
+                    this.getAllStudentInfo();
                 }).catch(err =>{
                     console.log(err);
                 });
             },
-            getStudentAccount(studentAccountId) {
-                axios.get('/admin/student/' + studentAccountId).then(res => {
-                    this.editingStudentAccount = res.data;
+            getStudentAccount(studentInfoId) {
+                axios.get('/admin/student/' + studentInfoId).then(res => {
+                    this.editingStudentInfo = res.data;
 
                 })
             },
-            editStudentAccount(studentAccountId) {
-                axios.put('/admin/student/' + studentAccountId, this.editingStudentAccount).then(res => {
+            editStudentAccount(studentInfoId) {
+                axios.put('/admin/student/' + studentInfoId, this.editingStudentInfo).then(res => {
                     this.$refs.close.click();
-                    this.getAllStudentAccounts();
+                    this.getAllStudentInfo();
                 })
             }
         },
         created () {
-            this.getAllStudentAccounts();
+            this.getAllStudentInfo();
         }
     })
 </script>
