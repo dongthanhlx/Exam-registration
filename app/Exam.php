@@ -49,11 +49,25 @@ class Exam extends BaseModel
         }
     }
 
-    public function getBySemesterAndYear($semester, $year)
+    public function allSubjectOfExam($exam)
+    {
+        $exam_id = $exam->id;
+
+        return DB::table('exams')
+            ->where('id', '=', $exam_id)
+            ->join('exams_subjects',
+                'exams.id', '=', 'exams_subjects.exam_id')
+            ->join('subjects',
+                'subjects.id', '=', 'exams_subjects.subject_id')
+            ->select('subjects.*')
+            ->get();
+    }
+
+    public function allYear()
     {
         return DB::table('exams')
-                ->where(['semester', '=', $semester], ['year', '=', $year])
-                ->get()
-                ->first();
+            ->select('year')
+            ->distinct()
+            ->get();
     }
 }

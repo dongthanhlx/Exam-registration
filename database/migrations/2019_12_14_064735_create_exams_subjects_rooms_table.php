@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoomsExamShiftsTable extends Migration
+class CreateExamsSubjectsRoomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateRoomsExamShiftsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rooms_exam_shifts', function (Blueprint $table) {
+        Schema::create('exams_subjects_rooms', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('exam_shift_id');
+            $table->integer('exams_subject_id');
             $table->integer('room_id');
+            $table->integer('start_time');
+            $table->integer('finish_time');
             $table->integer('create_by')->nullable()->default(1);
             $table->timestamps();
         });
@@ -29,6 +31,6 @@ class CreateRoomsExamShiftsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rooms_exam_shifts');
+        Schema::dropIfExists('exams_subjects_rooms');
     }
 }

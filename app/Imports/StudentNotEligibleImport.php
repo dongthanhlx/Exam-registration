@@ -24,7 +24,9 @@ class StudentNotEligibleImport implements ToModel, WithValidation
 
         return new StudentDetailSubjectClass([
             'student_code' => $row['student_code'],
-            'subject_class_id' => $subjectClassID
+            'subject_class_id' => $subjectClassID,
+            'comments' => $row['comments'],
+            'contest_conditions' => $row['contest_conditions']
         ]);
     }
 
@@ -32,8 +34,10 @@ class StudentNotEligibleImport implements ToModel, WithValidation
     {
         return [
             'subject_code' => 'required',
-            'serial' => 'required|numeric',
-            'student_code' => 'required'
+            'serial' => 'required',
+            'student_code' => 'required',
+            'comments' => 'required',
+            'contest_conditions' => 'required'
         ];
     }
 

@@ -92,3 +92,4 @@ class Student extends BaseModel
         return $result;
     }
 }
+

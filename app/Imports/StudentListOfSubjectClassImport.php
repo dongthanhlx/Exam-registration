@@ -6,8 +6,9 @@ use App\StudentDetailSubjectClass;
 use App\SubjectClass;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class StudentListOfSubjectClassImport implements ToModel, WithHeadingRow
+class StudentListOfSubjectClassImport implements ToModel, WithHeadingRow, WithValidation
 {
     /**
      * @param array $row
@@ -22,4 +23,14 @@ class StudentListOfSubjectClassImport implements ToModel, WithHeadingRow
             'serial' => $row['serial']
         ]);
     }
+
+    public function rules(): array
+    {
+        return [
+            'student_code' => 'required',
+            'subject_code' => 'required',
+            'serial' => 'required'
+        ];
+    }
+
 }

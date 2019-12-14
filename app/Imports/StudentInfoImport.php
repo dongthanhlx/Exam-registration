@@ -19,8 +19,6 @@ class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation
     public function model(array $row)
     {
         $email = $row['email'];
-        $studentCode = $row['student_code'];
-        if ($studentCode != null) return null;
         
         $userModel = new User();
         $user = $userModel->getByEmail($email);
@@ -42,7 +40,7 @@ class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation
             'birthday' => 'required',
             'class' => 'required',
             'gender' => 'required',
-            'email' => 'unique:users,email'
+            'email' => 'required'
         ];
     }
 
