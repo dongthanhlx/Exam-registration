@@ -13,24 +13,6 @@ class Student extends BaseModel
     protected $fillable = [
         'student_code', 'birthday', 'class', 'gender', 'user_id', 'create_by'
     ];
-/*
-    public function getObjectCollection($students): Collection
-    {
-        $collection = new Collection();
-
-        foreach ($students as $student)
-        {
-            $studentCode = $student->student_code;
-            $birthday    = $student->birthday;
-            $class       = $student->class;
-            $gender      = $student->gender;
-
-            $collection->add(new Student($studentCode, $birthday, $class, $gender));
-        }
-
-        return $collection;
-    }
-*/
 
     public function getStudentByStudentCode($studentCode)
     {

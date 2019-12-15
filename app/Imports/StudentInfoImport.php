@@ -27,6 +27,7 @@ class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation
         $user = $userModel->getByEmail($email);
         if ($user == null) return null;
         $user_id = $user->id;
+
         return new Student([
             'student_code'  => $row['student_code'],
             'birthday'      => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['birthday']),
