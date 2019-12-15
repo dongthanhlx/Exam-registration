@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Exam;
+use App\Subject;
 use App\SubjectClass;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -20,13 +21,19 @@ class SubjectClassImport implements ToModel, WithHeadingRow, WithValidation
         $semester = $row['semester'];
         $year = $row['year'];
 
-        $model = new Exam();
-        $exam = $model->getBySemesterAndYear($semester, $year);
+        $examModel = new Exam();
+        $exam = $examModel->getByYearAndSemester($year, $semester);
+
         if ($exam == null) return null;
         $exam_id = $exam->id;
 
+        $subjectCode = $row['subject_code'];
+        $subjectModel = new Subject();
+        $subject = $subjectModel->getBySubjectCode($subjectCode);
+        if ($subject == null) return null;
+
         return new SubjectClass([
-            'subject_code' => $row['subject_code'],
+            'subject_code' => $subjectCode,
             'serial' => $row['serial'],
             'teacher' => $row['teacher'],
             'maximum_number_of_student' => $row['maximum_number_of_student'],

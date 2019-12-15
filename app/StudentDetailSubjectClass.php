@@ -12,17 +12,6 @@ class StudentDetailSubjectClass extends BaseModel
         'student_code', 'subject_code', 'serial', 'contest_conditions', 'comments'
     ];
 
-    public function studentOfSubject($subject)
-    {
-        $subjectCode = $subject->subject_code;
-        return DB::table('subjects')
-                ->where('subjects.subject_code', '=', $subjectCode)
-                ->join('student_details_subject_classes', 'subjects.subject_code', '=', 'student_details_subject_classes.subject_code')
-                ->join('student_details', 'student_details_subject_classes.student_code', '=', 'student_details.student_code')
-                ->select('student_details.*')
-                ->get();
-    }
-
     public function studentsWithContestConditions($contestConditions)
     {
         return DB::table('student_details_subject_classes')
@@ -45,7 +34,7 @@ class StudentDetailSubjectClass extends BaseModel
 
     public function studentsNotEligibleContestConditionsOfSubject($subject)
     {
-        $subjectCode = $subject->codde;
+        $subjectCode = $subject->code;
         return DB::table('subjects')
                 ->where('subject_code', '=', $subjectCode)
                 ->join('student_details_subject_classes',

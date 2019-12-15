@@ -22,6 +22,13 @@
     </tbody>
 </table>
 
+<label for="year">Năm học</label>
+<select v-model="yearSelected" name="year">
+    <option value="">--Chọn năm học</option>
+    <option v-for="year in years">@{{ year.year }}</option>
+</select>
+<br>
+
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -77,11 +84,7 @@
     </div>
 </div>
 
-
-
-
 <script>
-
     const App = new Vue({
         el: '#app',
         data: {
@@ -120,7 +123,8 @@
                     this.$refs.close.click();
                     this.getAllRooms();
                 })
-            }
+            },
+
         },
         created () {
             this.getAllRooms();

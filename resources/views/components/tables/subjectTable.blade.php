@@ -9,7 +9,6 @@
             <option value="2">2</option>
     </select>
 
-
 <table class="table table-hover">
     <thead>
     <tr>
@@ -33,6 +32,20 @@
     </tr>
     </tbody>
 </table>
+
+<label for="year">Năm học</label>
+<select v-model="yearSelected" name="year" >
+    <option value="">--Chọn năm học</option>
+    <option v-for="year in years" >@{{ year.year }}</option>
+</select>
+<br>
+
+<label for="semester">Học kỳ</label>
+<select name="semester" id="semester" class="form-control" v-model="semesterSelected" @click="getSubjectsByYearAndSemester(yearSelected, semesterSelected)">
+    <option value="">--Chọn học kỳ</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+</select>
 
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -96,37 +109,29 @@
     const App = new Vue({
         el: '#app',
         data: {
+            yearSelected: '',
+            semesterSelected: '',
             deletingSubjectId:'',
             editingSubject: {},
-            years[],
+            years: [],
             rows:[
             ]
         },
         methods: {
             getSchoolYear(){
-                axios.get('/admin/allYear')
+                axios.get('/admin/all/year')
                     .then((response) => {
-                        this.year = response.data;
-                        console.log(response.data);
-                        // var select = document.getElementById("select"),
-                        // arr = ["html","css","java","javascript","php","c++","node.js","ASP","JSP","SQL"];
-                
-                        // for(var i = 0; i < arr.length; i++)
-                        // {
-                        //     var option = document.createElement("OPTION"),
-                        //         txt = document.createTextNode(arr[i]);
-                        //     option.appendChild(txt);
-                        //     option.setAttribute("value",arr[i]);
-                        //     select.insertBefore(option,select.lastChild);
-                        // }
+                        this.years = response.data;
+                        console.log(this.years);
                     })
                     .catch(function (error) {
 
                     });
             },
 
-            getSubjectsByYear(year,semester) {
-                axios.get('/admin/allSubject' + year,semester )
+            getSubjectsByYearAndSemester(year, semester) {
+                console.log(year + semester);
+                axios.get('/admin/all/subjectOfExam/' + year +"/"+ semester )
                     .then((response) => {
                         this.rows = response.data;
                     })
@@ -138,7 +143,7 @@
                 this.$refs.delete.click();
                 axios.delete('/admin/subject/' +subjectId).then(res =>{
 
-                    this.getSubjectsByYear();
+                    this.getSchoolYear();
                 }).catch(err =>{
                     console.log(err);
                 });

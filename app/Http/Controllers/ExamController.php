@@ -107,4 +107,10 @@ class ExamController extends Controller
         //
     }
 
+    public function allYear()
+    {
+        $result = $this->model->allYear();
+
+        return response()->json($result);
+    }
 }

@@ -58,11 +58,20 @@ class Subject extends BaseModel
     public function getByYearAndSemester($year, $semester)
     {
         return DB::table('exams')
-            ->where(['year', '=', $year], ['semester', '=', $semester])
-            ->join('exams_subjects',
-                'exams.id', '=', 'exams_subjects.exam_id')
+            ->where([['year', '=', $year], ['semester', '=', $semester]])
+            ->join('subject_classes',
+                'exams.id', '=', 'subject_classes.exam_id')
             ->join('subjects',
-                'exams_subjects.subject_id', '=', 'subjects.id')
+                'subject_classes.subject_code', '=', 'subjects.subject_code')
+            ->select('subjects.*')
             ->get();
+    }
+
+    public function getBySubjectCode($subjectCode)
+    {
+        DB::table('subjects')
+            ->where('subject_code', '=', $subjectCode)
+            ->get()
+            ->first();
     }
 }
