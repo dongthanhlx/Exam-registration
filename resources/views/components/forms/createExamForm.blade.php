@@ -17,8 +17,9 @@
         @csrf
         <div class="form-group">
             <label for="name">Kỳ thi</label>
-            <input type="text" id="name" name="name" class="form-control mt-2" value="Thi cuối kỳ" readonly />
+            <input type="text" id="name" name="name" class="form-control mt-2" value="Thi cuối kỳ" readonly/>
         </div>
+
         <div class="form-group">
             <label for="semester">Học kỳ</label>
             <select name="semester" id="semester" class="form-control mt-2">
@@ -26,6 +27,7 @@
                 <option value="2">2</option>
             </select>
         </div>
+
         <div class="form-group">    
             <label for="year">Năm học</label>
             <select name="year" id="year" class="form-control mt-2">
@@ -40,7 +42,7 @@
                 <option value="2021-2022">2021-2022</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-outline-primary rounded">Create</button>
-    </form>
 
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
 </div>

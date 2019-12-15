@@ -4,11 +4,15 @@ namespace App\Imports;
 
 use App\Student;
 use App\User;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Validators\Failure;
+use Throwable;
 
-class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation
+class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
 {
 
     /**
@@ -42,5 +46,4 @@ class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation
             'email' => 'required'
         ];
     }
-
 }

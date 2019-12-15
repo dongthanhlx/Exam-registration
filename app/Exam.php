@@ -15,15 +15,11 @@ class Exam extends BaseModel
 
     public function store($input)
     {
-        try {
-            $this->saveOrFail([
-                'name' => $input['name'],
-                'semester' => $input['semester'],
-                'year' => $input['year']
-            ]);
-        } catch (\Throwable $e) {
-            return back()->withErrors('Exam exists')->withInput();
-        }
+        $this::firstOrCreate([
+            'name' => $input['name'],
+            'semester' => $input['semester'],
+            'year' => $input['year']
+        ]);
     }
 
     public function allYear()

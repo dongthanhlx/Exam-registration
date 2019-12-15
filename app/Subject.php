@@ -64,6 +64,7 @@ class Subject extends BaseModel
             ->join('subjects',
                 'subject_classes.subject_code', '=', 'subjects.subject_code')
             ->select('subjects.*')
+            ->distinct()
             ->get();
     }
 

@@ -32,16 +32,14 @@ class UserController extends Controller
     {
         $record = $this->model->getWhere(['id', '=', $id]);
 
-        return response()->json($record)
-                ->header('Content-Type', 'application/json; charset=UTF-8');
+        return response()->json($record, 200);
     }
 
     public function showAll()
     {
         $all = $this->model->allAccount();
 
-        return response()->json($all)
-            ->header('Content-Type', 'application/json; charset=UTF-8');
+        return response()->json($all, 200);
     }
 
     public function validator(Request $request)
