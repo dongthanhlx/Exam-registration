@@ -19,14 +19,8 @@
     </div>
 
     <div class="col">
-        <label for="subject">Môn học</label>
+        <label for="subject">Môn thi</label>
         <select name="subject" id="subject" v-model="selected" @click="getStudentsBySubject(years.year,selected)" class="form-control">
-        </select>
-    </div>
-
-    <div class="col">
-        <label for="subject_class">Lớp học phần</label>
-        <select name="subject_class" id="subject_class" v-model="selected" @click="getStudentsBySubjectClass(years.year,selected)" class="form-control">
         </select>
     </div>
 
@@ -41,8 +35,8 @@
         <th scope="col">#</th>
         <th scope="col">Họ và tên</th>
         <th scope="col">Mã sinh viên</th>
-        <th scope="col">Tên môn học</th>
-        <th scope="col">Mã môn học</th>
+        <th scope="col">Tên môn thi</th>
+        <th scope="col">Mã môn thi</th>
         <th scope="col">Lớp học phần</th>
         <th scope="col">Điều kiện dự thi</th>
         <th scope="col">Ghi chú</th>
