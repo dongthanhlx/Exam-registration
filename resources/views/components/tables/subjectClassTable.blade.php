@@ -23,7 +23,7 @@
             <th scope="col">Mã môn học</th>
             <th scope="col">Lớp học phần</th>
             <th scope="col">Giảng viên</th>
-            <th scope="col">Số lượng sinh viên</th>
+            <th scope="col">Số lượng sinh viên tối đa</th>
             <th scope="col">Tác vụ</th>
         </tr>
         </thead>

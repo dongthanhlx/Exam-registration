@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Validators\Failure;
 use Throwable;
 
-class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
+class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation
 {
 
     /**

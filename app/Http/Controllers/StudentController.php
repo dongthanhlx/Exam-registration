@@ -69,14 +69,6 @@ class StudentController extends Controller
         $input = $request->all();
         $result = $this->model->updateById($input, $id);
         return $result;
-/*
-        $student = Student::find($id);
-        $student->student_code = $request->student_code;
-        $student->birthday = $request->birthday;
-        $student->class = $request->class;
-        $student->gender = $request->gender;
-        $student->save();*/
-        return "OK";
     }
 
     /**

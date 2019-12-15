@@ -43,4 +43,12 @@ class Room extends BaseModel
 
         return $result;
     }
+
+    public function checkRoom($location, $name)
+    {
+        return DB::table('rooms')
+            ->where([['location', '=', $location], ['name', '=', $name]])
+            ->get()
+            ->first();
+    }
 }

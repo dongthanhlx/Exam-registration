@@ -70,7 +70,7 @@ class Subject extends BaseModel
 
     public function getBySubjectCode($subjectCode)
     {
-        DB::table('subjects')
+        return DB::table('subjects')
             ->where('subject_code', '=', $subjectCode)
             ->get()
             ->first();

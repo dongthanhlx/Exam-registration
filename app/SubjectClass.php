@@ -10,7 +10,7 @@ class SubjectClass extends BaseModel
     protected $table = 'subject_classes';
 
     protected $fillable = [
-        'subject_code', 'serial', 'teacher', 'maximum_number_of_student', 'create_by'
+        'subject_code', 'serial', 'teacher', 'maximum_number_of_student', 'exam_id', 'create_by'
     ];
 
     public function getAllSubjectClassBySubjectCode($subjectCode)

@@ -17,6 +17,12 @@ class RoomImport implements ToModel, WithHeadingRow, WithValidation
     */
     public function model(array $row)
     {
+        $location = $row['location'];
+        $name = $row['name'];
+
+        $model = new Room();
+        if (!$model->checkRoom($location, $name)) return null;
+
         return new Room([
             'location' => $row['location'],
             'name' => $row['name'],
