@@ -60,7 +60,7 @@
 
                 <div class="form-group">    
                     <label for="gender">Giới tính</label>
-                    <select name="gender" id="gender" class="form-control mt-2" >
+                    <select name="gender" id="gender" class="form-control mt-2" v-model="editingStudentInfo.gender">
                         <option value="nam">nam</option>
                         <option value="nữ">nữ</option>
                     </select>
@@ -79,7 +79,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" ref="close" data-dismiss="modal">Huỷ</button>
-                <button type="button" class="btn btn-primary" @click="editStudentAccount(editingStudentInfo.id)">Sửa</button>
+                <button type="submit" class="btn btn-primary" @click="editStudentAccount(editingStudentInfo.id)">Sửa</button>
             </div>
         </div>
     </div>
@@ -112,6 +112,7 @@
     const App = new Vue({
         el: '#app',
         data: {
+            gender: '',
             idDelete:'',
             editingStudentInfo: {},
             rows:[

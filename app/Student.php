@@ -103,5 +103,6 @@ class Student extends BaseModel
             ->select('student_details.*')
             ->get();
     }
+
 }
 
