@@ -17,23 +17,6 @@ class SubjectClass extends BaseModel
     {
         return $this->getWithCondition(['subject_code', '=', $subjectCode]);
     }
-/*
-    public function getObjectCollection($subjects): Collection
-    {
-        $collection = new Collection();
-
-        foreach ($subjects as $subject)
-        {
-            $serial = $subject->serial;
-            $teacher = $subject->teacher;
-            $maximum_number = $subject->maximum_number_of_student;
-
-            $collection->add(new SubjectClass($serial, $teacher, $maximum_number));
-        }
-
-        return $collection;
-    }
-*/
 
     public function getSubjectClassBySubjectCodeAndSerial($subjectCode, $serial)
     {
@@ -60,5 +43,14 @@ class SubjectClass extends BaseModel
             ->delete($id);
 
         return $result;
+    }
+
+    public function getByYearAndSemester($year, $semester)
+    {
+        return DB::table('exams')
+            ->where([['year', '=', $year], ['semester', '=', $semester]])
+            ->join('subject_classes',
+                'exams.id', '=', 'subject_classes.exam_id')
+            ->get();
     }
 }

@@ -52,11 +52,13 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('exam', 'ExamController');
     Route::resource('scheduling', 'SchedulingController');
 
-    Route::get('allRoom', 'RoomController@showAll')->name('allRoom');
-    Route::get('allAccount', 'UserController@showAll')->name('allAccount');
-    Route::get('allStudent', 'StudentController@showAll')->name('allStudent');
-    Route::get('allSubject', 'SubjectController@showAll')->name('allSubject');
-    Route::get('allYear', 'ExamController@allYear')->name('allYear');
-    Route::get('allSubjectByExam', 'SubjectController@getByYearAndSemester/{year}/{semester}')->name('allSubjectByExam');
+    Route::prefix('all')->name('all.')->group(function () {
+        Route::get('year', 'ExamController@allYear')->name('year');
+        Route::get('room', 'RoomController@showAll')->name('room');
+        Route::get('account', 'UserController@showAll')->name('account');
+        Route::get('student', 'StudentController@showAll')->name('student');
+        Route::get('subject', 'SubjectController@showAll')->name('subject');
+        Route::get('subjectOfExam/{year}/{semester}', 'SubjectController@getByYearAndSemester')->name('subjectOfExam');
+        Route::get('subjectClassOfExam/{year}/{semester}', 'SubjectClassController@getByYearAndSemester')->name('subjectClassOfExam');
+    });
 });
-

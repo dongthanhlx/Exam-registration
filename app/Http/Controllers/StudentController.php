@@ -46,16 +46,14 @@ class StudentController extends Controller
     {
         $record = $this->model->getInfoStudentByID($id);
 
-        return response()->json($record)
-                ->header('Content-Type', 'application/json; charset=UTF-8');
+        return response()->json($record, 200);
     }
 
     public function showAll()
     {
         $all = $this->model->getAllInfo();
 
-        return response()->json($all)
-                ->header('Content-Type', 'application/json; charset=UTF-8');
+        return response()->json($all, 200);
     }
 
     /**
@@ -70,8 +68,15 @@ class StudentController extends Controller
         $this->validator($request);
         $input = $request->all();
         $result = $this->model->updateById($input, $id);
-
         return $result;
+/*
+        $student = Student::find($id);
+        $student->student_code = $request->student_code;
+        $student->birthday = $request->birthday;
+        $student->class = $request->class;
+        $student->gender = $request->gender;
+        $student->save();*/
+        return "OK";
     }
 
     /**

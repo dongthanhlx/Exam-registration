@@ -56,7 +56,6 @@ class ExamController extends Controller
     {
         $this->validator($request);
         $input = $request->all();
-
         $this->model->store($input);
 
         return back()->with('message', 'Add Successfully');

@@ -91,5 +91,18 @@ class Student extends BaseModel
 
         return $result;
     }
+
+    public function getBySubjectClass($subjectCode, $serial)
+    {
+        return DB::table('subject_classes')
+            ->where([['student_code', '=', $subjectCode], ['serial', '=', $serial]])
+            ->join('student_details_subject_classes',
+                'subject_classes.id', '=', 'student_details_subject_classes.subject_class_id')
+            ->join('student_details',
+                'student_details.student_code', '=', 'student_details_subject_classes.student_code')
+            ->select('student_details.*')
+            ->get();
+    }
+
 }
 

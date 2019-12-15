@@ -124,8 +124,8 @@ class SubjectController extends Controller
 
     public function getByYearAndSemester($year, $semester)
     {
-        $records = $this->model->getByYearAndSemester($year, $semester);
+        $record = $this->model->getByYearAndSemester($year, $semester);
 
-        return response()->json($records);
+        return response()->json($record, 200);
     }
 }

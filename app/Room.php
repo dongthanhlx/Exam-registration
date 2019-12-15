@@ -12,21 +12,6 @@ class Room extends BaseModel
     protected $fillable = [
         'location', 'name', 'number_of_computer', 'create_by'
     ];
-/*
-    public function getObjectCollection($rooms): Collection
-    {
-        $collection      = new Collection();
-
-        foreach ($rooms as $room)
-        {
-            $name        = $room->name;
-            $numComputer = $room->number_of_computer;
-
-            $collection->add(new Room($name, $numComputer));
-        }
-
-        return $collection;
-    }*/
 
     public function roomsAtLocation($location)
     {

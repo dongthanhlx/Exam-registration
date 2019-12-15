@@ -116,4 +116,11 @@ class SubjectClassController extends Controller
 
         return $result;
     }
+
+    public function getByYearAndSemester($year, $semester)
+    {
+        $records = $this->model->getByYearAndSemester($year, $semester);
+
+        return response()->json($records, 200);
+    }
 }
