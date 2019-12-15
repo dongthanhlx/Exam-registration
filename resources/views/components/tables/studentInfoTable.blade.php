@@ -1,5 +1,5 @@
-<div class="mr-5 ml-5">
-    <table class="table table-hover">
+<div class="mr-5 ml-5 pt-4" >
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -153,6 +153,6 @@
         },
         created () {
             this.getAllStudentInfo();
-        }
+        } 
     })
-</script>
+</script> 

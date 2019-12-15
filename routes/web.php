@@ -62,5 +62,3 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('subjectClassOfExam/{year}/{semester}', 'SubjectClassController@getByYearAndSemester')->name('subjectClassOfExam');
     });
 });
-
-

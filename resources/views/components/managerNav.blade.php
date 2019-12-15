@@ -39,11 +39,11 @@
             </ul>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item mx-2">
             <a class="nav-link" href="{{ route('admin.room.index') }}">Địa điểm</a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item mx-2">
             <a class="nav-link" href="{{ route('admin.room.index') }}">Kết quả đăng ký</a>
         </li>
     </ul>

@@ -1,22 +1,24 @@
 <div class="mr-5 ml-5">
-    <div class="form-group col-md-2" >
-        <div>
+    <div class="row mb-3" >
+        <div class="col">
             <label for="year">Năm học</label>
             <select v-model="yearSelected" name="year" id="year" class="form-control">
                 <option v-for="year in years" >@{{ year.year }}</option>
             </select>
         </div>
 
-        <div>
+        <div class="col">
             <label for="semester">Học kỳ</label>
             <select name="semester" id="semester" v-model="semesterSelected" @click="getAllByYearAndSemester(yearSelected, semesterSelected)" class="form-control">
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>
         </div>
+        <div class="col"></div>
+        <div class="col-6"></div>
     </div>
 
-    <table class="table table-hover">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th scope="col">#</th>

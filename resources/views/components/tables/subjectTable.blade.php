@@ -1,22 +1,29 @@
-<div class="container">
-    <div class="form-group col-md-2" >
-        <div>
+
+<div class="container mt-3">
+
+    <div class="row mb-3">
+        <div class="col">
             <label for="year">Năm học</label>
             <select v-model="years.year" name="year" class="form-control" id="year">
                 <option v-for="year in years" >@{{ year.year }}</option>
             </select>
         </div>
 
-        <div class="form-group">
+
+        <div class="col">
             <label for="semester">Học kỳ</label>
             <select name="semester" id="semester" v-model="selected" @click="getSubjectsByYearAndSemester(years.year,selected)" class="form-control">
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>
         </div>
-    </div>
+        <div class="col"></div>
+        <div class="col-6"></div>
 
-    <table class="table table-hover">
+    </div>
+ 
+
+    <table class="table table-striped">
         <thead>
         <tr>
             <th scope="col">#</th>
