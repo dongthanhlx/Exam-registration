@@ -16,13 +16,13 @@
         @csrf
         <div class="form-group">
             <label for="year">Năm học</label>    
-            <select v-model="years.year" name="year" class="form-control mt-2">
+            <select v-model="year" name="year" class="form-control mt-2">
                 <option v-for="year in years" >@{{ year.year }}</option>
             </select>
         </div>
         <div class="form-group">
             <label for="exam">Kỳ thi</label>
-            <select name="semester" id="semester" class="form-control mt-2">
+            <select v-model="semester" name="semester" id="semester" class="form-control mt-2">
                 <option></option>
                 <option value="1">Thi cuối kỳ 1</option>
                 <option value="2">Thi cuối kỳ 2</option>
@@ -31,13 +31,14 @@
 
         <div class="form-group">
             <label for="subject">Môn thi</label>
-            <select name="subject" id="subject" class="form-control mt-2">
+            <select v-model="subject" name="subject" id="subject" class="form-control mt-2">
+                    <option v-for="subject in subjects" >@{{ subject.subject }}</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="duration">Thời lượng</label>
-            <select name="duration" id="duration" class="form-control mt-2">
+            <select v-model="duration" name="duration" id="duration" class="form-control mt-2">
                 <option value="45">45 phút</option>
                 <option value="90">90 phút</option>
                 <option value="120">120 phút</option>
@@ -45,28 +46,29 @@
             </select>
         </div>
 
+        <div class="form-group" >
+            <label for="date">Ngày thi</label>
+            <input v-model="date" type="date" id="date" name="date" class="form-control mt-2">
+        </div>
+
         <div class="form-group">
             <label for="examshift">Ca thi</label>
-            <select name="examshift" id="examshift" class="form-control mt-2">
-                
+            <select v-model="examshift" name="examshift" id="examshift" class="form-control mt-2">
+                <option v-for="examshift in examshifts" >@{{ examshift.examshift }}</option>
             </select>
         </div>
 
-        <div class="form-group" >
-            <label for="date">Ngày thi</label>
-            <input type="date" id="date" name="date" class="form-control mt-2">
-        </div>
 
         <div class="form-group">
             <label for="place">Địa điểm</label>
-            <select name="place" id="place" class="form-control mt-2">
+            <select v-model="place" name="place" id="place" class="form-control mt-2">
                 
             </select>
         </div>
 
         <div class="form-group">
             <label for="room">Phòng thi</label>
-            <select name="room" id="room" class="form-control mt-2">
+            <select v-model="room" name="room" id="room" class="form-control mt-2">
                 
             </select>
         </div>
@@ -79,15 +81,6 @@
 
 
 
-
-
-
-<script>
-    $('#datepicker').datepicker({
-            uiLibrary: 'bootstrap4'
-        });
-</script>
-
 <script>
     
     const App = new Vue({
@@ -98,14 +91,63 @@
             editingSubject: {},
             years:[],
             subjects:[],
-            rows:[
-            ]
+            examshifts:[],
+            places:[],
+            rooms:[],
+            rows:[],
+            year:null,
+            semester:null,
+            subject:null,
+            duration:null,
+            date:null,
+            examshift:null,
+            place:null,
+            room:null
+
         },
-        methods: {
+        watch:{
+            year: function(newval,oldval) {
+                if(this.semester !== null){
+                this.getSubjectsByYearAndSemester(newval, this.semester);
+                }else{
+                    document.getElementById("semester").disabled = false;
+                    console.log(newval)
+                }
+            },
+            semester: function(newval,oldval) {
+                this.getSubjectsByYearAndSemester(this.year,newval);
+            },
+            subject: function(newval,oldval){
+                
+            },
+            duration: function(newval,oldval){
+                
+            },
+            date: function(newval,oldval){
+                
+            },
+            examshift: function(newval,oldval){
+                
+            },
+            place: function(newval,oldval){
+                
+            },
             
 
+        },
+        methods: {
+            init(){
+                document.getElementById("semester").disabled = true;
+                document.getElementById("subject").disabled = true;
+                document.getElementById("duration").disabled = true;
+                document.getElementById("date").disabled = true;
+                document.getElementById("examshift").disabled = true;
+                document.getElementById("place").disabled = true;
+                document.getElementById("room").disabled = true;
+            },
+
             getSchoolYear(){
-                axios.get('/admin/allYear')
+                axios.get('/admin/all/year')
                     .then((response) => {
                         this.years = response.data;
                         console.log(this.years);
@@ -134,6 +176,7 @@
         },
         created () {
             // this.getSubjectsByYearAndSemester();
+            this.init();
             this.getSchoolYear();
         }
     })

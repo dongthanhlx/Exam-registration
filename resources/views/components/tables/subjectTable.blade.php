@@ -4,7 +4,7 @@
     <div class="row mb-3">
         <div class="col">
             <label for="year">Năm học</label>
-            <select v-model="years.year" name="year" class="form-control" id="year">
+            <select v-model="year" name="year" class="form-control" id="year">
                 <option v-for="year in years" >@{{ year.year }}</option>
             </select>
         </div>
@@ -12,7 +12,7 @@
 
         <div class="col">
             <label for="semester">Học kỳ</label>
-            <select name="semester" id="semester" v-model="selected" @click="getSubjectsByYearAndSemester(years.year,selected)" class="form-control">
+            <select name="semester" id="semester" v-model="semester" class="form-control">
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>
@@ -102,6 +102,7 @@
         </div>
     </div>
 </div>
+
 <script>
     const App = new Vue({
         el: '#app',
@@ -113,7 +114,24 @@
             editingSubject: {},
             years: [],
             rows:[
-            ]
+            ],
+            year: null,
+            semester: null
+            
+        },
+        watch:{
+            year: function(newval,oldval) {
+                if(this.semester !== null){
+                this.getSubjectsByYearAndSemester(newval, this.semester);
+                }else{
+                console.log(newval)
+                }
+            },
+            semester: function(newval,oldval) {
+                this.getSubjectsByYearAndSemester(this.year,newval);
+            },
+            
+
         },
         methods: {
             getAllYear(){
@@ -134,7 +152,7 @@
                 } else {
                     this.err = '';
                 }
-                console.log(year + semester);
+                console.log(year,semester);
                 axios.get('/admin/all/subjectOfExam/' + year +"/"+ semester )
                     .then((response) => {
                         this.rows = response.data;
@@ -142,6 +160,7 @@
                     .catch(function (error) {
 
                     });
+                
             },
             deleteSubject(subjectId) {
                 this.$refs.delete.click();
