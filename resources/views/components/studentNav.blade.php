@@ -21,13 +21,13 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
                 &nbsp;
-                <!-- <li class="nav-item mx-2">
+                <li class="nav-item mx-2">
                     <a class="nav-link" href="{{ route('admin.room.index') }}">Đăng ký thi</a>
-                </li> -->
+                </li> 
 
-                <!-- <li class="nav-item mx-2">
-                    <a class="nav-link" href="{{ route('admin.room.index') }}">Địa điểm</a>
-                </li> -->
+                <li class="nav-item mx-2">
+                    <a class="nav-link" href="{{ route('admin.room.index') }}">Kết quả đăng ký</a>
+                </li> 
             </ul>
 
             <!-- Right Side Of Navbar -->
