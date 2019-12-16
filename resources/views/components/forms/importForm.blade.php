@@ -3,6 +3,7 @@
         Import
     </button>
 </div>
+
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -12,6 +13,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <div class="card-body mx-4" >
                     <form class="md-form" action="{{ $route }}" method="POST" enctype="multipart/form-data">
@@ -22,6 +24,7 @@
                                 <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
                             </div>
                         </div>
+
                         <div class="float-right">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Import</button>
