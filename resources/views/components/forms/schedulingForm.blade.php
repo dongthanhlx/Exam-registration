@@ -53,7 +53,8 @@
         </div>
 
         <div class="form-group" >
-            <input id="datepicker" width="276" />
+            <label for="date">Ngày thi</label>
+            <input type="date" id="date" name="date" class="form-control mt-2">
         </div>
 
         <div class="form-group">

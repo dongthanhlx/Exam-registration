@@ -43,8 +43,17 @@
             <a class="nav-link" href="{{ route('admin.room.index') }}">Địa điểm</a>
         </li>
 
-        <li class="nav-item mx-2">
-            <a class="nav-link" href="{{ route('admin.room.index') }}">Kết quả đăng ký</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Kết quả đăng ký
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li>
+                    <a class="dropdown-item" href="{{ route('admin.exam.create') }}">Kết quả đăng ký học</a>
+                    <a class="dropdown-item" href="{{ route('admin.scheduling.index') }}">Kết quả đăng ký thi</a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>
