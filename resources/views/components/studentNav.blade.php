@@ -1,34 +1,45 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default navbar-static-top navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <div class="navbar-header">
 
             <!-- Collapsed Hamburger -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+            <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                 <span class="sr-only">Toggle Navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-            </button>
+            </button> -->
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+            <a class="navbar-brand" href="{{ url('/admin') }}">
+                <!-- {{ config('app.name', 'Laravel') }} -->
+                <img style="width:70px;heigh:30px" src="https://uet.vnu.edu.vn/wp-content/uploads/2019/03/logo-outline.png">
             </a>
         </div>
 
-        <div class="collapse navbar-collapse" id="app-navbar-collapse">
+        <div class="collapse navbar-collapse my-2 my-sm-0 position-relative" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
                 &nbsp;
+                <!-- <li class="nav-item mx-2">
+                    <a class="nav-link" href="{{ route('admin.room.index') }}">Đăng ký thi</a>
+                </li> -->
+
+                <!-- <li class="nav-item mx-2">
+                    <a class="nav-link" href="{{ route('admin.room.index') }}">Địa điểm</a>
+                </li> -->
             </ul>
 
             <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav position-absolute" style="right: 0;">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>
                 @else
+
+                
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->last_name }} <span class="caret"></span>
