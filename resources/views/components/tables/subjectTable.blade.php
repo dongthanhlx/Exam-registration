@@ -103,10 +103,39 @@
     </div>
 </div>
 
+
+
+
+<table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">#</th>
+            <th scope="col">Tên</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(fakeData, index) in fakeDatas">
+            <td><input type="checkbox" value=fakeData v-model="checkedNames"></td>
+            <td>@{{ index+1 }}</td>
+            <td>@{{fakeData.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <span>Môn đã chọn: @{{ checkedNames }}</span>
+
+
+
 <script>
     const App = new Vue({
         el: '#app',
+
         data: {
+            checkedNames: [],
+            fakeDatas:[{"id":"1","name":"Hung Cao"},{"id":"2","name":"Dong Thanh"},{"id":"3","name":"LoLa"}],
+            id:null,
+
             yearSelected: '',
             semesterSelected: '',
             deletingSubjectId:'',
