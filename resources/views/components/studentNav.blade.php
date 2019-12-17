@@ -2,20 +2,29 @@
     <div class="container">
         <div class="navbar-header">
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/admin') }}">
-            <!-- {{ config('app.name', 'Laravel') }} -->
-                <img style="width:70px;heigh:30px" src="https://uet.vnu.edu.vn/wp-content/uploads/2019/03/logo-outline.png">
+            <a class="navbar-brand" href="{{ url('/') }}">
+                <img style="width:70px;" src="https://uet.vnu.edu.vn/wp-content/uploads/2019/03/logo-outline.png">
             </a>
         </div>
 
         <div class="collapse navbar-collapse my-2 my-sm-0 position-relative" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
+            <ul class="nav navbar-nav position-absolute">
+                <li class="nav-item mx-2">
+                    <a class="nav-link" href="{{ route('examRegistration') }}">Đăng ký thi</a>
+                </li>
 
-        <!-- Right Side Of Navbar -->
+                <li class="nav-item mx-2">
+                    <a class="nav-link" href="{{ route('contestCard') }}">Kết quả đăng ký</a>
+                </li>
+            </ul>
+
+            <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav position-absolute" style="right: 0;">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li><a href="{{ route('login') }}">Login</a></li>
+                    <li><a href="{{ route('register') }}">Register</a></li>
                 @else
                     <li>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -24,7 +33,7 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="{{ route('admin.logout') }}"
+                                <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     Logout
@@ -40,5 +49,4 @@
             </ul>
         </div>
     </div>
-
 </nav>

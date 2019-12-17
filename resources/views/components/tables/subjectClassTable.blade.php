@@ -2,14 +2,14 @@
     <div class="row mb-3" >
         <div class="col">
             <label for="year">Năm học</label>
-            <select v-model="yearSelected" name="year" id="year" class="form-control">
+            <select v-model="year" name="year" id="year" class="form-control">
                 <option v-for="year in years" >@{{ year.year }}</option>
             </select>
         </div>
 
         <div class="col">
             <label for="semester">Học kỳ</label>
-            <select name="semester" id="semester" v-model="semesterSelected" @click="getAllByYearAndSemester(yearSelected, semesterSelected)" class="form-control">
+            <select name="semester" id="semester" v-model="semester" class="form-control">
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>
@@ -112,9 +112,23 @@ const App = new Vue({
         semesterSelected: '',
         idDelete: '',
         editingSubjectClass: {},
+        year:null,
+        semester:null,
         years:[],
         rows:[
         ]
+    },
+    watch:{
+            year: function(newval,oldval) {
+                if(this.semester !== null){
+                this.getAllByYearAndSemester(newval, this.semester);
+                }else{
+                console.log(newval)
+                }
+            },
+            semester: function(newval,oldval) {
+                this.getAllByYearAndSemester(this.year,newval);
+            }
     },
     methods: {
         getAllYear(){
@@ -128,6 +142,7 @@ const App = new Vue({
                 });
         },
         getAllByYearAndSemester(year, semester) {
+            console.log(year,semester);
             axios.get('/admin/all/subjectClassOfExam/' + year + "/" + semester).then(res => {
                 this.rows = res.data;
             }).catch(err => {
