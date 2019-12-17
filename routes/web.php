@@ -51,14 +51,20 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('SubjectClass', 'SubjectClassController');
     Route::resource('exam', 'ExamController');
     Route::resource('scheduling', 'SchedulingController');
+    Route::resource('registrationStudy', 'RegistrationStudyController');
 
     Route::prefix('all')->name('all.')->group(function () {
         Route::get('year', 'ExamController@allYear')->name('year');
         Route::get('room', 'RoomController@showAll')->name('room');
         Route::get('account', 'UserController@showAll')->name('account');
         Route::get('student', 'StudentController@showAll')->name('student');
-        Route::get('subject', 'SubjectController@showAll')->name('subject');
+        Route::get('subject', 'SubjectController@showAll')->name('subject');/*
         Route::get('subjectOfExam/{year}/{semester}', 'SubjectController@getByYearAndSemester')->name('subjectOfExam');
         Route::get('subjectClassOfExam/{year}/{semester}', 'SubjectClassController@getByYearAndSemester')->name('subjectClassOfExam');
+        Route::get('serialOfSubjectCode/{subjectCode}', 'SubjectClassController@getSerialBySubjectCode')->name('serialOfSubjectCode');
+        Route::get('studentOfSubjectCode/{subjectCode}', 'StudentController@getBySubjectCode')->name('studentOfSubjectCode');*/
+        Route::get('subjectClassOfExam/{year}/{semester}', 'SubjectClassController@getByYearAndSemester')->name('subjectClassOfExam');
+        Route::get('studentOfSubjectCodeAndExamID/{subjectCode}/{exam_id}', 'StudentController@getBySubjectCodeAndExamID')->name('studentOfSubjectCodeAndExamID');
     });
+
 });

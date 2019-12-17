@@ -4,7 +4,7 @@
     <div class="row mb-3">
         <div class="col">
             <label for="year">Năm học</label>
-            <select v-model="years.year" name="year" class="form-control" id="year">
+            <select v-model="yearSelected" name="year" class="form-control" id="year">
                 <option v-for="year in years" >@{{ year.year }}</option>
             </select>
         </div>
@@ -12,38 +12,39 @@
 
         <div class="col">
             <label for="semester">Học kỳ</label>
-            <select name="semester" id="semester" v-model="selected" @click="getSubjectsByYearAndSemester(years.year,selected)" class="form-control">
+            <select name="semester" id="semester" v-model="selected" @click="getSubjectsByYearAndSemester(yearSelected,selected)" class="form-control">
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>
         </div>
+
         <div class="col"></div>
         <div class="col-6"></div>
-
     </div>
  
 
     <table class="table table-striped">
         <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Tên môn học</th>
-            <th scope="col">Mã môn học</th>
-            <th scope="col">Số tín chỉ</th>
-            <th scope="col">Tác vụ</th>
-        </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên môn học</th>
+                <th scope="col">Mã môn học</th>
+                <th scope="col">Số tín chỉ</th>
+                <th scope="col">Tác vụ</th>
+            </tr>
         </thead>
+
         <tbody>
-        <tr v-for="(row, index) in rows">
-            <td>@{{ index+1 }}</td>
-            <td>@{{row.name}}</td>
-            <td>@{{row.subject_code}}</td>
-            <td>@{{row.number_of_credits}}</td>
-            <td>
-                <button @click="deletingSubjectId = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
-                <button @click="getSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary">Edit</button>
-            </td>
-        </tr>
+            <tr v-for="(row, index) in rows">
+                <td>@{{ index+1 }}</td>
+                <td>@{{row.name}}</td>
+                <td>@{{row.subject_code}}</td>
+                <td>@{{row.number_of_credits}}</td>
+                <td>
+                    <button @click="deletingSubjectId = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
+                    <button @click="getSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary">Edit</button>
+                </td>
+            </tr>
         </tbody>
     </table>
 
@@ -57,6 +58,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Tên môn học</label>
@@ -72,8 +74,8 @@
                         <label for="number_of_credits">Số tín chỉ</label>
                         <input type="number" id="number_of_credits" name="number_of_credits" class="form-control mt-2" v-model="editingSubject.number_of_credits" >
                     </div>
-
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" ref="close" data-dismiss="modal">Huỷ</button>
                     <button type="button" class="btn btn-primary" @click="editSubject(editingSubject.id)">Sửa</button>
@@ -91,9 +93,11 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
                 <div class="modal-body">
                     Bạn có chắc chắn muốn xoá ?
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" ref="delete" data-dismiss="modal">Huỷ</button>
                     <button type="button" class="btn btn-primary" @click="deleteSubject(deletingSubjectId)">Xoá</button>

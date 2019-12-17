@@ -83,4 +83,11 @@ class StudentController extends Controller
 
         return $result;
     }
+
+    public function getBySubjectCodeAndExamID($subjectCode, $exam_id)
+    {
+        $all = $this->model->getBySubjectCodeAndExamID($subjectCode, $exam_id);
+
+        return response()->json($all, 200);
+    }
 }

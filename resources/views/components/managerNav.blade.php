@@ -50,7 +50,7 @@
 
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li>
-                    <a class="dropdown-item" href="{{ route('admin.exam.create') }}">Kết quả đăng ký học</a>
+                    <a class="dropdown-item" href="{{ route('admin.registrationStudy.index') }}">Kết quả đăng ký học</a>
                     <a class="dropdown-item" href="{{ route('admin.scheduling.index') }}">Kết quả đăng ký thi</a>
                 </li>
             </ul>
