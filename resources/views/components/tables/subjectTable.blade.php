@@ -105,7 +105,7 @@
 
 
 
-
+<div class="container">
 <table class="table">
         <thead>
         <tr>
@@ -116,15 +116,30 @@
         </thead>
         <tbody>
         <tr v-for="(fakeData, index) in fakeDatas">
-            <td><input type="checkbox" value=fakeData v-model="checkedNames"></td>
+            <td><input type="checkbox" @change="getRow(fakeData,selectedRow)"></td>
             <td>@{{ index+1 }}</td>
             <td>@{{fakeData.name}}</td>
         </tr>
         </tbody>
     </table>
 
-    <span>Môn đã chọn: @{{ checkedNames }}</span>
-
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tên</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(selectedrow, index) in selectedRow">
+            <td>@{{ index+1 }}</td>
+            <td>@{{selectedrow.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 
 <script>
@@ -134,7 +149,7 @@
         data: {
             checkedNames: [],
             fakeDatas:[{"id":"1","name":"Hung Cao"},{"id":"2","name":"Dong Thanh"},{"id":"3","name":"LoLa"}],
-            id:null,
+            selectedRow:[],
 
             yearSelected: '',
             semesterSelected: '',
@@ -217,7 +232,26 @@
                     this.$refs.close.click();
                     this.getSubjectsByYearAndSemester();
                 })
+            },
+            getRow(value, select){
+                var exist = 0;
+                var record = 0;
+                for(var i = 0; i < select.length  ;i++){
+                    if(value.id == select[i].id){
+                        exist++;
+                        record = i;
+                    }
+                }
+                if(exist == 0){
+                    select.push(value);
+                }else{
+                    select.splice(record, 1)
+                }
+                
+                console.log(select);
             }
+
+            
         },
         created () {
             // this.getSubjectsByYearAndSemester();
