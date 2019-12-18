@@ -51,6 +51,8 @@ class SubjectClass extends BaseModel
             ->where([['year', '=', $year], ['semester', '=', $semester]])
             ->join('subject_classes',
                 'exams.id', '=', 'subject_classes.exam_id')
+            ->join('subjects',
+                'subject_classes.subject_code', '=', 'subjects.subject_code')
             ->get();
     }
 }

@@ -68,7 +68,8 @@
 
         <div class="form-group">
             <label for="room">Phòng thi</label>
-            <select v-model="room" name="room" id="room" class="form-control mt-2">
+            <!-- <select v-model="room" name="room" id="room" class="form-control mt-2"> -->
+            <select id="room" class="js-example-basic-multiple form-control" name="states[]" multiple="multiple"></select>
                 
             </select>
         </div>
@@ -81,8 +82,31 @@
 
 
 
+
+<!-- <script>
+
+function init(){
+    var arr=["1","2","3","4","5"];
+    $(document).ready(function() {
+          $('.js-example-basic-multiple').select2();
+          
+          for(var i = 0; i < arr.length;i++){
+          var newOption = new Option(arr[i],arr[i],false,false);
+          $('#room').append(newOption).trigger('change');
+          }
+
+
+    });
+    }
+init();
+
+</script> -->
+
+<script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+
 <script>
-    
+
     const App = new Vue({
         el: '#app',
         data: {
@@ -136,6 +160,19 @@
 
         },
         methods: {
+            init2(){
+                var arr=["1","2","3","4","5"];
+                $(document).ready(function() {
+                    $('.js-example-basic-multiple').select2();
+                    
+                    for(var i = 0; i < arr.length;i++){
+                    var newOption = new Option(arr[i],arr[i],false,false);
+                    $('#room').append(newOption).trigger('change');
+                    }
+
+
+                });
+                },
             init(){
                 document.getElementById("semester").disabled = true;
                 document.getElementById("subject").disabled = true;
@@ -143,7 +180,7 @@
                 document.getElementById("date").disabled = true;
                 document.getElementById("examshift").disabled = true;
                 document.getElementById("place").disabled = true;
-                document.getElementById("room").disabled = true;
+                document.getElementById("room").disabled = false;
             },
 
             getSchoolYear(){
@@ -177,6 +214,7 @@
         created () {
             // this.getSubjectsByYearAndSemester();
             this.init();
+            this.init2();
             this.getSchoolYear();
         }
     })

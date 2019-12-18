@@ -57,4 +57,38 @@ class StudentDetailSubjectClass extends BaseModel
                     ['contest_conditions', '=', 'eligible']])
             ->get();
     }
+
+    public function getInfoStudentOfSubjectClass($id)
+    {
+        return DB::table('student_details_subject_classes')
+            ->where('student_details_subject_classes.id', '=', $id)
+            ->join('student_details',
+                'student_details_subject_classes.student_code', '=','student_details.student_code')
+            ->join('users',
+                'student_details.user_id', '=', 'users.id')
+            ->join('subject_classes',
+                'student_details_subject_classes.subject_class_id', '=', 'subject_classes.id')
+            ->select(DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS full_name"),
+                'student_details.student_code',
+                'student_details_subject_classes.contest_conditions', 'student_details_subject_classes.comments', 'student_details_subject_classes.id',
+                DB::raw("CONCAT(subject_classes.subject_code, ' ', subject_classes.serial) AS subject_class"))
+            ->get()
+            ->first();
+    }
+
+    public function updateByID($id, $input)
+    {
+        return DB::table('student_details_subject_classes')
+            ->where('id', '=', $id)
+            ->update([
+                'contest_conditions' => $input['contest_conditions'],
+                'comments' => $input['comments']
+            ]);
+    }
+
+    public function deleteByID($id)
+    {
+        return DB::table('student_details_subject_classes')
+            ->delete($id);
+    }
 }

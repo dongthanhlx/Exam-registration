@@ -86,5 +86,42 @@ class Student extends BaseModel
             ->get();
     }
 
+    public function getBySubjectCodeAndExamID($subjectCode, $exam_id)
+    {
+        return DB::table('subject_classes')
+            ->where([['subject_code', '=', $subjectCode], ['exam_id', '=', $exam_id]])
+            ->join('student_details_subject_classes',
+                'subject_classes.id', '=', 'student_details_subject_classes.subject_class_id')
+            ->join('student_details',
+                'student_details_subject_classes.student_code', '=', 'student_details.student_code')
+            ->join('users',
+                'student_details.user_id', '=', 'users.id')
+            ->select(
+                DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS full_name"),
+                'student_details.student_code', 'student_details.birthday', 'student_details.class',
+                'subject_classes.subject_code', 'subject_classes.serial',
+                'student_details_subject_classes.id', 'student_details_subject_classes.contest_conditions', 'student_details_subject_classes.comments'
+            )
+            ->get();
+    }
+
+    public function getByExam($year, $semester)
+    {
+        return DB::table('exams')
+            ->where([['year', '=', $year], ['semester', '=', $semester]])
+            ->join('subject_classes',
+                'exams.id', '=', 'subject_classes.exam_id')
+            ->join('student_details_subject_classes',
+                'subject_classes.id', '=', 'student_details_subject_classes.subject_class_id')
+            ->join('student_details',
+                'student_details_subject_classes.student_code', '=', 'student_details.student_code')
+            ->join('users',
+                'student_details.user_id', '=', 'users.id')
+            ->select('subject_classes.subject_code',
+                'subject_classes.serial',
+                'student_details.*',
+                DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS full_name"))
+            ->get();
+    }
 }
 

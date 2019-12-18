@@ -3,7 +3,6 @@
         <div class="navbar-header">
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/admin') }}">
-                <!-- {{ config('app.name', 'Laravel') }} -->
                 <img style="width:70px;heigh:30px" src="https://uet.vnu.edu.vn/wp-content/uploads/2019/03/logo-outline.png">
             </a>
         </div>

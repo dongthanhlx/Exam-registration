@@ -23,6 +23,14 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
+Route::get('/examRegistration', function () {
+    return view('examRegistration');
+})->name('examRegistration');
+
+Route::get('/contestCard', function () {
+    return view('contestCard');
+})->name('contestCard');
+
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('login.submit');
@@ -51,6 +59,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('SubjectClass', 'SubjectClassController');
     Route::resource('exam', 'ExamController');
     Route::resource('scheduling', 'SchedulingController');
+    Route::resource('registrationStudy', 'RegistrationStudyController');
 
     Route::prefix('all')->name('all.')->group(function () {
         Route::get('year', 'ExamController@allYear')->name('year');
@@ -58,7 +67,12 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('account', 'UserController@showAll')->name('account');
         Route::get('student', 'StudentController@showAll')->name('student');
         Route::get('subject', 'SubjectController@showAll')->name('subject');
-        Route::get('subjectOfExam/{year}/{semester}', 'SubjectController@getByYearAndSemester')->name('subjectOfExam');
+        Route::get('subjectOfExam/{year}/{semester}', 'SubjectController@getByYearAndSemester')->name('subjectOfExam');/*
         Route::get('subjectClassOfExam/{year}/{semester}', 'SubjectClassController@getByYearAndSemester')->name('subjectClassOfExam');
+        Route::get('serialOfSubjectCode/{subjectCode}', 'SubjectClassController@getSerialBySubjectCode')->name('serialOfSubjectCode');
+        Route::get('studentOfSubjectCode/{subjectCode}', 'StudentController@getBySubjectCode')->name('studentOfSubjectCode');*/
+        Route::get('subjectClassOfExam/{year}/{semester}', 'SubjectClassController@getByYearAndSemester')->name('subjectClassOfExam');
+        Route::get('studentOfSubjectCodeAndExamID/{subjectCode}/{exam_id}', 'StudentController@getBySubjectCodeAndExamID')->name('studentOfSubjectCodeAndExamID');
     });
+
 });

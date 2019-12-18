@@ -21,7 +21,7 @@
         <div class="col-6"></div>
 
     </div>
- 
+
 
     <table class="table table-striped">
         <thead>
@@ -105,52 +105,11 @@
 
 
 
-<div class="container">
-<table class="table">
-        <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col">#</th>
-            <th scope="col">Tên</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(fakeData, index) in fakeDatas">
-            <td><input type="checkbox" @change="getRow(fakeData,selectedRow)"></td>
-            <td>@{{ index+1 }}</td>
-            <td>@{{fakeData.name}}</td>
-        </tr>
-        </tbody>
-    </table>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Tên</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(selectedrow, index) in selectedRow">
-            <td>@{{ index+1 }}</td>
-            <td>@{{selectedrow.name}}</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-
 <script>
     const App = new Vue({
         el: '#app',
 
         data: {
-            checkedNames: [],
-            fakeDatas:[{"id":"1","name":"Hung Cao"},{"id":"2","name":"Dong Thanh"},{"id":"3","name":"LoLa"}],
-            selectedRow:[],
-
             yearSelected: '',
             semesterSelected: '',
             deletingSubjectId:'',
@@ -161,21 +120,19 @@
             ],
             year: null,
             semester: null
-            
+
         },
         watch:{
             year: function(newval,oldval) {
                 if(this.semester !== null){
-                this.getSubjectsByYearAndSemester(newval, this.semester);
+                    this.getSubjectsByYearAndSemester(newval, this.semester);
                 }else{
-                console.log(newval)
+                    console.log(newval)
                 }
             },
             semester: function(newval,oldval) {
                 this.getSubjectsByYearAndSemester(this.year,newval);
             },
-            
-
         },
         methods: {
             getAllYear(){
@@ -204,7 +161,7 @@
                     .catch(function (error) {
 
                     });
-                
+
             },
             deleteSubject(subjectId) {
                 this.$refs.delete.click();
@@ -233,24 +190,6 @@
                     this.getSubjectsByYearAndSemester();
                 })
             },
-            getRow(value, select){
-                var exist = 0;
-                var record = 0;
-                for(var i = 0; i < select.length  ;i++){
-                    if(value.id == select[i].id){
-                        exist++;
-                        record = i;
-                    }
-                }
-                if(exist == 0){
-                    select.push(value);
-                }else{
-                    select.splice(record, 1)
-                }
-                
-                console.log(select);
-            }
-
             
         },
         created () {

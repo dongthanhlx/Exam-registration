@@ -123,4 +123,5 @@ class SubjectClassController extends Controller
 
         return response()->json($records, 200);
     }
+
 }
