@@ -51,4 +51,11 @@ class Room extends BaseModel
             ->get()
             ->first();
     }
+
+    public function allRoomName()
+    {
+        DB::table('rooms')
+            ->select(DB::raw("CONCAT(rooms.name, ' ', rooms.location) AS name"))
+            ->get();
+    }
 }

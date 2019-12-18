@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Scheduling;
 use Illuminate\Http\Request;
 
 class SchedulingController extends Controller
 {
+    protected $model;
 
     public function __construct()
     {
+        $this->model = new Scheduling();
         $this->middleware('auth:admin');
     }
 
@@ -86,5 +89,12 @@ class SchedulingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function allRemainingInfoInDay($day)
+    {
+        $result = $this->model->getAllRemainingInfoInDay($day);
+
+        return response()->json($result, 200);
     }
 }
