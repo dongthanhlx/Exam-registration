@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Scheduling;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SchedulingController extends Controller
 {
+    protected $model;
 
     public function __construct()
     {
+        $this->model = new Scheduling();
         $this->middleware('auth:admin');
     }
 
@@ -40,7 +44,11 @@ class SchedulingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        $result = $this->model->store($input);
+
+        return response()->json($result, 200);
     }
 
     /**
@@ -86,5 +94,12 @@ class SchedulingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAllRemainingRoomInfoInDayAndExamShift($date, $examShift)
+    {
+        $result = $this->model->getAllRemainingRoomInfoInDateAndExamShift($date, $examShift);
+
+        return response()->json($result, 200);
     }
 }

@@ -236,7 +236,6 @@
                     if((value.date == this.rows[i].date) && (value.examshift == this.rows[i].examshift )){
                         className.push(document.getElementById(this.rows[i].id));
                         // className.push( i);
-
                     }
                 }
                 console.log(className);

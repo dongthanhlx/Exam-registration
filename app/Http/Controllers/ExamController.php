@@ -110,6 +110,13 @@ class ExamController extends Controller
     {
         $result = $this->model->allYear();
 
-        return response()->json($result);
+        return response()->json($result, 200);
+    }
+
+    public function getSemestersByYear($year)
+    {
+        $result = $this->model->getSemestersByYear($year);
+
+        return response()->json($result, 200);
     }
 }
