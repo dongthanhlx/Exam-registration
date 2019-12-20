@@ -170,11 +170,20 @@
 
 </div>
 
+<input type="text" class="test">
+<input type="text" class="test">
+<input type="text" class="test">
+<input type="text" class="test">
+
+
+
 
 <script>
     const App = new Vue({
         el: '#app',
         data: {
+            selectedItems: [],
+            max: 2,
             fakeDatas:[{"id":"1","name":"Hung Cao"},{"id":"2","name":"Dong Thanh"},{"id":"3","name":"LoLa"}],
             selectedRow:[],
             idDelete:'',
@@ -248,12 +257,15 @@
             //     console.log(select);
             // },
             getRow(value) {
-                console.log(this.rows.length);
+                
+                // console.log(this.rows.length);
                 for (var i=0; i<this.rows.length; i++) {
                     if (value.subject == this.rows[i].subject) {
                         this.disableRow(value.subject);
                     } 
                 }
+
+                
             },
             disableRow(subject) {
                 console.log(subject);
@@ -263,12 +275,25 @@
             deleteSelection(value, select){
                 
                 select.splice(value.id-1, 1);
-                console.log(select);
+                // console.log(select);
+            },
+            confirm(){
+                // var value = [];
+                // for(var i = 0;i<this.selectedRow.length;i++){
+                //     value.push({})
+                // }
+                
+            },
+            disable(){
+                
+                document.getElementsByClassName("test").disabled = true;
+                
             }
         },
         created () {
             // this.getAll();
         this.disableRow("TTCN");
+        this.disable();
         }
     })
 </script>

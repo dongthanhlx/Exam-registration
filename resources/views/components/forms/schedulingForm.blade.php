@@ -69,39 +69,34 @@
         <div class="form-group">
             <label for="room">Phòng thi</label>
             <!-- <select v-model="room" name="room" id="room" class="form-control mt-2"> -->
-            <select id="room" class="js-example-basic-multiple form-control" name="states[]" multiple="multiple"></select>
+            <div>
+                <multiselect
+                    id = "test"
+                    v-model="values"
+                    placeholder=""
+                    label="room" track-by="id"
+                    :options="options"
+                    :multiple="true"
+                    :taggable="true"
+                ></multiselect>
+
+                
+                </div>
+
+                <!-- <span v-for="value in values">@{{value.room}}</span> -->
                 
             </select>
         </div>
 
 
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="button" class="btn btn-primary" @click="show()" >Create</button>
     </form>
 
 </div>
 
 
 
-
-<!-- <script>
-
-function init(){
-    var arr=["1","2","3","4","5"];
-    $(document).ready(function() {
-          $('.js-example-basic-multiple').select2();
-          
-          for(var i = 0; i < arr.length;i++){
-          var newOption = new Option(arr[i],arr[i],false,false);
-          $('#room').append(newOption).trigger('change');
-          }
-
-
-    });
-    }
-init();
-
-</script> -->
-
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
 
@@ -109,7 +104,28 @@ init();
 
     const App = new Vue({
         el: '#app',
+        //mutiselect
+        components: { Multiselect: window.VueMultiselect.default },
         data: {
+            // values = rooms which are chosen
+            values: [],
+            //data sample
+            options: [
+                        {
+                        "id":"1",
+                        "room":"302 G2"
+                        },
+                        {
+                        "id":"2",
+                        "room":"303 G2"
+                        },
+                        {
+                        "id":"3",
+                        "room":"304 G2"
+                        }
+                    ],
+            
+            
             selected:'',
             deletingSubjectId:'',
             editingSubject: {},
@@ -160,27 +176,14 @@ init();
 
         },
         methods: {
-            init2(){
-                var arr=["1","2","3","4","5"];
-                $(document).ready(function() {
-                    $('.js-example-basic-multiple').select2();
-                    
-                    for(var i = 0; i < arr.length;i++){
-                    var newOption = new Option(arr[i],arr[i],false,false);
-                    $('#room').append(newOption).trigger('change');
-                    }
-
-
-                });
-                },
             init(){
-                document.getElementById("semester").disabled = true;
-                document.getElementById("subject").disabled = true;
-                document.getElementById("duration").disabled = true;
-                document.getElementById("date").disabled = true;
-                document.getElementById("examshift").disabled = true;
-                document.getElementById("place").disabled = true;
-                document.getElementById("room").disabled = false;
+                // document.getElementById("semester").disabled = true;
+                // document.getElementById("subject").disabled = true;
+                // document.getElementById("duration").disabled = true;
+                // document.getElementById("date").disabled = true;
+                // document.getElementById("examshift").disabled = true;
+                // document.getElementById("place").disabled = true;
+                // document.getElementById("room").disabled = false;
             },
 
             getSchoolYear(){
@@ -210,11 +213,18 @@ init();
 
                 })
             },
+            //show rooms are selected
+            show(){
+                var id=[];
+                for(var i = 0; i < this.values.length; i++){
+                    id.push(this.values[i].id);
+                }
+                console.log(id);
+            }
         },
         created () {
             // this.getSubjectsByYearAndSemester();
             this.init();
-            this.init2();
             this.getSchoolYear();
         }
     })
