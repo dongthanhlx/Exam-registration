@@ -20,7 +20,7 @@
             <tbody>
             <tr v-for="(row, index) in rows" class=row.subject>
                 <td>
-                    <input type="checkbox" @change="getRow(row)" v-bind:class="row.subject">
+                    <input type="checkbox" @change="getRow(row,selectedRow)" v-bind:class="row.subject" v-bind:id="row.id">
                 </td>
                 <td>@{{ index+1 }}</td>
                 <td>@{{row.subject}}</td>
@@ -49,7 +49,7 @@
                 <th scope="col">Ngày thi</th>
                 <th scope="col">Ca thi</th>
                 <th scope="col">Địa điểm</th>
-                <th scope="col">Tác vụ</th>
+                <!-- <th scope="col">Tác vụ</th> -->
             </tr>
         </thead>
 
@@ -61,9 +61,9 @@
             <td>@{{selectedrow.date}}</td>
             <td>@{{selectedrow.examshift}}</td>
             <td>@{{selectedrow.room}}</td>
-            <td>
+            <!-- <td>
                 <button @click="deleteSelection(selectedrow,selectedRow)" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
-            </td>
+            </td> -->
         </tr>
         </tbody>
     </table>
@@ -170,11 +170,6 @@
 
 </div>
 
-<input type="text" class="test">
-<input type="text" class="test">
-<input type="text" class="test">
-<input type="text" class="test">
-
 
 
 
@@ -189,11 +184,11 @@
             idDelete:'',
             editingRoom: {},
             rows:[
-                {"id":"1","subject":"TTCN","subject_class":"INT3306 1","date":"20-11-2019","examshift":"1","room":"301G2"},
-                {"id":"2","subject":"TTCN","subject_class":"INT3306 1","date":"20-11-2019","examshift":"2","room":"302G2"},
-                {"id":"3","subject":"TTCN","subject_class":"INT3306 1","date":"20-11-2019","examshift":"3","room":"303G2"},
+                {"id":"1","subject":"TTCN","subject_class":"INT3306 1","date":"20-11-2019","examshift":1,"room":"301G2"},
+                {"id":"2","subject":"TTCN","subject_class":"INT3306 1","date":"20-11-2019","examshift":2,"room":"302G2"},
+                {"id":"3","subject":"TTCN","subject_class":"INT3306 1","date":"20-11-2019","examshift":3,"room":"303G2"},
                 {"id":"4","subject":"TTCN","subject_class":"INT3306 1","date":"20-11-2019","examshift":"4","room":"304G2"},
-                {"id":"5","subject":"KTMT","subject_class":"INT3309 1","date":"21-11-2019","examshift":"1","room":"305G2"},
+                {"id":"5","subject":"KTMT","subject_class":"INT3309 1","date":"20-11-2019","examshift":1,"room":"305G2"},
                 {"id":"6","subject":"KTMT","subject_class":"INT3309 1","date":"21-11-2019","examshift":"2","room":"306G2"},
                 {"id":"7","subject":"KTMT","subject_class":"INT3309 1","date":"21-11-2019","examshift":"3","room":"307G2"},
                 {"id":"8","subject":"KTMT","subject_class":"INT3309 1","date":"21-11-2019","examshift":"4","room":"308G2"},
@@ -232,45 +227,56 @@
                     this.getAll();
                 })
             },
-            // getRow(value, select){
-            //     var exist = 0;
-            //     var record = 0;
-            //     for(var i = 0; i < select.length  ;i++){
-            //         if(value.id == select[i].id){
-            //             exist++;
-            //             console.log(exist);
-                        
-            //         }
-            //         if( value.id == select[i].id ){
-            //             record = i;
-            //         }
-            //         else continue;
-                        
-            //         }
+            disableRow(value, select, status){
+                // var clasName = [];
+                var className = document.getElementsByClassName(value.subject);
+                className = Array(className);
                 
-            //     if(exist == 0){
-            //         select.push(value);
-            //     }else if(exist == 1){
-            //         select.splice(record, 1)
-            //     }
-                
-            //     console.log(select);
-            // },
-            getRow(value) {
-                
-                // console.log(this.rows.length);
-                for (var i=0; i<this.rows.length; i++) {
-                    if (value.subject == this.rows[i].subject) {
-                        this.disableRow(value.subject);
-                    } 
-                }
+                for(var i = 0; i<this.rows.length;i++){
+                    if((value.date == this.rows[i].date) && (value.examshift == this.rows[i].examshift )){
+                        className.push(document.getElementById(this.rows[i].id));
+                        // className.push( i);
 
+                    }
+                }
+                console.log(className);
                 
+                // console.log(status)
+                for (var i=0; i<className.length; i++) {
+                    className[i].disabled = status;
+                }
+                document.getElementById(value.id).disabled = false;
             },
-            disableRow(subject) {
-                console.log(subject);
-                // subject = "TTCN";
-                document.getElementsByClassName(subject).disabled = true;
+
+            
+
+            getRow(value, select){
+                
+                this.disableRow(value,select,true);
+                var exist = 0;
+                var record = 0;
+                for(var i = 0; i < select.length  ;i++){
+                    if(value.id == select[i].id){
+                        exist++;
+                        // console.log(exist);
+                        
+                    }
+                    if( value.id == select[i].id ){
+                        record = i;
+                        this.disableRow(value,select,false);
+                
+                    }
+                    else continue;
+                        
+                    }
+                
+                if(exist == 0){
+                    select.push(value);
+                }else if(exist == 1){
+                    select.splice(record, 1)
+                }
+                
+               
             },
             deleteSelection(value, select){
                 
@@ -292,7 +298,7 @@
         },
         created () {
             // this.getAll();
-        this.disableRow("TTCN");
+        // this.disableRow("TTCN");
         this.disable();
         }
     })

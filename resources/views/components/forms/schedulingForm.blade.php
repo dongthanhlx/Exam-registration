@@ -78,12 +78,13 @@
                     :options="options"
                     :multiple="true"
                     :taggable="true"
+                    
                 ></multiselect>
 
                 
                 </div>
 
-                <!-- <span v-for="value in values">@{{value.room}}</span> -->
+                <span v-for="value in values">@{{value.id}}</span>
                 
             </select>
         </div>
@@ -177,7 +178,7 @@
         },
         methods: {
             init(){
-                // document.getElementById("semester").disabled = true;
+                document.getElementById("test").disabled = true;
                 // document.getElementById("subject").disabled = true;
                 // document.getElementById("duration").disabled = true;
                 // document.getElementById("date").disabled = true;
