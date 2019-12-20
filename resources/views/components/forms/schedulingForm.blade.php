@@ -12,8 +12,7 @@
             {{ session()->get('message') }}
         </div>
     @endif
-
-    <form method="POST">
+    <form class="" action="" method="POST">
         @csrf
         <div class="form-group">
             <label for="year">Năm học</label>
@@ -22,10 +21,8 @@
                 <option v-for="year in years" >@{{ year.year }}</option>
             </select>
         </div>
-
         <div class="form-group">
             <label for="exam">Kỳ thi</label>
-
             <select v-model="semester" name="semester" id="semester" class="form-control mt-2">
                 <option value="1">Thi cuối kỳ 1</option>
                 <option value="2">Thi cuối kỳ 2</option>
@@ -43,15 +40,14 @@
             <label for="duration">Thời gian làm bài</label>
             <select v-model="duration" name="duration" id="duration" class="form-control mt-2">
                 <option value="45">45 phút</option>
-                <option value="60">60 phút</option>
                 <option value="90">90 phút</option>
                 <option value="120">120 phút</option>
+                <option value="180">180 phút</option>
             </select>
         </div>
 
         <div class="form-group" >
             <label for="date">Ngày thi</label>
-
             <input v-model="date" type="date" id="date" name="date" class="form-control mt-2">
         </div>
 
@@ -65,6 +61,7 @@
                 <option value="4">ca 4</option>
             </select>
         </div>
+{{--
 
         <div class="form-group">
             <label for="remainRooms">Phòng thi</label>
@@ -73,19 +70,43 @@
                 <option v-for="room in remainRooms" v-bind:value="room.id">@{{ room.name }}</option>
             </select>
         </div>
+--}}
 
-        <button type="submit" class="btn btn-primary" @click="post()">Create</button>
+        <div class="form-group">
+            <label for="remainRooms">Phòng thi</label>
+
+            <multiselect
+                id = "remainRooms"
+                v-model="rooms"
+                placeholder=""
+                label="name" track-by="id"
+                :options="remainRooms"
+                :multiple="true"
+                :taggable="true"
+            ></multiselect>
+        </div>
+
+        <button type="button" class="btn btn-primary" @click="post()" >Create</button>
     </form>
 
 </div>
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+
 <script>
 
     const App = new Vue({
         el: '#app',
+        //mutiselect
+        components: { Multiselect: window.VueMultiselect.default },
         data: {
+            selected:'',
+            deletingSubjectId:'',
+            editingSubject: {},
             years:[],
             subjects:[],
             remainRooms: [],
@@ -97,6 +118,7 @@
             date: null,
             examShift: null,
             rooms: [],
+            selectedRoom: []
         },
         watch:{
             year: function(newval,oldval) {
@@ -104,6 +126,7 @@
                     this.getSubjectsByYearAndSemester(newval, this.semester);
                 } else {
                     document.getElementById("semester").disabled = false;
+                    console.log(newval)
                 }
             },
             semester: function(newval,oldval) {
@@ -163,6 +186,7 @@
                         console.log(error);
                     });
             },
+
             getSubjectsByYearAndSemester(year,semester) {
                 axios.get('/admin/all/subjectOfExam/' + year + "/" + semester )
                     .then((response) => {
@@ -173,16 +197,25 @@
                     });
             },
             getAllRemainingRoomInDateAndExamShift(date, examShift) {
-                axios.get('/admin/all/remainingRoomInfoInDateAndExamShift/' + date + '/' + examShift)
-                    .then(res => {
-                        this.remainRooms = res.data;
-                    })
-                    .catch(res => {
-                        console.log(res);
-                    })
+                    axios.get('/admin/all/remainingRoomInfoInDateAndExamShift/' + date + '/' + examShift)
+                        .then(res => {
+                            this.remainRooms = res.data;
+                        })
+                        .catch(res => {
+                            console.log(res);
+                        })
+            },
+            getAllIdOfRooms()
+            {
+                var result = [];
+
+                for (var i=0; i<this.rooms.length; i++) {
+                    result.push(this.rooms[i].id);
+                }
+
+                return result;
             },
             post() {
-                console.log(this.rooms);
                 axios.post('/admin/scheduling', {
                     year: this.year,
                     semester: this.semester,
@@ -190,16 +223,15 @@
                     duration: this.duration,
                     date: this.date,
                     examShift: this.examShift,
-                    room: this.rooms
+                    room: this.getAllIdOfRooms()
                 })
                     .then(res => {
-                        console.log(res);
-                        this.created();
+
                     })
                     .catch(res => {
                         console.log(res);
                     })
-            }
+            },
         },
         created () {
             this.resetInput();

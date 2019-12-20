@@ -20,7 +20,7 @@
             <tbody>
             <tr v-for="(row, index) in rows">
                 <td>
-                    <input type="checkbox" @change="getRow(row)" v-bind:class="row.subject" v-bind:id="row.id">
+                    <input type="checkbox" @change="getRow(row)" v-bind:class="row.subject" v-bind:id="row.id" >
                 </td>
                 <td>@{{ index+1 }}</td>
                 <td>@{{row.subject}}</td>
@@ -73,40 +73,40 @@
     </div>
 
     <!-- <div class="container"> -->
-    <!-- <table class="table">
-            <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">#</th>
-                <th scope="col">Tên</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(fakeData, index) in fakeDatas">
-                <td><input type="checkbox" @change="getRow(fakeData,selectedRow)"></td>
-                <td>@{{ index+1 }}</td>
-                <td>@{{fakeData.name}}</td>
-            </tr>
-            </tbody>
-        </table>
+<!-- <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">#</th>
+            <th scope="col">Tên</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(fakeData, index) in fakeDatas">
+            <td><input type="checkbox" @change="getRow(fakeData,selectedRow)"></td>
+            <td>@{{ index+1 }}</td>
+            <td>@{{fakeData.name}}</td>
+        </tr>
+        </tbody>
+    </table>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Tên</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(selectedrow, index) in selectedRow">
-                <td>@{{ index+1 }}</td>
-                <td>@{{selectedrow.name}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div> -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tên</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(selectedrow, index) in selectedRow">
+            <td>@{{ index+1 }}</td>
+            <td>@{{selectedrow.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div> -->
 
 
 
@@ -175,6 +175,8 @@
     const App = new Vue({
         el: '#app',
         data: {
+            selectedItems: [],
+            max: 2,
             fakeDatas:[{"id":"1","name":"Hung Cao"},{"id":"2","name":"Dong Thanh"},{"id":"3","name":"LoLa"}],
             selectedRow:[],
             idDelete:'',
@@ -196,6 +198,8 @@
         },
         methods: {
             getAll() {
+                var t = Array('fda');
+                
                 axios.get('/admin/all/room')
                     .then((response) => {
                         this.rows = response.data;
@@ -230,30 +234,32 @@
             //         if(value.id == select[i].id){
             //             exist++;
             //             console.log(exist);
-
+                        
             //         }
             //         if( value.id == select[i].id ){
             //             record = i;
             //         }
             //         else continue;
-
+                        
             //         }
-
+                
             //     if(exist == 0){
             //         select.push(value);
             //     }else if(exist == 1){
             //         select.splice(record, 1)
             //     }
-
+                
             //     console.log(select);
             // },
             getRow(value) {
-                console.log(this.rows.length);
+
+                // console.log(this.rows.length);
                 for (var i=0; i<this.rows.length; i++) {
                     if (value.subject == this.rows[i].subject) {
                         this.disableRow(value.subject);
                     }
                 }
+
             },
             disableRow(subject) {
                 console.log(subject);
@@ -263,12 +269,25 @@
             deleteSelection(value, select){
 
                 select.splice(value.id-1, 1);
-                console.log(select);
+                // console.log(select);
+            },
+            confirm(){
+                // var value = [];
+                // for(var i = 0;i<this.selectedRow.length;i++){
+                //     value.push({})
+                // }
+
+            },
+            disable(){
+
+                document.getElementsByClassName("test").disabled = true;
+
             }
         },
         created () {
             // this.getAll();
-            this.disableRow("TTCN");
+        this.disableRow("TTCN");
+        this.disable();
         }
     })
 </script>
