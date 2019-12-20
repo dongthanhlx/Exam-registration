@@ -37,4 +37,12 @@ class Exam extends BaseModel
             ->get()
             ->first();
     }
+
+    public function getSemestersByYear($year)
+    {
+        return DB::table('exams')
+            ->where('year', '=', $year)
+            ->select('id', 'semester')
+            ->get();
+    }
 }

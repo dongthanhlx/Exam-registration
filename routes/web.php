@@ -73,7 +73,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('studentOfSubjectCode/{subjectCode}', 'StudentController@getBySubjectCode')->name('studentOfSubjectCode');*/
         Route::get('subjectClassOfExam/{year}/{semester}', 'SubjectClassController@getByYearAndSemester')->name('subjectClassOfExam');
         Route::get('studentOfSubjectCodeAndExamID/{subjectCode}/{exam_id}', 'StudentController@getBySubjectCodeAndExamID')->name('studentOfSubjectCodeAndExamID');
-        Route::get('getAllRemainingInfoInDate/{date}', 'SchedulingController@allRemainingInfoInDate')->name('getAllRemainingInfoInDate');
+        Route::get('remainingRoomInfoInDateAndExamShift/{date}/{examShift}', 'SchedulingController@getAllRemainingRoomInfoInDayAndExamShift')->name('remainingRoomInfoInDateAndExamShift');
     });
 
 });

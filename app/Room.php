@@ -58,4 +58,34 @@ class Room extends BaseModel
             ->select(DB::raw("CONCAT(rooms.name, ' ', rooms.location) AS name"))
             ->get();
     }
+
+    public function getAllRoomID()
+    {
+        $allID = collect();
+
+        $all = DB::table('rooms')
+            ->select('id')
+            ->get();
+
+        foreach ($all as $room)
+        {
+            $allID = $allID->merge($room->id);
+        }
+
+        return $allID;
+    }
+
+    public function getByID($id)
+    {
+        return DB::table('rooms')
+            ->where('id', '=', $id)
+            ->select(
+                'id',
+                DB::raw("CONCAT(rooms.name, ' ', rooms.location) AS name"),
+                'number_of_computer'
+            )
+            ->get()
+            ->first();
+    }
+
 }

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="box-header blue-background">
         <div class="title">Danh sách tất cả môn thi và ca thi của bạn</div>
         <br>
@@ -6,21 +6,21 @@
     <div class="border border-dark" style='overflow:auto; width:100%;height:400px;'>
         <table class="table table-bordered">
             <thead>
-                <tr>
-                    <th scope="col">Chọn</th>
-                    <th scope="col">#</th>
-                    <th scope="col">Môn thi</th>
-                    <th scope="col">Mã học phần</th>
-                    <th scope="col">Ngày thi</th>
-                    <th scope="col">Ca thi</th>
-                    <th scope="col">Địa điểm</th>
-                </tr>
+            <tr>
+                <th scope="col">Chọn</th>
+                <th scope="col">#</th>
+                <th scope="col">Môn thi</th>
+                <th scope="col">Mã học phần</th>
+                <th scope="col">Ngày thi</th>
+                <th scope="col">Ca thi</th>
+                <th scope="col">Địa điểm</th>
+            </tr>
             </thead>
 
             <tbody>
-            <tr v-for="(row, index) in rows" class=row.subject>
+            <tr v-for="(row, index) in rows">
                 <td>
-                    <input type="checkbox" @change="getRow(row)" v-bind:class="row.subject">
+                    <input type="checkbox" @change="getRow(row)" v-bind:class="row.subject" v-bind:id="row.id">
                 </td>
                 <td>@{{ index+1 }}</td>
                 <td>@{{row.subject}}</td>
@@ -40,8 +40,8 @@
     </div>
 
     <div class="border border-dark" style='overflow:auto; width:100%;height:300px;'>
-    <table class="table table-bordered">
-        <thead>
+        <table class="table table-bordered">
+            <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Môn thi</th>
@@ -51,62 +51,62 @@
                 <th scope="col">Địa điểm</th>
                 <th scope="col">Tác vụ</th>
             </tr>
-        </thead>
+            </thead>
 
-        <tbody>
-        <tr v-for="(selectedrow, index) in selectedRow">
-            <td>@{{ index+1 }}</td>
-            <td>@{{selectedrow.subject}}</td>
-            <td>@{{selectedrow.subject_class}}</td>
-            <td>@{{selectedrow.date}}</td>
-            <td>@{{selectedrow.examshift}}</td>
-            <td>@{{selectedrow.room}}</td>
-            <td>
-                <button @click="deleteSelection(selectedrow,selectedRow)" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+            <tbody>
+            <tr v-for="(selectedrow, index) in selectedRow">
+                <td>@{{ index+1 }}</td>
+                <td>@{{selectedrow.subject}}</td>
+                <td>@{{selectedrow.subject_class}}</td>
+                <td>@{{selectedrow.date}}</td>
+                <td>@{{selectedrow.examshift}}</td>
+                <td>@{{selectedrow.room}}</td>
+                <td>
+                    <button @click="deleteSelection(selectedrow,selectedRow)" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div class="mt-4">
         <button class="btn btn-primary float-right">Confirm</button>
     </div>
 
     <!-- <div class="container"> -->
-<!-- <table class="table">
-        <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col">#</th>
-            <th scope="col">Tên</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(fakeData, index) in fakeDatas">
-            <td><input type="checkbox" @change="getRow(fakeData,selectedRow)"></td>
-            <td>@{{ index+1 }}</td>
-            <td>@{{fakeData.name}}</td>
-        </tr>
-        </tbody>
-    </table>
+    <!-- <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">#</th>
+                <th scope="col">Tên</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(fakeData, index) in fakeDatas">
+                <td><input type="checkbox" @change="getRow(fakeData,selectedRow)"></td>
+                <td>@{{ index+1 }}</td>
+                <td>@{{fakeData.name}}</td>
+            </tr>
+            </tbody>
+        </table>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Tên</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(selectedrow, index) in selectedRow">
-            <td>@{{ index+1 }}</td>
-            <td>@{{selectedrow.name}}</td>
-        </tr>
-        </tbody>
-    </table>
-</div> -->
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(selectedrow, index) in selectedRow">
+                <td>@{{ index+1 }}</td>
+                <td>@{{selectedrow.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div> -->
 
 
 
@@ -230,21 +230,21 @@
             //         if(value.id == select[i].id){
             //             exist++;
             //             console.log(exist);
-                        
+
             //         }
             //         if( value.id == select[i].id ){
             //             record = i;
             //         }
             //         else continue;
-                        
+
             //         }
-                
+
             //     if(exist == 0){
             //         select.push(value);
             //     }else if(exist == 1){
             //         select.splice(record, 1)
             //     }
-                
+
             //     console.log(select);
             // },
             getRow(value) {
@@ -252,7 +252,7 @@
                 for (var i=0; i<this.rows.length; i++) {
                     if (value.subject == this.rows[i].subject) {
                         this.disableRow(value.subject);
-                    } 
+                    }
                 }
             },
             disableRow(subject) {
@@ -261,14 +261,14 @@
                 document.getElementsByClassName(subject).disabled = true;
             },
             deleteSelection(value, select){
-                
+
                 select.splice(value.id-1, 1);
                 console.log(select);
             }
         },
         created () {
             // this.getAll();
-        this.disableRow("TTCN");
+            this.disableRow("TTCN");
         }
     })
 </script>

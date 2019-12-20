@@ -1,4 +1,4 @@
-<div class="container form">
+<div class="container form" style="width: 25%" xmlns:v-bind="http://symfony.com/schema/routing">
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -13,10 +13,11 @@
         </div>
     @endif
 
-    <form class="" action="" method="POST">
+    <form method="POST">
         @csrf
         <div class="form-group">
-            <label for="year">Năm học</label>    
+            <label for="year">Năm học</label>
+
             <select v-model="year" name="year" class="form-control mt-2">
                 <option v-for="year in years" >@{{ year.year }}</option>
             </select>
@@ -24,8 +25,8 @@
 
         <div class="form-group">
             <label for="exam">Kỳ thi</label>
+
             <select v-model="semester" name="semester" id="semester" class="form-control mt-2">
-                <option></option>
                 <option value="1">Thi cuối kỳ 1</option>
                 <option value="2">Thi cuối kỳ 2</option>
             </select>
@@ -34,34 +35,29 @@
         <div class="form-group">
             <label for="subject">Môn thi</label>
             <select v-model="subject" name="subject" id="subject" class="form-control mt-2">
-                <option v-for="subject in subjects" >@{{ subject.name }}</option>
+                <option v-for="subject in subjects" v-bind:value="subject.id">@{{ subject.name }}</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="duration">Thời lượng</label>
+            <label for="duration">Thời gian làm bài</label>
             <select v-model="duration" name="duration" id="duration" class="form-control mt-2">
                 <option value="45">45 phút</option>
+                <option value="60">60 phút</option>
                 <option value="90">90 phút</option>
                 <option value="120">120 phút</option>
-                <option value="180">180 phút</option>
             </select>
         </div>
 
         <div class="form-group" >
             <label for="date">Ngày thi</label>
+
             <input v-model="date" type="date" id="date" name="date" class="form-control mt-2">
         </div>
 
         <div class="form-group">
-            <label for="examshift">Ca thi</label>
-            <select v-model="examshift" name="examshift" id="examShift" class="form-control mt-2">
-                <option v-for="examshift in examshifts" >@{{ examshift.examshift }}</option>
-            </select>
-        </div>
---}}
-        <div class="form-group">
             <label for="examShift">Ca thi</label>
+
             <select v-model="examShift" name="examShift" id="examShift" class="form-control mt-2">
                 <option value="1">ca 1</option>
                 <option value="2">ca 2</option>
@@ -71,16 +67,14 @@
         </div>
 
         <div class="form-group">
-            <label for="room">Phòng thi</label>
-            <div v-model="room" id="room">
-                <input type="checkbox" name="101 G2">
-                <input type="checkbox" name="102 G2">
-                <input type="checkbox" name="103 G2">
-            </div>
+            <label for="remainRooms">Phòng thi</label>
+
+            <select v-model="rooms" name="room" id="remainRooms" class="form-control mt-2" multiple>
+                <option v-for="room in remainRooms" v-bind:value="room.id">@{{ room.name }}</option>
+            </select>
         </div>
 
-
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary" @click="post()">Create</button>
     </form>
 
 </div>
@@ -88,138 +82,130 @@
 
 
 <script>
-    
+
     const App = new Vue({
         el: '#app',
         data: {
-            selected:'',
-            deletingSubjectId:'',
-            editingSubject: {},
             years:[],
             subjects:[],
-            examshifts:[],
-            places:[],
-            rooms:[],
-            rows:[],
-            year:null,
-            semester:null,
-            subject:null,
-            duration:null,
-            date:null,
-            examShift:null,
-            room:null,
-            allRemainingInfoInDate: [],
-            dataFake: {
-                'year': '2015-2016',
-                'semester': '1',
-                'subject': 'toán',
-                'duration': '20',
-                'date': '10-10-2010',
-                'examShift': '1',
-                'rooms': {
-                    '1': '101 G2',
-                    '2': '102 G2',
-                    '3': '103 G2'
-                }
-            }
+            remainRooms: [],
+
+            year: null,
+            semester: null,
+            subject: null,
+            duration: null,
+            date: null,
+            examShift: null,
+            rooms: [],
         },
         watch:{
             year: function(newval,oldval) {
-                if(this.semester !== null){
+                if (this.semester != null) {
                     this.getSubjectsByYearAndSemester(newval, this.semester);
-                }else{
+                } else {
                     document.getElementById("semester").disabled = false;
-                    console.log(newval)
                 }
             },
             semester: function(newval,oldval) {
                 this.getSubjectsByYearAndSemester(this.year,newval);
-                document.getElementById('subject').disabled = false;
+                if (this.subjects != null) {
+                    document.getElementById('subject').disabled = false;
+                }
             },
-            subject: function(newval,oldval){
+            subject: function(newval,oldval) {
                 document.getElementById('duration').disabled = false;
             },
-            duration: function(newval,oldval){
+            duration: function(newval,oldval) {
                 document.getElementById('date').disabled = false;
             },
-            date: function(newval,oldval){
+            date: function(newval,oldval) {
                 document.getElementById('examShift').disabled = false;
-
+                if (this.examShift != null) {
+                    this.getAllRemainingRoomInDateAndExamShift(newval, this.examShift);
+                }
             },
-            examshift: function(newval,oldval){
-                document.getElementById('room').disabled = false;
-            },
-            room: function(newval,oldval){
-                
-            },
-            
-
+            examShift: function(newval,oldval) {
+                this.getAllRemainingRoomInDateAndExamShift(this.date, newval);
+                if (this.remainRooms != null) {
+                    document.getElementById('remainRooms').disabled = false;
+                }
+            }
         },
         methods: {
-            init2(){
-                var arr=["1","2","3","4","5"];
-                $(document).ready(function() {
-                    $('.js-example-basic-multiple').select2();
-
-                    for(var i = 0; i < arr.length;i++){
-                    var newOption = new Option(arr[i],arr[i],false,false);
-                    $('#room').append(newOption).trigger('change');
-                    }
-
-
-                });
-                },
-            init(){
+            resetInput() {
                 document.getElementById("semester").disabled = true;
                 document.getElementById("subject").disabled = true;
                 document.getElementById("duration").disabled = true;
                 document.getElementById("date").disabled = true;
                 document.getElementById("examShift").disabled = true;
-                document.getElementById("room").disabled = true;
+                document.getElementById("remainRooms").disabled = true;
             },
-
-            getSchoolYear(){
+            resetWatch() {
+                this.year = null;
+                this.semester = null;
+                this.subject = null;
+                this.duration = null;
+                this.date = null;
+                this.examShift = null;
+                this.rooms = [];
+            },
+            resetVariables() {
+                this.years = [];
+                this.subjects = [];
+                this.remainRooms = [];
+            },
+            getAllYear(){
                 axios.get('/admin/all/year')
                     .then((response) => {
                         this.years = response.data;
-                        console.log(this.years);
                     })
                     .catch(function (error) {
-
+                        console.log(error);
                     });
             },
-
             getSubjectsByYearAndSemester(year,semester) {
-                console.log(year, semester);
                 axios.get('/admin/all/subjectOfExam/' + year + "/" + semester )
                     .then((response) => {
                         this.subjects = response.data;
                     })
                     .catch(function (error) {
-
+                        console.log(error);
                     });
             },
-            getSubject(subjectId) {
-                axios.get('/admin/subject/' + subjectId).then(res => {
-                    this.editingSubject = res.data;
-
-                })
-            },
-            getAllRemainingInfoSchedulingInDate(date) {
-                axios.get('admin/scheduling/' + date)
+            getAllRemainingRoomInDateAndExamShift(date, examShift) {
+                axios.get('/admin/all/remainingRoomInfoInDateAndExamShift/' + date + '/' + examShift)
                     .then(res => {
-                        this.allRemainingInfoInDate = res.data;
+                        this.remainRooms = res.data;
+                    })
+                    .catch(res => {
+                        console.log(res);
                     })
             },
-            postFake() {
-
+            post() {
+                console.log(this.rooms);
+                axios.post('/admin/scheduling', {
+                    year: this.year,
+                    semester: this.semester,
+                    subject: this.subject,
+                    duration: this.duration,
+                    date: this.date,
+                    examShift: this.examShift,
+                    room: this.rooms
+                })
+                    .then(res => {
+                        console.log(res);
+                        this.created();
+                    })
+                    .catch(res => {
+                        console.log(res);
+                    })
             }
         },
         created () {
-            // this.getSubjectsByYearAndSemester();
-            this.init();
-            this.init2();
-            this.getSchoolYear();
+            this.resetInput();
+            this.resetWatch();
+            this.resetVariables();
+            this.getAllYear();
         }
     })
 </script>
