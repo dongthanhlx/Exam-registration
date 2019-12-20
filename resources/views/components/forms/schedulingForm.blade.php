@@ -25,6 +25,7 @@
         <div class="form-group">
             <label for="exam">Kỳ thi</label>
             <select v-model="semester" name="semester" id="semester" class="form-control mt-2">
+                <option></option>
                 <option value="1">Thi cuối kỳ 1</option>
                 <option value="2">Thi cuối kỳ 2</option>
             </select>
@@ -43,6 +44,7 @@
                 <option value="45">45 phút</option>
                 <option value="90">90 phút</option>
                 <option value="120">120 phút</option>
+                <option value="180">180 phút</option>
             </select>
         </div>
 
@@ -50,7 +52,6 @@
             <label for="date">Ngày thi</label>
             <input v-model="date" type="date" id="date" name="date" class="form-control mt-2">
         </div>
-{{--
 
         <div class="form-group">
             <label for="examshift">Ca thi</label>
@@ -77,6 +78,7 @@
                 <input type="checkbox" name="103 G2">
             </div>
         </div>
+
 
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
@@ -150,9 +152,23 @@
             room: function(newval,oldval){
                 
             },
+            
 
         },
         methods: {
+            init2(){
+                var arr=["1","2","3","4","5"];
+                $(document).ready(function() {
+                    $('.js-example-basic-multiple').select2();
+
+                    for(var i = 0; i < arr.length;i++){
+                    var newOption = new Option(arr[i],arr[i],false,false);
+                    $('#room').append(newOption).trigger('change');
+                    }
+
+
+                });
+                },
             init(){
                 document.getElementById("semester").disabled = true;
                 document.getElementById("subject").disabled = true;
@@ -161,6 +177,7 @@
                 document.getElementById("examShift").disabled = true;
                 document.getElementById("room").disabled = true;
             },
+
             getSchoolYear(){
                 axios.get('/admin/all/year')
                     .then((response) => {
@@ -201,6 +218,7 @@
         created () {
             // this.getSubjectsByYearAndSemester();
             this.init();
+            this.init2();
             this.getSchoolYear();
         }
     })
