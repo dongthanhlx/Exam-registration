@@ -1,4 +1,4 @@
-<div class="container form" style="width: 25%" xmlns:v-bind="http://symfony.com/schema/routing">
+<div class="container form float-left" style="width: 25%" xmlns:v-bind="http://symfony.com/schema/routing">
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
