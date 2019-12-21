@@ -20,14 +20,18 @@
             <tbody>
             <tr v-for="(row, index) in rows" class=row.subject>
                 <td>
-                    <input type="checkbox" @change="getRow(row,selectedRow)" v-bind:class="row.subject" v-bind:id="row.id">
+                    <input type="checkbox" @change="getRow(row.id,row.subject,row.subject_class,row.date,row.examshift,room,selectedRow)" v-bind:class="row.subject" v-bind:id="row.id">
                 </td>
                 <td>@{{ index+1 }}</td>
                 <td>@{{row.subject}}</td>
                 <td>@{{row.subject_class}}</td>
                 <td>@{{row.date}}</td>
                 <td>@{{row.examshift}}</td>
-                <td>@{{row.room}}</td>
+                <td>
+                <select v-model="room" name="room" class="form-control mt-2">
+                    <option v-for="room in row.room" >@{{ room }}</option>
+                </select>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -178,14 +182,15 @@
         el: '#app',
         data: {
             selectedItems: [],
+            room:[],
             max: 2,
             fakeDatas:[{"id":"1","name":"Hung Cao"},{"id":"2","name":"Dong Thanh"},{"id":"3","name":"LoLa"}],
             selectedRow:[],
             idDelete:'',
             editingRoom: {},
             rows:[
-                {"id":"1","subject":"TTCN","subject_class":"INT3306 1","date":"20-11-2019","examshift":1,"room":"301G2"},
-                {"id":"2","subject":"TTCN","subject_class":"INT3306 1","date":"20-11-2019","examshift":2,"room":"302G2"},
+                {"id":"1","subject":"TTCN","subject_class":"INT3306 1","date":"20-11-2019","examshift":1,"room":["301G2","305G2"]},
+                {"id":"2","subject":"TTCN","subject_class":"INT3306 1","date":"20-11-2019","examshift":2,"room":["302G2"]},
                 {"id":"3","subject":"TTCN","subject_class":"INT3306 1","date":"20-11-2019","examshift":3,"room":"303G2"},
                 {"id":"4","subject":"TTCN","subject_class":"INT3306 1","date":"20-11-2019","examshift":"4","room":"304G2"},
                 {"id":"5","subject":"KTMT","subject_class":"INT3309 1","date":"20-11-2019","examshift":1,"room":"305G2"},
@@ -230,7 +235,7 @@
             disableRow(value, select, status){
                 // var clasName = [];
                 var className = document.getElementsByClassName(value.subject);
-                className = Array(className);
+                className = Array.prototype.slice.call( className );
                 
                 for(var i = 0; i<this.rows.length;i++){
                     if((value.date == this.rows[i].date) && (value.examshift == this.rows[i].examshift )){
@@ -245,11 +250,25 @@
                     className[i].disabled = status;
                 }
                 document.getElementById(value.id).disabled = false;
+                console.log(className);
+                
+                
+                console.log(arr);
             },
 
             
 
-            getRow(value, select){
+            getRow(id,subject,subjectCode,date,examShift,room, select){
+            
+                
+                var value = {
+                    "id":id,
+                    "subject":subject,
+                    "subject_class":subjectCode,
+                    "date":date,
+                    "examshift":examShift,
+                    "room":room
+                };
                 
                 this.disableRow(value,select,true);
                 var exist = 0;
@@ -274,6 +293,7 @@
                 }else if(exist == 1){
                     select.splice(record, 1)
                 }
+                
                 
                
             },

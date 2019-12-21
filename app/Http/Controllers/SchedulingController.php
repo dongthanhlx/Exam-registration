@@ -23,7 +23,10 @@ class SchedulingController extends Controller
      */
     public function index()
     {
-        return view('admin.scheduling');
+        return view('admin.import', [
+            'route' => 'admin.import.subject',
+            'table' => 'schedulingTable'
+        ]);
     }
 
     /**

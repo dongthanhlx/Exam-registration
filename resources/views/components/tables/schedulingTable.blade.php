@@ -1,5 +1,13 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createScheme">
+  Create scheme
+</button>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">
+  delete scheme
+</button>
+
 <div class="mr-5 ml-5">
-    <div class="row mb-3" >
+    <!-- <div class="row mb-3" >
         <div class="col">
             <label for="year">Năm học</label>
             <select v-model="year" name="year" id="year" class="form-control">
@@ -16,7 +24,7 @@
         </div>
         <div class="col"></div>
         <div class="col-6"></div>
-    </div>
+    </div> -->
 
     <table class="table table-striped">
         <thead>
@@ -46,6 +54,12 @@
     </table>
 
     <!-- Modal -->
+   
+
+
+
+
+
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -59,33 +73,36 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Tên môn học</label>
-                        <input type="text" id="name" name="name" class="form-control mt-2" v-model="editingSubjectClass.name" >
+                        <input type="text" id="name" name="name" class="form-control mt-2" v-model="editingScheme.name" >
                     </div>
 
                     <div class="form-group">
                         <label for="subject_code">Mã môn học</label>
-                        <input type="text" id="subject_code" name="subject_code" class="form-control mt-2" v-model="editingSubjectClass.subject_code" >
+                        <input type="text" id="subject_code" name="subject_code" class="form-control mt-2" v-model="editingScheme.subject_code" >
                     </div>
 
                     <div class="form-group">
                         <label for="number_of_credits">Số tín chỉ</label>
-                        <input type="number" id="number_of_credits" name="number_of_credits" class="form-control mt-2" v-model="editingSubjectClass.number_of_credits" >
+                        <input type="number" id="number_of_credits" name="number_of_credits" class="form-control mt-2" v-model="editingScheme.number_of_credits" >
                     </div>
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" ref="close" data-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary" @click="editSubjectClass(editingSubjectClass.id)">Sửa</button>
+                    <button type="button" class="btn btn-primary" @click="editScheme(editingScheme.id)">Sửa</button>
                 </div>
             </div>
         </div>
     </div>
 
+
+    
+
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tạo mới</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -104,6 +121,8 @@
     </div>
 </div>
 
+
+
 <script>
 const App = new Vue({
     el: '#app',
@@ -111,7 +130,7 @@ const App = new Vue({
         yearSelected: '',
         semesterSelected: '',
         idDelete: '',
-        editingSubjectClass: {},
+        editingScheme: {},
         year:null,
         semester:null,
         years:[],
@@ -149,7 +168,7 @@ const App = new Vue({
                 console.log(err);
             })
         },
-        deleteSubjectClass(id) {
+        deleteScheme(id) {
             this.$refs.delete.click();
             axios.delete('/admin/SubjectClass/' +id).then(res =>{
 
@@ -157,12 +176,12 @@ const App = new Vue({
                 console.log(err);
             });
         },
-        getSubjectClass(id) {
+        getScheme(id) {
             axios.get('/admin/SubjectClass/' + id).then(res => {
-                this.editingSubjectClass = res.data;
+                this.editingScheme = res.data;
             })
         },
-        editSubjectClass(id) {
+        editScheme(id) {
             axios.put('/admin/SubjectClass/' + id, this.editingSubject).then(res => {
                 this.$refs.close.click();
             })
@@ -173,3 +192,20 @@ const App = new Vue({
     }
 })
 </script>
+
+<div class="modal fade" id="createScheme" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Tạo mới</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                @include('components.forms.schedulingForm');
+            </div>
+            </div>
+        </div>
+    </div>

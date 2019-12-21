@@ -1,19 +1,5 @@
-<div class="container form float-left" style="width: 25%" xmlns:v-bind="http://symfony.com/schema/routing">
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @elseif(session()->has('message'))
-        <div class="alert alert-success">
-            {{ session()->get('message') }}
-        </div>
-    @endif
 
-    <form method="POST">
+    <form method="POST" xmlns:v-bind="http://symfony.com/schema/routing">
         @csrf
         <div class="form-group">
             <label for="year">Năm học</label>
@@ -88,12 +74,13 @@
                 
             </select>
         </div>
-
-
-        <button type="button" class="btn btn-primary" @click="show()" >Create</button>
+                
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
     </form>
 
-</div>
 
 
 
