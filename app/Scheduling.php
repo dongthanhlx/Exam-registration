@@ -11,9 +11,6 @@ use phpDocumentor\Reflection\Types\String_;
 class Scheduling extends BaseModel
 {
     protected $table = 'exams_subjects_rooms';
-    protected $casts = [
-        'options' => 'array',
-    ];
 
     protected $fillable = [
         'exam_id', 'subject_id', 'date', 'exam_shift', 'duration', 'room_id', 'create_by'
@@ -78,24 +75,6 @@ class Scheduling extends BaseModel
         return $result;
     }
 
-    public function test()
-    {
-        $result = collect();
-        $roomModel = new Room();
-        $allRoomID = $roomModel->getAllRoomID();
-        $tmp = $this->getAllRoomIDByDateAndExamShift('2019-12-19', 1);
-
-        foreach ($allRoomID as $roomID)
-        {
-            if (!in_array($roomID, (array) $tmp))
-            {
-                $result->push($roomID);
-            }
-        }
-
-        return $result;
-    }
-
     public function store($input)
     {
         $year = $input['year'];
@@ -119,5 +98,45 @@ class Scheduling extends BaseModel
                 'exam_shift' => $examShift,
                 'room_id' => $room_id_array
             ]);
+    }
+
+    public function getAll()
+    {
+        return DB::table('exams_subjects_rooms')
+            ->join('subjects',
+                'exams_subjects_rooms.subject_id', '=', 'subjects.id')
+            ->select('exams_subjects_rooms.*', 'subjects.name', 'subjects.subject_code')
+            ->get();
+    }
+
+    public function getAllInfoConverted()
+    {
+        $roomModel = new Room();
+        $examRegistrationModel = new ExamRegistration();
+        $allSchedulingInfo = $this->getAll();
+
+        foreach ($allSchedulingInfo as $record) {
+            $roomIDs = (array) unserialize($record->room_id);
+            $rooms = collect();
+
+            for ($i=0; $i<count($roomIDs); $i++) {
+                $roomCollect = collect();
+                $room = $roomModel->getByID((integer) $roomIDs[$i]);
+
+                $roomName = $room->name;
+                $maxNum = $room->number_of_computer;
+                $registered = $examRegistrationModel->countRegistrationBySchedulingIDAndRoomID($record->id, $room->id);
+
+                $roomCollect->put('name', $roomName);
+                $roomCollect->put('maxNum', $maxNum);
+                $roomCollect->put('numRegistered', $registered);
+
+                $rooms->push($roomCollect);
+            }
+
+            $record->rooms = $rooms;
+        }
+
+        return $allSchedulingInfo;
     }
 }
