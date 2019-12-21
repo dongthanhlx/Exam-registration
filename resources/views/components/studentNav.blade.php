@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default navbar-static-top navbar-expand-lg navbar-light bg-light">
-    <div class="container">
+    <div class="container ">
         <div class="navbar-header">
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
@@ -20,13 +20,13 @@
             </ul>
 
             <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav position-absolute" style="right: 0;">
+            <ul class="nav navbar-nav position-absolute " style="right: 0;">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
-                    <li><a href="{{ route('login') }}">Login</a></li>
+                    <li class="mr-2"><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>
                 @else
-                    <li>
+                    <li class="shadow-sm">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->last_name }} <span class="caret"></span>
                         </a>

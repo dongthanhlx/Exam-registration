@@ -1,5 +1,5 @@
-
-    <form method="POST" xmlns:v-bind="http://symfony.com/schema/routing">
+<div class="container form" style="width: 25%" xmlns:v-bind="http://symfony.com/schema/routing">
+    <form method="POST">
         @csrf
         <div class="form-group">
             <label for="year">Năm học</label>
@@ -27,6 +27,7 @@
 
         <div class="form-group">
             <label for="duration">Thời gian làm bài</label>
+
             <select v-model="duration" name="duration" id="duration" class="form-control mt-2">
                 <option value="45">45 phút</option>
                 <option value="60">60 phút</option>
@@ -53,48 +54,36 @@
         </div>
 
         <div class="form-group">
-            <label for="room">Phòng thi</label>
-            <!-- <select v-model="room" name="room" id="room" class="form-control mt-2"> -->
-            <div>
-                <multiselect
-                    id = "test"
-                    v-model="rooms"
-                    placeholder=""
-                    label="name" track-by="id"
-                    :options="remainRooms"
-                    :multiple="true"
-                    :taggable="true"
-                    
-                ></multiselect>
+            <label for="remainRooms">Phòng thi</label>
 
-                
-                </div>
-
-                <span v-for="value in values">@{{value.id}}</span>
-                
-            </select>
+            <multiselect
+                id = "remainRooms"
+                v-model="rooms"
+                placeholder=""
+                label="name" track-by="id"
+                :options="remainRooms"
+                :multiple="true"
+                :taggable="true"
+            ></multiselect>
         </div>
-                
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+
+        <button type="button" class="btn btn-primary" @click="post()" >Create</button>
     </form>
-
-
-
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
 
 <script>
-
     const App = new Vue({
         el: '#app',
         //mutiselect
         components: { Multiselect: window.VueMultiselect.default },
         data: {
+            selected:'',
+            deletingSubjectId:'',
+            editingSubject: {},
             years:[],
             subjects:[],
             remainRooms: [],
@@ -106,6 +95,7 @@
             date: null,
             examShift: null,
             rooms: [],
+            selectedRoom: []
         },
         watch:{
             year: function(newval,oldval) {
@@ -182,13 +172,23 @@
                     });
             },
             getAllRemainingRoomInDateAndExamShift(date, examShift) {
-                axios.get('/admin/all/remainingRoomInfoInDateAndExamShift/' + date + '/' + examShift)
-                    .then(res => {
-                        this.remainRooms = res.data;
-                    })
-                    .catch(res => {
-                        console.log(res);
-                    })
+                    axios.get('/admin/all/remainingRoomInfoInDateAndExamShift/' + date + '/' + examShift)
+                        .then(res => {
+                            this.remainRooms = res.data;
+                        })
+                        .catch(res => {
+                            console.log(res);
+                        })
+            },
+            getAllIdOfRooms()
+            {
+                var result = [];
+
+                for (var i=0; i<this.rooms.length; i++) {
+                    result.push(this.rooms[i].id);
+                }
+
+                return result;
             },
             post() {
                 console.log(this.rooms);
@@ -199,7 +199,7 @@
                     duration: this.duration,
                     date: this.date,
                     examShift: this.examShift,
-                    room: this.rooms
+                    room: this.getAllIdOfRooms()
                 })
                     .then(res => {
                         console.log(res);
