@@ -27,7 +27,6 @@
 
         <div class="form-group">
             <label for="duration">Thời gian làm bài</label>
-
             <select v-model="duration" name="duration" id="duration" class="form-control mt-2">
                 <option value="45">45 phút</option>
                 <option value="60">60 phút</option>
@@ -67,15 +66,21 @@
             ></multiselect>
         </div>
 
-        <button type="button" class="btn btn-primary" @click="post()" >Create</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
     </form>
-</div>
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
 
 <script>
+
     const App = new Vue({
         el: '#app',
         //mutiselect
@@ -95,7 +100,6 @@
             date: null,
             examShift: null,
             rooms: [],
-            selectedRoom: []
         },
         watch:{
             year: function(newval,oldval) {

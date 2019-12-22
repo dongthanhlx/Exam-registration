@@ -13,7 +13,7 @@ class SchedulingController extends Controller
     public function __construct()
     {
         $this->model = new Scheduling();
-//        $this->middleware('auth:admin');
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -23,7 +23,10 @@ class SchedulingController extends Controller
      */
     public function index()
     {
-        return view('admin.scheduling');
+        return view('admin.import', [
+            'route' => 'admin.import.subject',
+            'table' => 'schedulingTable'
+        ]);
     }
 
     /**

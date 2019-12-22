@@ -105,7 +105,9 @@ class Scheduling extends BaseModel
         return DB::table('exams_subjects_rooms')
             ->join('subjects',
                 'exams_subjects_rooms.subject_id', '=', 'subjects.id')
-            ->select('exams_subjects_rooms.*', 'subjects.name', 'subjects.subject_code')
+            ->select('exams_subjects_rooms.date', 'exams_subjects_rooms.exam_shift', 'exams_subjects_rooms.room_id', 'exams_subjects_rooms.id',
+                'subjects.name', 'subjects.subject_code')
+            ->orderBy('subjects.name')
             ->get();
     }
 
