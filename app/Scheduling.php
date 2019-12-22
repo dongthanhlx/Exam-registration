@@ -125,10 +125,12 @@ class Scheduling extends BaseModel
                 $roomCollect = collect();
                 $room = $roomModel->getByID((integer) $roomIDs[$i]);
 
+                $roomID = $room->id;
                 $roomName = $room->name;
                 $maxNum = $room->number_of_computer;
                 $registered = $examRegistrationModel->countRegistrationBySchedulingIDAndRoomID($record->id, $room->id);
 
+                $roomCollect->put('id', $roomID);
                 $roomCollect->put('name', $roomName);
                 $roomCollect->put('maxNum', $maxNum);
                 $roomCollect->put('numRegistered', $registered);

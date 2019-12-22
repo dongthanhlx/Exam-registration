@@ -72,7 +72,7 @@
             </div>
     </form>
 
-
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -80,7 +80,6 @@
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
 
 <script>
-
     const App = new Vue({
         el: '#app',
         //mutiselect
