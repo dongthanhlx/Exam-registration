@@ -60,7 +60,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('exam', 'ExamController');
     Route::resource('scheduling', 'SchedulingController');
     Route::resource('registrationStudy', 'RegistrationStudyController');
-    Route::resource('examRegistration', 'ExamRegistrationController');
 
     Route::prefix('all')->name('all.')->group(function () {
         Route::get('year', 'ExamController@allYear')->name('year');

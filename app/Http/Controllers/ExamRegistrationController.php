@@ -23,9 +23,6 @@ class ExamRegistrationController extends Controller
      */
     public function index()
     {
-        return view('admin.import',[
-            'table' => 'schedulingTable'
-        ]);
     }
 
     /**
