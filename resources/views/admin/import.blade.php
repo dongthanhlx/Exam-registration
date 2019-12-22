@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-    @include('components.forms.importForm')
+    @isset($route)
+        @include('components.forms.importForm')
+    @endisset
+
     @include('components.tables.' . $table)
 @endsection

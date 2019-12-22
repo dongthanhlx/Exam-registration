@@ -13,7 +13,7 @@ class ExamRegistrationController extends Controller
     public function __construct()
     {
         $this->model = new ExamRegistration();
-        $this->middleware['auth'];
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -23,7 +23,9 @@ class ExamRegistrationController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.import',[
+            'table' => 'schedulingTable'
+        ]);
     }
 
     /**
