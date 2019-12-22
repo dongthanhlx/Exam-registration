@@ -88,4 +88,16 @@ class Room extends BaseModel
             ->first();
     }
 
+    public function getNumOfComputer($roomIDs = [])
+    {
+        $count = 0;
+
+        foreach ($roomIDs as $roomID)
+        {
+            $room = $this->getByID($roomID);
+            $count += $room->number_of_computer;
+        }
+
+        return $count;
+    }
 }

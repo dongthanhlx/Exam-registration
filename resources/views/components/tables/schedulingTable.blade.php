@@ -1,41 +1,22 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createScheme">
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createScheme">
   Create scheme
 </button>
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">
   delete scheme
-</button>
+</button> -->
 
 <div class="mr-5 ml-5">
-    <!-- <div class="row mb-3" >
-        <div class="col">
-            <label for="year">Năm học</label>
-            <select v-model="year" name="year" id="year" class="form-control">
-                <option v-for="year in years" >@{{ year.year }}</option>
-            </select>
-        </div>
-
-        <div class="col">
-            <label for="semester">Học kỳ</label>
-            <select name="semester" id="semester" v-model="semester" class="form-control">
-                <option value="1">1</option>
-                <option value="2">2</option>
-            </select>
-        </div>
-        <div class="col"></div>
-        <div class="col-6"></div>
-    </div> -->
-
     <table class="table table-striped">
         <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Môn thi</th>
-            <th scope="col">Ngày thi</th>
-            <th scope="col">Ca thi</th>
-            <th scope="col">Phòng thi</th>
-            <th scope="col">Tác vụ</th>
-        </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Môn thi</th>
+                <th scope="col">Ngày thi</th>
+                <th scope="col">Ca thi</th>
+                <th scope="col">Phòng thi</th>
+                <th scope="col">Tác vụ</th>
+            </tr>
         </thead>
 
         <tbody>
@@ -54,12 +35,6 @@
     </table>
 
     <!-- Modal -->
-   
-
-
-
-
-
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -95,9 +70,6 @@
         </div>
     </div>
 
-
-    
-
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -120,8 +92,6 @@
         </div>
     </div>
 </div>
-
-
 
 <script>
 const App = new Vue({

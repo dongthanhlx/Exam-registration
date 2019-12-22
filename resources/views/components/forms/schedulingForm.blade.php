@@ -66,6 +66,17 @@
                 :taggable="true"
             ></multiselect>
         </div>
+<<<<<<< HEAD
+=======
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+    </form>
+
+
+>>>>>>> aefedff1e941d6f60dfb3d71ae02c52506f55767
 
         <button type="button" class="btn btn-primary" @click="post()" >Create</button>
     </form>
