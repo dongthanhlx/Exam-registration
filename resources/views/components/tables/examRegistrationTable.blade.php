@@ -79,18 +79,23 @@
     </div>
 
     <div class="mt-4">
-        <button type="button" class="btn btn-primary float-right" @click="submit()">Confirm</button>
+        <form method="POST">
+            @csrf
+            <button type="button" class="btn btn-primary float-right" @click="submit()">Confirm</button>
+        </form>
     </div>
 </div>
 
 <script>
+    Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
+
     const App = new Vue({
         el: '#app',
         data: {
             roomSelected: {},
             selectedRow:[],
             rows:[],
-            room: {}
+            room: {},
         },
         methods: {
             getAll() {
@@ -170,7 +175,16 @@
                 return false;
             },
             submit() {
-                console.log(this.selectedRow);
+                axios.post('/examRegistration/', {
+                    data: this.selectedRow,
+                    studentID: this.$userId
+                })
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(res => {
+                    console.log(res);
+                })
             }
         },
         created () {

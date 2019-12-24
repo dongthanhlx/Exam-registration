@@ -11,7 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav position-absolute">
                 <li class="nav-item mx-2">
-                    <a class="nav-link" href="{{ route('examRegistration') }}">Đăng ký thi</a>
+                    <a class="nav-link" href="{{ route('examRegistration.index') }}">Đăng ký thi</a>
                 </li>
 
                 <li class="nav-item mx-2">

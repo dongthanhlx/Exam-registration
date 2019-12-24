@@ -6,9 +6,10 @@ use App\StudentDetailSubjectClass;
 use App\SubjectClass;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class StudentListOfSubjectClassImport implements ToModel, WithHeadingRow, WithValidation
+class StudentListOfSubjectClassImport implements ToModel,  WithValidation, WithStartRow
 {
     /**
      * @param array $row
@@ -18,19 +19,24 @@ class StudentListOfSubjectClassImport implements ToModel, WithHeadingRow, WithVa
     public function model(array $row)
     {
         return new StudentDetailSubjectClass([
-            'student_code' => $row['student_code'],
-            'subject_code' => $row['subject_code'],
-            'serial' => $row['serial']
+            'student_code' => $row[3],
+            'subject_code' => $row[5],
+            'serial' => $row[6]
         ]);
     }
 
     public function rules(): array
     {
         return [
-            'student_code' => 'required',
-            'subject_code' => 'required',
-            'serial' => 'required'
+            '3' => 'required',
+            '5' => 'required',
+            '6' => 'required'
         ];
+    }
+
+    public function startRow(): int
+    {
+        return 3;
     }
 
 }

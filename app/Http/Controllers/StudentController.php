@@ -20,7 +20,8 @@ class StudentController extends Controller
     {
         return view('admin.import', [
             'route' => route('admin.import.StudentInfo'),
-            'table' => 'studentInfoTable'
+            'table' => 'studentInfoTable',
+            'name' => 'SampleStudentInfo'
         ]);
     }
 

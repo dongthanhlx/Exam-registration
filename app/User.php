@@ -30,7 +30,10 @@ class User extends Authenticatable
 
     public function getByEmail($email)
     {
-        return DB::table('users')->where('email', '=', $email)->get()->first();
+        return DB::table('users')
+            ->where('email', '=', $email)
+            ->get()
+            ->first();
     }
 
     public function allAccount()

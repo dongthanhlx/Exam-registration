@@ -5,9 +5,10 @@ namespace App\Imports;
 use App\StudentDetailSubjectClass;
 use App\SubjectClass;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class StudentNotEligibleImport implements ToModel, WithValidation
+class StudentNotEligibleImport implements ToModel, WithValidation, WithStartRow
 {
     /**
      * @param array $row
@@ -16,29 +17,33 @@ class StudentNotEligibleImport implements ToModel, WithValidation
      */
     public function model(array $row)
     {
-        $subjectCode = $row['subject_code'];
-        $serial = $row['serial'];
+        $subjectCode = $row[5];
+        $serial = $row[6];
 
         $subjectClass = (new SubjectClass())->getSubjectClassBySubjectCodeAndSerial($subjectCode, $serial);
         $subjectClassID = $subjectClass->id;
 
         return new StudentDetailSubjectClass([
-            'student_code' => $row['student_code'],
+            'student_code' => $row[3],
             'subject_class_id' => $subjectClassID,
-            'comments' => $row['comments'],
-            'contest_conditions' => $row['contest_conditions']
+            'comments' => $row[8],
+            'contest_conditions' => $row[7]
         ]);
     }
 
     public function rules(): array
     {
         return [
-            'subject_code' => 'required',
-            'serial' => 'required',
-            'student_code' => 'required',
-            'comments' => 'required',
-            'contest_conditions' => 'required'
+            '5' => 'required',
+            '6' => 'required',
+            '3' => 'required',
+            '8' => 'required',
+            '7' => 'required'
         ];
     }
 
+    public function startRow(): int
+    {
+        return 3;
+    }
 }

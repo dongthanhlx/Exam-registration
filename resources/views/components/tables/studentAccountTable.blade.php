@@ -22,6 +22,7 @@
         </tbody>
     </table>
 
+    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4">SampleForm</a>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

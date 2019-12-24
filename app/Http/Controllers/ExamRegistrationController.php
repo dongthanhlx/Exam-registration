@@ -13,7 +13,7 @@ class ExamRegistrationController extends Controller
     public function __construct()
     {
         $this->model = new ExamRegistration();
-        $this->middleware('auth:admin');
+        $this->middleware('auth');
     }
 
     /**
@@ -23,6 +23,7 @@ class ExamRegistrationController extends Controller
      */
     public function index()
     {
+        return view('examRegistration');
     }
 
     /**
@@ -44,10 +45,9 @@ class ExamRegistrationController extends Controller
     public function store(Request $request)
     {
         $input = $request->input();
-
         $this->model->store($input);
 
-        return "OK";
+        return response()->json('OK', 200);
     }
 
     /**

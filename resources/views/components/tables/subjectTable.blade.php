@@ -101,6 +101,7 @@
             </div>
         </div>
     </div>
+    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4">SampleForm</a>
 </div>
 
 

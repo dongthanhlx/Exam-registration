@@ -24,7 +24,8 @@ class UserController extends Controller
 
         return view('admin.import', [
             'route' => route('admin.import.StudentAccount'),
-            'table' => 'studentAccountTable'
+            'table' => 'studentAccountTable',
+            'name' => 'SampleAccount'
         ]);
     }
 

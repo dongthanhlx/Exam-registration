@@ -6,6 +6,7 @@ use App\Imports\RoomImport;
 use App\Imports\StudentAccountImport;
 use App\Imports\StudentInfoImport;
 use App\Imports\StudentListOfSubjectClassImport;
+use App\Imports\StudentNotEligibleImport;
 use App\Imports\SubjectClassImport;
 use App\Imports\SubjectListImport;
 
@@ -38,7 +39,6 @@ class ImportController extends AdminController
     public function studentOfSubjectClass()
     {
         $this->import(new StudentListOfSubjectClassImport());
-
     }
 
     public function room()
@@ -51,5 +51,15 @@ class ImportController extends AdminController
     {
         $this->import(new SubjectClassImport());
         return redirect()->route('admin.SubjectClass.index')->with('message', 'Import Successfully');
+    }
+
+    public function studentNotEligible()
+    {
+        $this->import(new StudentNotEligibleImport());
+    }
+
+    public function downloadSampleForm($name)
+    {
+        return response()->download("storage/$name.xlsx");
     }
 }

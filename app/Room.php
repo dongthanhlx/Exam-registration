@@ -91,6 +91,7 @@ class Room extends BaseModel
     public function getNumOfComputer($roomIDs = [])
     {
         $count = 0;
+        if (gettype($roomIDs) == 'integer') return $this->getByID($roomIDs)->number_of_computer;
 
         foreach ($roomIDs as $roomID)
         {

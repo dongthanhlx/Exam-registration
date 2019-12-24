@@ -7,9 +7,10 @@ use App\Subject;
 use App\SubjectClass;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class SubjectClassImport implements ToModel, WithHeadingRow, WithValidation
+class SubjectClassImport implements ToModel, WithValidation, WithStartRow
 {
     /**
     * @param array $row
@@ -18,8 +19,8 @@ class SubjectClassImport implements ToModel, WithHeadingRow, WithValidation
     */
     public function model(array $row)
     {
-        $semester = $row['semester'];
-        $year = $row['year'];
+        $semester = $row[5];
+        $year = $row[6];
 
         $examModel = new Exam();
         $exam = $examModel->getByYearAndSemester($year, $semester);
@@ -27,16 +28,16 @@ class SubjectClassImport implements ToModel, WithHeadingRow, WithValidation
         if ($exam == null) return null;
         $exam_id = $exam->id;
 
-        $subjectCode = $row['subject_code'];
+        $subjectCode = $row[1];
         $subjectModel = new Subject();
         $subject = $subjectModel->getBySubjectCode($subjectCode);
         if ($subject == null) return null;
 
         return new SubjectClass([
             'subject_code' => $subjectCode,
-            'serial' => $row['serial'],
-            'teacher' => $row['teacher'],
-            'maximum_number_of_student' => $row['maximum_number_of_student'],
+            'serial' => $row[2],
+            'teacher' => $row[3],
+            'maximum_number_of_student' => $row[4],
             'exam_id' => $exam_id
         ]);
     }
@@ -44,12 +45,18 @@ class SubjectClassImport implements ToModel, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
-            'subject_code' => 'required',
-            'serial' => 'required|numeric',
-            'teacher' => 'required',
-            'maximum_number_of_student' => 'required|numeric',
-            'semester' => 'required|numeric',
-            'year' => 'required'
+            '1' => 'required',
+            '2' => 'required|numeric',
+            '3' => 'required',
+            '4' => 'required|numeric',
+            '5' => 'required|numeric',
+            '6' => 'required'
         ];
     }
+
+    public function startRow(): int
+    {
+        return 3;
+    }
+
 }

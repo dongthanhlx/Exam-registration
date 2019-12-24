@@ -1,40 +1,41 @@
-<div class="container mt-3" xmlns:v-bind="http://symfony.com/schema/routing">
-    <div class="row mb-3">
-        <div class="col">
-            <label for="year">Năm học</label>
-            <select v-model="yearSelected" name="year" class="form-control" id="year">
-                <option v-for="year in years">@{{ year.year }}</option>
-            </select>
-        </div>
+<div class="m-5">
+    <div class="container mt-3" xmlns:v-bind="http://symfony.com/schema/routing">
+        <div class="row mb-3">
+            <div class="col">
+                <label for="year">Năm học</label>
+                <select v-model="yearSelected" name="year" class="form-control" id="year">
+                    <option v-for="year in years">@{{ year.year }}</option>
+                </select>
+            </div>
 
-        <div class="col">
-            <label for="semester">Học kỳ</label>
-            <select name="semester" id="semester" v-model="semesterSelected" class="form-control"  @click="getAllSubjectClassByExam()">
-                <option value="1">1</option>
-                <option value="2">2</option>
-            </select>
-        </div>
+            <div class="col">
+                <label for="semester">Học kỳ</label>
+                <select name="semester" id="semester" v-model="semesterSelected" class="form-control"  @click="getAllSubjectClassByExam()">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
 
-        <div class="col">
-            <label for="subject">Môn học</label>
-            <select name="subject" id="subject" v-model="subjectSelected" class="form-control" @click="getAllStudentBySubjectCode()">
-                <option v-for="subject in subjects" v-bind:value="subject.subject_code">@{{ subject.name }}</option>
-            </select>
-        </div>
+            <div class="col">
+                <label for="subject">Môn học</label>
+                <select name="subject" id="subject" v-model="subjectSelected" class="form-control" @click="getAllStudentBySubjectCode()">
+                    <option v-for="subject in subjects" v-bind:value="subject.subject_code">@{{ subject.name }}</option>
+                </select>
+            </div>
 
-        <div class="col">
-            <label for="subject_class">Lớp học phần</label>
-            <select name="subject_class" id="subject_class" v-model="serialSelected" class="form-control" @click="getAllStudentBySerial()">
-                <option v-for="serial in serials">@{{ serial }}</option>
-            </select>
-        </div>
+            <div class="col">
+                <label for="subject_class">Lớp học phần</label>
+                <select name="subject_class" id="subject_class" v-model="serialSelected" class="form-control" @click="getAllStudentBySerial()">
+                    <option v-for="serial in serials">@{{ serial }}</option>
+                </select>
+            </div>
 
-        <div class="col"></div>
+            <div class="col"></div>
+        </div>
     </div>
-</div>
 
-<table class="table table-striped">
-    <thead>
+    <table class="table table-striped">
+        <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Họ và tên</th>
@@ -45,9 +46,9 @@
             <th scope="col">Ghi chú</th>
             <th scope="col">Tác vụ</th>
         </tr>
-    </thead>
+        </thead>
 
-    <tbody>
+        <tbody>
         <tr v-for="(row, index) in rows">
             <td>@{{ index+1 }}</td>
             <td>@{{row.full_name}}</td>
@@ -61,9 +62,13 @@
                 <button @click="getStudentOfSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary">Edit</button>
             </td>
         </tr>
-    </tbody>
-</table>
-
+        </tbody>
+    </table>
+    <div class="float-right">
+        <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="mb-4">SampleForm1</a>
+        <a href="{{ route("admin.import.downloadSampleForm", $name2) }}" class="mb-4">SampleForm2</a>
+    </div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

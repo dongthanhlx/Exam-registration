@@ -30,7 +30,9 @@ class SubjectClassController extends Controller
 
         return view('admin.import', [
             'route' => route('admin.import.SubjectClass'),
-            'table' => 'subjectClassTable'
+            'table' => 'subjectClassTable',
+            'name' => 'SampleSubjectClass',
+            'name2' => 'SampleStudentNotEligible'
         ]);
     }
 

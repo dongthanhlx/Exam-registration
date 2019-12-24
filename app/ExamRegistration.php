@@ -16,7 +16,7 @@ class ExamRegistration extends BaseModel
 
     public function store($input)
     {
-        $schedulingModel = new Scheduling();
+        /*$schedulingModel = new Scheduling();
         $roomModel = new Room();
         $schedulingID = $input['schedulingID'];
         $studentID = $input['studentID'];
@@ -26,7 +26,7 @@ class ExamRegistration extends BaseModel
         $roomIDs = unserialize($scheduling->room_id);
 
         $numOfComputer = $roomModel->getNumOfComputer($roomIDs);
-        $registered = $this->countRegistrationBySchedulingIDAndRoomID($schedulingID, );
+        $registered = $this->countRegistrationBySchedulingIDAndRoomID($schedulingID, $roomID);
 
         if ($numOfComputer > $registered) {
             return $this::firstOrCreate([
@@ -35,7 +35,28 @@ class ExamRegistration extends BaseModel
             ]);
         }
 
-        return false;
+        return false;*/
+        $roomModel = new Room();
+        $data = $input['data'];
+        $studentID = $input['studentID'];
+        foreach ($data as $record)
+        {
+            var_dump($record);
+            $schedulingID = $record['id'];
+            $room = $record['room'];
+            $roomID = $room['id'];
+            $allComputer = $roomModel->getNumOfComputer($roomID);
+            $registeredComputer = $this->countRegistrationBySchedulingIDAndRoomID($schedulingID, $roomID);
+
+            if ($allComputer > $registeredComputer) {
+                DB::table('exams_subjects_rooms_student_details')
+                    ->insert([
+                        'exams_subjects_rooms_id' => $schedulingID,
+                        'student_id' => $studentID,
+                        'room_id' => $roomID
+                    ]);
+            }
+        }
     }
 
     public function countRegistrationBySchedulingIDAndRoomID($schedulingID, $roomID)

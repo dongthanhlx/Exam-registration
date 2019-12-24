@@ -3,7 +3,6 @@
         @csrf
         <div class="form-group">
             <label for="year">Năm học</label>
-
             <select v-model="year" name="year" class="form-control mt-2">
                 <option v-for="year in years" >@{{ year.year }}</option>
             </select>
@@ -11,7 +10,6 @@
 
         <div class="form-group">
             <label for="exam">Kỳ thi</label>
-
             <select v-model="semester" name="semester" id="semester" class="form-control mt-2">
                 <option value="1">Thi cuối kỳ 1</option>
                 <option value="2">Thi cuối kỳ 2</option>
@@ -37,13 +35,11 @@
 
         <div class="form-group" >
             <label for="date">Ngày thi</label>
-
             <input v-model="date" type="date" id="date" name="date" class="form-control mt-2">
         </div>
 
         <div class="form-group">
             <label for="examShift">Ca thi</label>
-
             <select v-model="examShift" name="examShift" id="examShift" class="form-control mt-2">
                 <option value="1">ca 1</option>
                 <option value="2">ca 2</option>
@@ -54,24 +50,19 @@
 
         <div class="form-group">
             <label for="remainRooms">Phòng thi</label>
-
             <multiselect
-                id = "remainRooms"
-                v-model="rooms"
-                placeholder=""
-                label="name" track-by="id"
-                :options="remainRooms"
-                :multiple="true"
-                :taggable="true"
+                    id = "remainRooms"
+                    v-model="rooms"
+                    placeholder=""
+                    label="name" track-by="id"
+                    :options="remainRooms"
+                    :multiple="true"
+                    :taggable="true"
             ></multiselect>
         </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+        <button type="button" class="btn btn-outline-primary" @click="post()">Tạo</button>
     </form>
-
 </div>
 
 
@@ -175,13 +166,13 @@
                     });
             },
             getAllRemainingRoomInDateAndExamShift(date, examShift) {
-                    axios.get('/admin/all/remainingRoomInfoInDateAndExamShift/' + date + '/' + examShift)
-                        .then(res => {
-                            this.remainRooms = res.data;
-                        })
-                        .catch(res => {
-                            console.log(res);
-                        })
+                axios.get('/admin/all/remainingRoomInfoInDateAndExamShift/' + date + '/' + examShift)
+                    .then(res => {
+                        this.remainRooms = res.data;
+                    })
+                    .catch(res => {
+                        console.log(res);
+                    })
             },
             getAllIdOfRooms()
             {
@@ -195,7 +186,7 @@
             },
             post() {
                 console.log(this.rooms);
-                axios.post('/admin/scheduling', {
+                axios.post('/admin/scheduling/', {
                     year: this.year,
                     semester: this.semester,
                     subject: this.subject,
@@ -205,8 +196,10 @@
                     room: this.getAllIdOfRooms()
                 })
                     .then(res => {
-                        console.log(res);
-                        this.created();
+                        this.resetInput();
+                        this.resetWatch();
+                        this.resetVariables();
+                        this.getAllYear();
                     })
                     .catch(res => {
                         console.log(res);

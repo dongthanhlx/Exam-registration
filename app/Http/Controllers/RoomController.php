@@ -25,7 +25,8 @@ class RoomController extends Controller
     {
         return view('admin.import', [
             'route' => route('admin.import.room'),
-            'table' => 'roomTable'
+            'table' => 'roomTable',
+            'name' => 'SampleRoom'
         ]);
     }
 
@@ -116,5 +117,10 @@ class RoomController extends Controller
         $result = $this->model->deleteById($id);
 
         return $result;
+    }
+
+    public function downloadSampleForm()
+    {
+        return response()->download(url('../storage/SampleRoom.xlsx'));
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Scheduling;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class SchedulingController extends Controller
 {
@@ -13,7 +12,6 @@ class SchedulingController extends Controller
     public function __construct()
     {
         $this->model = new Scheduling();
-        $this->middleware('auth:admin');
     }
 
     /**
@@ -50,7 +48,7 @@ class SchedulingController extends Controller
 
         $result = $this->model->store($input);
 
-        return response()->json($result, 200);
+        return redirect()->route('admin.scheduling.create');
     }
 
     /**

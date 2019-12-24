@@ -28,7 +28,8 @@ class SubjectController extends Controller
 
         return view('admin.import', [
             'route' => route('admin.import.subject'),
-            'table' => 'subjectTable'
+            'table' => 'subjectTable',
+            'name' => 'SampleSubject'
         ]);
     }
 

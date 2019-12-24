@@ -23,7 +23,10 @@ class RegistrationStudyController extends Controller
     {
         return view('admin.import', [
                 'route' => route('admin.import.StudentOfSubjectClass'),
-                'table' => 'studentOfSubjectClassTable'
+                'table' => 'studentOfSubjectClassTable',
+                'route2' => route('admin.import.StudentNotEligible'),
+                'name' => 'SampleStudentOfSubjectClass',
+                'name2' => 'SampleStudentNotEligible'
             ]
         );
     }

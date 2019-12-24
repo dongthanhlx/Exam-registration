@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\ImportController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,9 +24,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
-Route::get('/examRegistration', function () {
-    return view('examRegistration');
-})->name('examRegistration');
+Route::resource('examRegistration', 'ExamRegistrationController');
 
 Route::get('/contestCard', function () {
     return view('contestCard');
@@ -50,6 +49,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::post('room', 'ImportController@room')->name('room');
         Route::post('SubjectClass', 'ImportController@subjectClass')->name('SubjectClass');
         Route::post('StudentOfSubjectClass', 'ImportController@studentOfSubjectClass')->name('StudentOfSubjectClass');
+        Route::post('StudentNotEligible', 'ImportController@studentNotEligible')->name('StudentNotEligible');
+        Route::get('downloadSampleForm/{name}', 'ImportController@downloadSampleForm')->name('downloadSampleForm');
     });
 
     Route::resource('student', 'StudentController');
@@ -58,7 +59,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('room', 'RoomController');
     Route::resource('SubjectClass', 'SubjectClassController');
     Route::resource('exam', 'ExamController');
-    Route::resource('scheduling', 'SchedulingController');
+    Route::resource('scheduling', 'SchedulingController')->middleware('auth:admin');
     Route::resource('registrationStudy', 'RegistrationStudyController');
 
     Route::prefix('all')->name('all.')->group(function () {
@@ -73,8 +74,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('studentOfSubjectCode/{subjectCode}', 'StudentController@getBySubjectCode')->name('studentOfSubjectCode');*/
         Route::get('subjectClassOfExam/{year}/{semester}', 'SubjectClassController@getByYearAndSemester')->name('subjectClassOfExam');
         Route::get('studentOfSubjectCodeAndExamID/{subjectCode}/{exam_id}', 'StudentController@getBySubjectCodeAndExamID')->name('studentOfSubjectCodeAndExamID');
-        Route::get('remainingRoomInfoInDateAndExamShift/{date}/{examShift}', 'SchedulingController@getAllRemainingRoomInfoInDayAndExamShift')->name('remainingRoomInfoInDateAndExamShift');
-        Route::get('infoScheduling', 'SchedulingController@getAllInfo')->name('infoScheduling');
+        Route::get('remainingRoomInfoInDateAndExamShift/{date}/{examShift}', 'SchedulingController@getAllRemainingRoomInfoInDayAndExamShift')->name('remainingRoomInfoInDateAndExamShift')->middleware('auth:admin');
+        Route::get('infoScheduling', 'SchedulingController@getAllInfo')->name('infoScheduling')->middleware('auth');
     });
-
 });

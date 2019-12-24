@@ -8,11 +8,12 @@ use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Validators\Failure;
 use Throwable;
 
-class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation
+class StudentInfoImport implements ToModel, WithValidation, WithStartRow
 {
 
     /**
@@ -22,17 +23,17 @@ class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation
      */
     public function model(array $row)
     {
-        $email = $row['email'];
+        $email = $row[3];
         $userModel = new User();
         $user = $userModel->getByEmail($email);
         if ($user == null) return null;
         $user_id = $user->id;
 
         return new Student([
-            'student_code'  => $row['student_code'],
-            'birthday'      => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['birthday']),
-            'class'         => $row['class'],
-            'gender'        => $row['gender'],
+            'student_code'  => $row[1],
+            'birthday'      => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[5]),
+            'class'         => $row[7],
+            'gender'        => $row[6],
             'user_id'       => $user_id,
         ]);
     }
@@ -40,11 +41,17 @@ class StudentInfoImport implements ToModel, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
-            'student_code' => 'required',
-            'birthday' => 'required',
-            'class' => 'required',
-            'gender' => 'required',
-            'email' => 'required'
+            '4' => 'required',
+            '5' => 'required',
+            '7' => 'required',
+            '6' => 'required',
+            '3' => 'required'
         ];
     }
+
+    public function startRow(): int
+    {
+        return 3;
+    }
+
 }
