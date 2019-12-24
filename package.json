@@ -18,5 +18,9 @@
     "sass": "^1.23.7",
     "sass-loader": "^8.0.0",
     "popper.js": "^1.16.0"
+  },
+  "dependencies": {
+    "print-js": "^1.0.63",
+    "vue-html-to-paper": "^1.1.1"
   }
 }

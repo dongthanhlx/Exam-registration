@@ -1,6 +1,9 @@
-<div class="container form" style="width: 25%" xmlns:v-bind="http://symfony.com/schema/routing">
+
+<div class="container form" style="width: 40%" xmlns:v-bind="http://symfony.com/schema/routing">
+    
     <form method="POST">
         @csrf
+        
         <div class="form-group">
             <label for="year">Năm học</label>
 
@@ -66,19 +69,12 @@
                 :taggable="true"
             ></multiselect>
         </div>
-<<<<<<< HEAD
-=======
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
     </form>
 
 
->>>>>>> aefedff1e941d6f60dfb3d71ae02c52506f55767
 
-        <button type="button" class="btn btn-primary" @click="post()" >Create</button>
+        <button type="button" class="btn btn-primary float-right" @click="post()" >Create</button>
+        
     </form>
 </div>
 

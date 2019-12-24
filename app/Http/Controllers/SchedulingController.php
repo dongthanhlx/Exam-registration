@@ -24,7 +24,6 @@ class SchedulingController extends Controller
     public function index()
     {
         return view('admin.import', [
-            'route' => 'admin.import.subject',
             'table' => 'schedulingTable'
         ]);
     }
@@ -36,7 +35,7 @@ class SchedulingController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.scheduling');
     }
 
     /**
