@@ -21,11 +21,6 @@
             <tbody>
                 <tr v-for="(row, index) in rows">
                     <td>
-                        {{--<div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" @change="checkedBox(row, row.rooms)" v-bind:class="row.subject_code" v-bind:id="row.id" disabled>
-                            <label for="row.id" class="custom-control-label"></label>
-                        </div>--}}
-{{--                        <input type="checkbox" @change="checkedBox(row, row.room)" v-bind:class="row.subject_code" v-bind:id="row.id" disabled>--}}
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" @change="checkedBox(row, row.room)" v-bind:class="row.subject_code" v-bind:id="row.id" disabled>
                             <label class="custom-control-label" v-bind:for="row.id"></label>
@@ -99,13 +94,51 @@
         },
         methods: {
             getAll() {
-                axios.get('admin/all/infoScheduling')
+                axios.get('infoScheduling')
                     .then(res => {
                         this.rows = res.data;
                     })
                     .catch(res => {
                         console.log(res);
                     })
+            },
+            getRegistered()
+            {
+                let data;
+                axios.get('all/infoRegistered/' + this.$userId)
+                    .then(res => {
+                        data = res.data;
+                        let record;
+
+                        for (record in data) {
+                            let row = data[record];
+                            let rowTmp = this.checkRowID(row.exams_subjects_rooms_id);
+                            let roomTmp = this.checkRoomID(row.room_id, rowTmp.rooms);
+                            this.checkedBox(rowTmp, roomTmp);
+                        }
+                    })
+                    .catch(res => {
+                        console.log(res);
+                    })
+
+            },
+            checkRowID(id) {
+                let rows = this.rows;
+                let row;
+
+                for (row in rows) {
+                    let rowTmp = rows[row];
+                    if (rowTmp.id == id) return rowTmp;
+                }
+
+                return null;
+            },
+            checkRoomID(id, rooms) {
+                for (let i=0; i<rooms.length; i++) {
+                    if (rooms[i].id == id) return rooms[i];
+                }
+
+                return null;
             },
             clickOption(row) {
                 let classNames = document.getElementsByClassName(row.subject_code);
@@ -175,12 +208,12 @@
                 return false;
             },
             submit() {
-                axios.post('/examRegistration/', {
+                axios.post('examRegistration/', {
                     data: this.selectedRow,
                     studentID: this.$userId
                 })
                 .then(res => {
-                    console.log(res);
+                    this.getAll();
                 })
                 .catch(res => {
                     console.log(res);
@@ -189,6 +222,7 @@
         },
         created () {
             this.getAll();
+            this.getRegistered();
         }
     })
 </script>

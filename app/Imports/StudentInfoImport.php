@@ -31,7 +31,7 @@ class StudentInfoImport implements ToModel, WithValidation, WithStartRow
 
         return new Student([
             'student_code'  => $row[1],
-            'birthday'      => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[5]),
+            'birthday'      => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[5], '+7'),
             'class'         => $row[7],
             'gender'        => $row[6],
             'user_id'       => $user_id,

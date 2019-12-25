@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ExamRegistration;
+use App\Scheduling;
 use Illuminate\Http\Request;
 
 class ExamRegistrationController extends Controller
@@ -46,8 +47,8 @@ class ExamRegistrationController extends Controller
     {
         $input = $request->input();
         $this->model->store($input);
-
-        return response()->json('OK', 200);
+        $all = (new Scheduling())->getAllInfoConverted();
+        return response()->json($all, 200);
     }
 
     /**

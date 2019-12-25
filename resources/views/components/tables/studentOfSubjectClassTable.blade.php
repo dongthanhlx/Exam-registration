@@ -64,9 +64,14 @@
         </tr>
         </tbody>
     </table>
+
     <div class="float-right">
-        <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="mb-4">SampleForm1</a>
-        <a href="{{ route("admin.import.downloadSampleForm", $name2) }}" class="mb-4">SampleForm2</a>
+        <div>
+            <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="mb-4">SampleForm1</a>
+        </div>
+        <div>
+            <a href="{{ route("admin.import.downloadSampleForm", $name2) }}" class="mb-4">SampleForm2</a>
+        </div>
     </div>
 </div>
 <!-- Modal -->

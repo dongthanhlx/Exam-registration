@@ -28,7 +28,7 @@ class SubjectListImport implements ToModel, WithValidation, WithStartRow
     {
         return [
             '1' => 'required',
-            '2' => 'unique:subjects',
+            '2' => 'required',
             '3' => 'required|numeric'
         ];
     }
