@@ -23,7 +23,9 @@ class ExamController extends Controller
      */
     public function index()
     {
-        //
+        $all =  $this->model->getAll();
+
+        return response()->json($all, 200);
     }
 
     public function validator(Request $request)
@@ -92,7 +94,10 @@ class ExamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $this->model->updateStatus($id, $input);
+
+        return response()->json('OK', 200);
     }
 
     /**
@@ -119,4 +124,5 @@ class ExamController extends Controller
 
         return response()->json($result, 200);
     }
+
 }

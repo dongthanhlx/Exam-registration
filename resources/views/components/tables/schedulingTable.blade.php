@@ -1,10 +1,10 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createScheme">
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createScheme">
   Create scheme
 </button>
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">
   delete scheme
-</button>
+</button> -->
 
 <div class="mr-5 ml-5">
     <table class="table table-striped">

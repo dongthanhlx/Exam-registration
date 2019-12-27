@@ -1,4 +1,6 @@
+
 <div class="container" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+    <div id="message"></div>
     <div class="box-header blue-background">
         <div class="title">Danh sách tất cả môn thi và ca thi của bạn</div>
         <br>
@@ -18,7 +20,7 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody id="data">
                 <tr v-for="(row, index) in rows">
                     <td>
                         <div class="custom-control custom-checkbox">
@@ -91,6 +93,7 @@
             selectedRow:[],
             rows:[],
             room: {},
+            currentTime: new Date()
         },
         methods: {
             getAll() {
@@ -102,8 +105,7 @@
                         console.log(res);
                     })
             },
-            getRegistered()
-            {
+            getRegistered() {
                 let data;
                 axios.get('all/infoRegistered/' + this.$userId)
                     .then(res => {
@@ -213,16 +215,42 @@
                     studentID: this.$userId
                 })
                 .then(res => {
-                    this.getAll();
+                    let message = document.getElementById('message');
+                    message.innerHTML = "Bạn đã đăng kí thành công " + this.selectedRow.length + " môn học";
+                    message.classList.add('alert');
+                    message.classList.add('alert-success');
                 })
                 .catch(res => {
                     console.log(res);
                 })
+            },
+            init() {
+                let dd = this.currentTime.getDate();
+                let mm = this.currentTime.getMonth() + 1;
+                let yyyy = this.currentTime.getFullYear();
+
+                let date = yyyy + '-' + mm + '-' + dd;
+                axios.get('checkStatusAt/' + date)
+                    .then(res => {
+                        let status = res.data;
+
+                        if (status) {
+                            this.getAll();
+                            this.getRegistered();
+                        } else {
+                            let message = document.getElementById('message');
+                            message.innerHTML = "Ngoài thời gian đăng ký !";
+                            message.classList.add('alert');
+                            message.classList.add('alert-danger');
+                        }
+                    })
+                    .catch(res => {
+                        console.log(res);
+                    })
             }
         },
         created () {
-            this.getAll();
-            this.getRegistered();
+            this.init();
         }
     })
 </script>

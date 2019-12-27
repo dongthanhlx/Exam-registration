@@ -1,8 +1,11 @@
-<div class="container form" style="width: 25%" xmlns:v-bind="http://symfony.com/schema/routing">
+
+<div class="container form" style="width: 40%" xmlns:v-bind="http://symfony.com/schema/routing">
+
     <form method="POST">
         @csrf
         <div class="form-group">
             <label for="year">Năm học</label>
+
             <select v-model="year" name="year" class="form-control mt-2">
                 <option v-for="year in years" >@{{ year.year }}</option>
             </select>
@@ -10,6 +13,7 @@
 
         <div class="form-group">
             <label for="exam">Kỳ thi</label>
+
             <select v-model="semester" name="semester" id="semester" class="form-control mt-2">
                 <option value="1">Thi cuối kỳ 1</option>
                 <option value="2">Thi cuối kỳ 2</option>
@@ -35,11 +39,13 @@
 
         <div class="form-group" >
             <label for="date">Ngày thi</label>
+
             <input v-model="date" type="date" id="date" name="date" class="form-control mt-2">
         </div>
 
         <div class="form-group">
             <label for="examShift">Ca thi</label>
+
             <select v-model="examShift" name="examShift" id="examShift" class="form-control mt-2">
                 <option value="1">ca 1</option>
                 <option value="2">ca 2</option>
@@ -50,14 +56,15 @@
 
         <div class="form-group">
             <label for="remainRooms">Phòng thi</label>
+
             <multiselect
-                    id = "remainRooms"
-                    v-model="rooms"
-                    placeholder=""
-                    label="name" track-by="id"
-                    :options="remainRooms"
-                    :multiple="true"
-                    :taggable="true"
+                id = "remainRooms"
+                v-model="rooms"
+                placeholder=""
+                label="name" track-by="id"
+                :options="remainRooms"
+                :multiple="true"
+                :taggable="true"
             ></multiselect>
         </div>
 
@@ -71,6 +78,7 @@
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
 
 <script>
+
     const App = new Vue({
         el: '#app',
         //mutiselect

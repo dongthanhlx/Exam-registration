@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ExamRegistration;
 use App\Scheduling;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ExamRegistrationController extends Controller
 {
@@ -94,5 +95,26 @@ class ExamRegistrationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getInfoPrint($studentID)
+    {
+        $all = $this->model->getInfoPrint($studentID);
+
+        return response()->json($all, 200);
+    }
+
+    public function getRegistered($studentID)
+    {
+        $all = $this->model->getAllByStudentID($studentID);
+
+        return response()->json($all, 200);
+    }
+
+    public function checkStatusAt($time)
+    {
+        $result = $this->model->checkActive($time);
+
+        return response()->json($result, 200);
     }
 }

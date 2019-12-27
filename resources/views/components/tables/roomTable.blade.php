@@ -88,8 +88,7 @@
         data: {
             idDelete:'',
             editingRoom: {},
-            rows:[
-            ]
+            rows:[]
         },
         methods: {
             getAllRoom() {

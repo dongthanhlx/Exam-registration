@@ -18,10 +18,10 @@
                 <div class="card-body mx-4" >
                     <form class="md-form" action="{{ $route }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="input-group mb-3">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile02" name="file">
-                                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                        <div class="input-group mb-5 ">
+                            <div class="mt-2 ml-5 pl-3">
+                                <input type="file" id="inputGroupFile02" name="file">
+                                <!-- <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label> -->
                             </div>
                         </div>
 

@@ -25,9 +25,10 @@ Route::get('/home', 'HomeController@index');
 Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 Route::resource('examRegistration', 'ExamRegistrationController');
-Route::get('all/infoRegistered/{id}', 'SchedulingController@getRegistered')->name('all.infoRegistered')->middleware('auth');
+Route::get('all/infoRegistered/{id}', 'ExamRegistrationController@getRegistered')->name('all.infoRegistered')->middleware('auth');
+Route::get('checkStatusAt/{time}', 'ExamRegistrationController@checkStatusAt')->name('checkStatusAt');
 Route::get('infoScheduling', 'SchedulingController@getAllInfo')->name('infoScheduling')->middleware('auth');
-
+Route::get('infoPrint/{id}', 'ExamRegistrationController@getInfoPrint')->name('infoPrint')->middleware('auth');
 Route::get('/contestCard', function () {
     return view('contestCard');
 })->name('contestCard');
@@ -78,4 +79,5 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('studentOfSubjectCodeAndExamID/{subjectCode}/{exam_id}', 'StudentController@getBySubjectCodeAndExamID')->name('studentOfSubjectCodeAndExamID');
         Route::get('remainingRoomInfoInDateAndExamShift/{date}/{examShift}', 'SchedulingController@getAllRemainingRoomInfoInDayAndExamShift')->name('remainingRoomInfoInDateAndExamShift')->middleware('auth:admin');
     });
+
 });

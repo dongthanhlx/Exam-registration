@@ -35,6 +35,7 @@
                 <li>
                     <a class="dropdown-item" href="{{ route('admin.exam.create') }}">Tạo kỳ thi</a>
                     <a class="dropdown-item" href="{{ route('admin.scheduling.create') }}">Lập lịch</a>
+                    <a class="dropdown-item" href="{{ route('admin.scheduling.index') }}">Kết quả lập lịch</a>
                 </li>
             </ul>
         </li>

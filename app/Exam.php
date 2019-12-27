@@ -10,7 +10,7 @@ class Exam extends BaseModel
     protected $table = 'exams';
 
     protected $fillable = [
-        'name', 'semester', 'year', 'create_by'
+        'name', 'semester', 'year', 'create_by', 'active', 'start_registration', 'finish_registration'
     ];
 
     public function store($input)
@@ -44,5 +44,42 @@ class Exam extends BaseModel
             ->where('year', '=', $year)
             ->select('id', 'semester')
             ->get();
+    }
+
+    public function getAll()
+    {
+        return DB::table('exams')
+            ->select(DB::raw("CONCAT(exams.name, ' ', exams.semester, ' năm học ', exams.year) as name"),
+                'status',
+                'start_registration',
+                'finish_registration',
+                'id')
+            ->get();
+    }
+
+    public function updateStatus($id, $input)
+    {
+        $status = $input['status'];
+
+        if ($status == 'START') {
+            DB::table('exams')
+                ->update([
+                    'status' => 'START'
+                ]);
+
+            DB::table('exams')
+                ->where('id', '=', $id)
+                ->update([
+                    'start_registration' => $input['start'],
+                    'finish_registration' => $input['finish'],
+                    'status' => 'STOP'
+                ]);
+        } else {
+            DB::table('exams')
+                ->where('id', '=', $id)
+                ->update([
+                    'status' => 'START'
+                ]);
+        }
     }
 }

@@ -110,10 +110,4 @@ class SchedulingController extends Controller
         return response()->json($all, 200);
     }
 
-    public function getRegistered($studentID)
-    {
-        $all = $this->model->getAllByStudentID($studentID);
-
-        return response()->json($all, 200);
-    }
 }

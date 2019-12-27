@@ -143,11 +143,4 @@ class Scheduling extends BaseModel
 
         return $allSchedulingInfo;
     }
-
-    public function getAllByStudentID($studentID)
-    {
-        return DB::table('exams_subjects_rooms_student_details')
-            ->where('student_id', '=', $studentID)
-            ->get();
-    }
 }
