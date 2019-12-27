@@ -1,3 +1,6 @@
+<div class="container">
+    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4 mr-2" ><button class="btn btn-primary"><i class="far fa-file-alt"></i></button></a>
+</div>
 <div class="mr-5 ml-5">
     <div class="row mb-3" >
         <div class="col">
@@ -38,8 +41,8 @@
             <td>@{{row.teacher}}</td>
             <td>@{{row.maximum_number_of_student}}</td>
             <td>
-                <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
-                <button @click="getSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-secondary">Edit</button>
+                <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                <button @click="getSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-secondary"><i class="far fa-edit"></button>
             </td>
         </tr>
         </tbody>
@@ -102,7 +105,6 @@
             </div>
         </div>
     </div>
-    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4">SampleForm</a>
 </div>
 
 <script>

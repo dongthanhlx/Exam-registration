@@ -1,3 +1,9 @@
+<div class="container">
+    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4 mr-2" ><button class="btn btn-primary"><i class="far fa-file-alt"></i></button></a>
+</div>
+<div class="container">
+    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4 mr-2" ><button class="btn btn-primary"><i class="far fa-file-alt"></i></button></a>
+</div>
 <div class="m-5">
     <div class="container mt-3" xmlns:v-bind="http://symfony.com/schema/routing">
         <div class="row mb-3">
@@ -58,21 +64,21 @@
             <td>@{{row.contest_conditions}}</td>
             <td>@{{row.comments}}</td>
             <td>
-                <button @click="deletingSubjectId = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
-                <button @click="getStudentOfSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary">Edit</button>
+                <button @click="deletingSubjectId = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></button>
+                <button @click="getStudentOfSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary"><i class="far fa-edit"></button>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <div class="float-right">
-        <div>
+    <!-- <div class="float-right"> -->
+        <!-- <div>
             <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="mb-4">SampleForm1</a>
         </div>
         <div>
             <a href="{{ route("admin.import.downloadSampleForm", $name2) }}" class="mb-4">SampleForm2</a>
-        </div>
-    </div>
+        </div> -->
+    <!-- </div> -->
 </div>
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

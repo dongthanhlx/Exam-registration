@@ -1,7 +1,9 @@
+<div class="container">
+    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4"><button class="btn btn-primary mr-2"><i class="far fa-file-alt"></i></button></a>
+</div>
+<div class="container">
 
-<div class="container mt-3">
-
-    <div class="row mb-3">
+    <!-- <div class="row mb-3">
         <div class="col">
             <label for="year">Năm học</label>
             <select v-model="year" name="year" class="form-control" id="year">
@@ -20,7 +22,7 @@
         <div class="col"></div>
         <div class="col-6"></div>
 
-    </div>
+    </div> -->
 
 
     <table class="table table-striped">
@@ -40,8 +42,8 @@
             <td>@{{row.subject_code}}</td>
             <td>@{{row.number_of_credits}}</td>
             <td>
-                <button @click="deletingSubjectId = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
-                <button @click="getSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary">Edit</button>
+                <button @click="deletingSubjectId = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                <button @click="getSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary"><i class="far fa-edit"></i></button>
             </td>
         </tr>
         </tbody>
@@ -101,7 +103,6 @@
             </div>
         </div>
     </div>
-    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4">SampleForm</a>
 </div>
 
 

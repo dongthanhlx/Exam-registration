@@ -1,13 +1,6 @@
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createScheme">
-  Create scheme
-</button>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">
-  delete scheme
-</button> -->
-
-<div class="mr-5 ml-5">
-    <table class="table table-striped">
+<div class="mr-5 ml-5 mt-3">
+    <table class="table table-striped large-table">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -35,7 +28,7 @@
     </table>
 
     <!-- Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -68,7 +61,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -97,48 +90,20 @@
 const App = new Vue({
     el: '#app',
     data: {
-        yearSelected: '',
-        semesterSelected: '',
         idDelete: '',
-        editingScheme: {},
-        year:null,
-        semester:null,
-        years:[],
-        rows:[
-        ]
-    },
-    watch:{
-            year: function(newval,oldval) {
-                if(this.semester !== null){
-                this.getAllByYearAndSemester(newval, this.semester);
-                }else{
-                console.log(newval)
-                }
-            },
-            semester: function(newval,oldval) {
-                this.getAllByYearAndSemester(this.year,newval);
-            }
+        rows:[]
     },
     methods: {
-        getAllYear(){
+        getAll(){
             axios.get('/admin/all/year')
                 .then((response) => {
-                    this.years = response.data;
-                    console.log(this.years);
+                    this.rows = response.data;
                 })
                 .catch(function (error) {
 
                 });
         },
-        getAllByYearAndSemester(year, semester) {
-            console.log(year,semester);
-            axios.get('/admin/all/subjectClassOfExam/' + year + "/" + semester).then(res => {
-                this.rows = res.data;
-            }).catch(err => {
-                console.log(err);
-            })
-        },
-        deleteScheme(id) {
+        deleteExam(id) {
             this.$refs.delete.click();
             axios.delete('/admin/SubjectClass/' +id).then(res =>{
 
@@ -146,19 +111,10 @@ const App = new Vue({
                 console.log(err);
             });
         },
-        getScheme(id) {
-            axios.get('/admin/SubjectClass/' + id).then(res => {
-                this.editingScheme = res.data;
-            })
-        },
-        editScheme(id) {
-            axios.put('/admin/SubjectClass/' + id, this.editingSubject).then(res => {
-                this.$refs.close.click();
-            })
-        }
+
     },
     created () {
-        this.getAllYear();
+        this.getAll();
     }
 })
 </script>
