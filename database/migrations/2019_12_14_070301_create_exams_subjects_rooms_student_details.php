@@ -16,7 +16,9 @@ class CreateExamsSubjectsRoomsStudentDetails extends Migration
         Schema::create('exams_subjects_rooms_student_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('exams_subjects_rooms_id');
+            $table->string('subject_code');
             $table->integer('student_id');
+            $table->integer('room_id');
             $table->integer('create_by')->nullable()->default(1);
             $table->timestamps();
         });

@@ -15,10 +15,12 @@ class CreateExamsSubjectsRoomsTable extends Migration
     {
         Schema::create('exams_subjects_rooms', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('exams_subject_id');
-            $table->integer('room_id');
-            $table->integer('start_time');
-            $table->integer('finish_time');
+            $table->integer('exam_id');
+            $table->integer('subject_id');
+            $table->string('date');
+            $table->integer('exam_shift');
+            $table->integer('duration');
+            $table->json('room_id');
             $table->integer('create_by')->nullable()->default(1);
             $table->timestamps();
         });

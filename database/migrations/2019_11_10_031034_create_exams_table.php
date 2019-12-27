@@ -18,6 +18,9 @@ class CreateExamsTable extends Migration
             $table->string('name');
             $table->string('semester');
             $table->string('year');
+            $table->string('status')->default('STOP')->nullable();
+            $table->date('start_registration')->nullable();
+            $table->date('finish_registration')->nullable();
             $table->integer('create_by')->nullable()->default(1);
             $table->timestamps();
         });

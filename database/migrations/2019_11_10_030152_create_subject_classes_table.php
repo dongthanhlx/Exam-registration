@@ -19,6 +19,7 @@ class CreateSubjectClassesTable extends Migration
             $table->integer('serial');
             $table->string('teacher');
             $table->integer('maximum_number_of_student');
+            $table->integer('exam_id');
             $table->integer('create_by')->nullable()->default(1);
             $table->timestamps();
         });
