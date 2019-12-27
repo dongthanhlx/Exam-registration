@@ -3,6 +3,12 @@
 
     <form method="POST">
         @csrf
+        <p v-if="errors.length">
+                            <b>Lỗi:</b>
+                            <ul>
+                            <li v-for="error in errors" class="text-danger">@{{ error }}</li>
+                            </ul>
+                        </p>
         <div class="form-group">
             <label for="year">Năm học</label>
 
@@ -84,6 +90,7 @@
         //mutiselect
         components: { Multiselect: window.VueMultiselect.default },
         data: {
+            errors:[],
             selected:'',
             deletingSubjectId:'',
             editingSubject: {},
@@ -133,6 +140,55 @@
             }
         },
         methods: {
+            checkSchoolYear(year){
+                if (!year) {
+                    this.errors.push('Không được để trống năm học.');
+                    return false;
+                }
+                return true;
+            },  
+            checkSemester(semester){
+                if (!semester) {
+                    this.errors.push('Không được để trống học kỳ.');
+                    return false;
+                }
+                return true;
+            },
+            checkSubject(subject){
+                if (!subject) {
+                    this.errors.push('Không được để trống môn thi.');
+                    return false;
+                }
+                return true;
+            },
+            checkDuration(duration){
+                if (!duration) {
+                    this.errors.push('Không được để trống thời gian làm bài.');
+                    return false;
+                }
+                return true;
+            },
+            checkDate(date){
+                if (!date) {
+                    this.errors.push('Không được để trống ngày thi.');
+                    return false;
+                }
+                return true;
+            },
+            checkExamShift(examshift){
+                if (!examshift) {
+                    this.errors.push('Không được để trống ca thi.');
+                    return false;
+                }
+                return true;
+            },
+            checkRooms(room){
+                if (!room) {
+                    this.errors.push('Không được để trống phòng thi.');
+                    return false;
+                }
+                return true;
+            },
             resetInput() {
                 document.getElementById("semester").disabled = true;
                 document.getElementById("subject").disabled = true;
@@ -193,25 +249,30 @@
                 return result;
             },
             post() {
+                this.errors = [];
                 console.log(this.rooms);
-                axios.post('/admin/scheduling/', {
-                    year: this.year,
-                    semester: this.semester,
-                    subject: this.subject,
-                    duration: this.duration,
-                    date: this.date,
-                    examShift: this.examShift,
-                    room: this.getAllIdOfRooms()
-                })
-                    .then(res => {
-                        this.resetInput();
-                        this.resetWatch();
-                        this.resetVariables();
-                        this.getAllYear();
+                if(!this.checkSchoolYear(this.year) | !this.checkSemester(this.semester) | !this.checkSubject(this.subject) | !this.checkDuration(this.duration) | !this.checkDate(this.date) | !this.checkExamShift(this.examShift) | !this.checkRooms(this.rooms[0])){
+                    console.log("fail");
+                }else{
+                    axios.post('/admin/scheduling/', {
+                        year: this.year,
+                        semester: this.semester,
+                        subject: this.subject,
+                        duration: this.duration,
+                        date: this.date,
+                        examShift: this.examShift,
+                        room: this.getAllIdOfRooms()
                     })
-                    .catch(res => {
-                        console.log(res);
-                    })
+                        .then(res => {
+                            this.resetInput();
+                            this.resetWatch();
+                            this.resetVariables();
+                            this.getAllYear();
+                        })
+                        .catch(res => {
+                            console.log(res);
+                        })
+                }
             }
         },
         created () {

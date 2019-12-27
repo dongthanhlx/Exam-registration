@@ -21,7 +21,7 @@
             <td>@{{row.number_of_computer}}</td>
             <td>
                 <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-                <button @click="getRoom(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary"><i class="far fa-edit"></button>
+                <button @click="getRoom(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary"><i class="far fa-edit"></i></button>
             </td>
         </tr>
         </tbody>
@@ -39,6 +39,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                <p v-if="errors.length">
+                            <b>Lỗi:</b>
+                            <ul>
+                            <li v-for="error in errors" class="text-danger">@{{ error }}</li>
+                            </ul>
+                        </p>
                     <div class="form-group">
                         <label for="location">Tòa nhà</label>
                         <input type="text" id="location" name="location" class="form-control mt-2" v-model="editingRoom.location" >
@@ -88,11 +94,42 @@
     const App = new Vue({
         el: '#app',
         data: {
+            errors:[],
             idDelete:'',
             editingRoom: {},
             rows:[]
         },
         methods: {
+            checkLocation(place){
+                if (!place) {
+                    this.errors.push('Không được để trống tên tên địa điểm.');
+                    return false;
+                }
+                return true;
+            },
+            checkRoom(room){
+                if (!room) {
+                    this.errors.push('Không được để trống tên phòng.');
+                    return false;
+                }
+                return true;
+            },
+            checkNumberOfComputers(number){
+                if (!number) {
+                    this.errors.push('Không được để trống số máy tính.');
+                    return false;
+                }
+                if (!this.validNumber(number)) {
+                    this.errors.push('Định dạng số máy tính không chính xác.');
+                    return false;
+                }
+                return true;
+            },
+            validNumber: function (number) {
+                var fnNameRegex = /^[0-9]+$/;
+                return fnNameRegex.test(number);
+            },
+            
             getAllRoom() {
                 axios.get('/admin/all/room')
                     .then((response) => {
@@ -116,10 +153,18 @@
                 })
             },
             editRoom(roomId) {
-                axios.put('/admin/room/' + roomId, this.editingRoom).then(res => {
-                    this.$refs.close.click();
-                    this.getAllRoom();
-                })
+                this.errors = [];
+                let location = this.editingRoom.location;
+                let room = this.editingRoom.name;
+                let numberOfComputers = this.editingRoom.number_of_computer;
+                if(!this.checkLocation(location) | !this.checkRoom(room) | !this.checkNumberOfComputers(numberOfComputers)){
+                    console.log("fail");
+                }else{
+                    axios.put('/admin/room/' + roomId, this.editingRoom).then(res => {
+                        this.$refs.close.click();
+                        this.getAllRoom();
+                    })
+                }
             },
         },
         created () {
