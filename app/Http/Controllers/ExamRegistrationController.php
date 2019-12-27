@@ -117,4 +117,11 @@ class ExamRegistrationController extends Controller
 
         return response()->json($result, 200);
     }
+
+    public function getNewestExam()
+    {
+        $newest = $this->model->getNewestExam();
+
+        return response()->json($newest, 200);
+    }
 }

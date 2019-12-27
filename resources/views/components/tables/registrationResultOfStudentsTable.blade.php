@@ -1,6 +1,5 @@
 
 <div class="container mt-3">
-
     <div class="row mb-3">
         <div class="col">
             <label for="year">Năm học</label>
@@ -8,7 +7,6 @@
                 <option v-for="year in years" >@{{ year.year }}</option>
             </select>
         </div>
-
 
         <div class="col">
             <label for="semester">Học kỳ</label>
@@ -25,9 +23,7 @@
         </div>
 
         <div class="col"></div>
-
     </div>
-
 
     <table class="table table-striped">
         <thead>
@@ -43,6 +39,7 @@
             <th scope="col">Tác vụ</th>
         </tr>
         </thead>
+
         <tbody>
         <tr v-for="(row, index) in rows">
             <td>@{{ index+1 }}</td>
@@ -71,6 +68,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Tên môn học</label>
@@ -86,8 +84,8 @@
                         <label for="number_of_credits">Số tín chỉ</label>
                         <input type="number" id="number_of_credits" name="number_of_credits" class="form-control mt-2" v-model="editingSubject.number_of_credits" >
                     </div>
-
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" ref="close" data-dismiss="modal">Huỷ</button>
                     <button type="button" class="btn btn-primary" @click="editSubject(editingSubject.id)">Sửa</button>
@@ -105,9 +103,11 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
                 <div class="modal-body">
                     Bạn có chắc chắn muốn xoá ?
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" ref="delete" data-dismiss="modal">Huỷ</button>
                     <button type="button" class="btn btn-primary" @click="deleteSubject(deletingSubjectId)">Xoá</button>
@@ -128,8 +128,7 @@
             err: '',
             editingSubject: {},
             years: [],
-            rows:[
-            ]
+            rows:[]
         },
         methods: {
             getAllYear(){
@@ -188,7 +187,6 @@
             }
         },
         created () {
-            // this.getSubjectsByYearAndSemester();
             this.getAllYear();
             this.getAllSubject();
         }

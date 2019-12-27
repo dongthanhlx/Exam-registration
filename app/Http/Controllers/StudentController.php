@@ -13,7 +13,7 @@ class StudentController extends Controller
     public function __construct()
     {
         $this->model = new Student();
-        $this->middleware('auth:admin');
+        $this->middleware('auth');
     }
 
     public function index()
@@ -90,5 +90,12 @@ class StudentController extends Controller
         $all = $this->model->getBySubjectCodeAndExamID($subjectCode, $exam_id);
 
         return response()->json($all, 200);
+    }
+
+    public function getStudentInfoByUserID($userID)
+    {
+        $studentInfo = $this->model->getStudentInfoByUserID($userID);
+
+        return response()->json($studentInfo, 200);
     }
 }

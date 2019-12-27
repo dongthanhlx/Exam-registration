@@ -120,11 +120,19 @@ class ExamRegistration extends BaseModel
 
         return $number == 0 ? false: true;
     }
-/*
-    public function getAllInfo($id)
-    {
-        $studentInfo = (new Student())->getInfoStudentByID($id);
 
-        (new Exam())->get
-    }*/
+    public function getNewestExam()
+    {
+        $schedulingID = DB::table('exams_subjects_rooms_student_details')->latest()->get()->first()->exams_subjects_rooms_id;
+
+        return DB::table('exams_subjects_rooms')
+            ->where('exams_subjects_rooms.id', '=', $schedulingID)
+            ->join('exams',
+                'exams_subjects_rooms.exam_id',
+                '=',
+                'exams.id')
+            ->select(DB::raw("CONCAT(exams.name, ' ', exams.semester, ' năm học ', exams.year) as name"))
+            ->get()
+            ->first();
+    }
 }

@@ -49,15 +49,23 @@ class Student extends BaseModel
             ->first();
     }
 
+    public function getStudentInfoByUserID($userID)
+    {
+        return DB::table('student_details')
+            ->where('student_details.user_id', '=', $userID)
+            ->join('users', 'student_details.user_id', '=', 'users.id')
+            ->select('student_details.id', 'first_name', 'last_name', 'birthday', 'gender', 'student_code', 'class')
+            ->get()
+            ->first();
+    }
+
     public function deleteById($id)
     {
-        $result = DB::table('student_details')
+        return DB::table('student_details')
             ->where('id', '=', $id)
             ->update([
                 'deleted' => true
             ]);
-
-        return $result;
     }
 
     public function updateById($input, $id)

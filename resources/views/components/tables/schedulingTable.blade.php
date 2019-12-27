@@ -1,11 +1,3 @@
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createScheme">
-  Create scheme
-</button>
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">
-  delete scheme
-</button> -->
-
 <div class="mr-5 ml-5">
     <table class="table table-striped">
         <thead>
@@ -120,42 +112,7 @@ const App = new Vue({
             }
     },
     methods: {
-        getAllYear(){
-            axios.get('/admin/all/year')
-                .then((response) => {
-                    this.years = response.data;
-                    console.log(this.years);
-                })
-                .catch(function (error) {
 
-                });
-        },
-        getAllByYearAndSemester(year, semester) {
-            console.log(year,semester);
-            axios.get('/admin/all/subjectClassOfExam/' + year + "/" + semester).then(res => {
-                this.rows = res.data;
-            }).catch(err => {
-                console.log(err);
-            })
-        },
-        deleteScheme(id) {
-            this.$refs.delete.click();
-            axios.delete('/admin/SubjectClass/' +id).then(res =>{
-
-            }).catch(err =>{
-                console.log(err);
-            });
-        },
-        getScheme(id) {
-            axios.get('/admin/SubjectClass/' + id).then(res => {
-                this.editingScheme = res.data;
-            })
-        },
-        editScheme(id) {
-            axios.put('/admin/SubjectClass/' + id, this.editingSubject).then(res => {
-                this.$refs.close.click();
-            })
-        }
     },
     created () {
         this.getAllYear();
@@ -166,16 +123,16 @@ const App = new Vue({
 <div class="modal fade" id="createScheme" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Tạo mới</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            
-            <div class="modal-body">
-                @include('components.forms.schedulingForm');
-            </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Tạo mới</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    @include('components.forms.schedulingForm');
+                </div>
             </div>
         </div>
     </div>
