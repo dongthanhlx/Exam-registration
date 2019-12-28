@@ -46,6 +46,12 @@
             </div>
 
             <div class="modal-body">
+                <p v-if="errors.length">
+                            <b>Lỗi:</b>
+                            <ul>
+                            <li v-for="error in errors" class="text-danger">@{{ error }}</li>
+                            </ul>
+                        </p>
                 <div class="form-group">
                     <label for="firstName">Họ và tên đệm</label>
                     <input type="text" id="firstName" name="first_name" class="form-control mt-2" v-model="editingStudentInfo.first_name" disabled>
@@ -115,13 +121,43 @@
     const App = new Vue({
         el: '#app',
         data: {
+            errors:[],
             gender: '',
             idDelete:'',
             editingStudentInfo: {},
-            rows:[
-            ]
+            rows:[]
         },
-        methods: {
+        methods: {    
+            checkDate(date){
+                if (!date) {
+                    this.errors.push('Không được để trống ngày sinh.');
+                    return false;
+                }
+                return true;
+            },        
+            checkStudentCode(studentCode){
+                if (!studentCode) {
+                    this.errors.push('Không được để trống mã sinh viên.');
+                    return false;
+                }
+
+                if (!this.validNumber(studentCode)) {
+                    this.errors.push('Định dạng mã sinh viên không chính xác.');
+                    return false;
+                }
+                return true;
+            },
+            checkClass(className){
+                if (!className) {
+                    this.errors.push('Không được để trống tên lớp.');
+                    return false;
+                }
+                return true;
+            },
+            validNumber: function (number) {
+                var fnNameRegex = /^[0-9]+$/;
+                return fnNameRegex.test(number);
+                },
             getAllStudentInfo() {
                 axios.get('/admin/all/student')
                     .then((response) => {
@@ -148,10 +184,20 @@
                 })
             },
             editStudentAccount(studentInfoId) {
-                axios.put('/admin/student/' + studentInfoId, this.editingStudentInfo).then(res => {
-                    this.$refs.close.click();
-                    this.getAllStudentInfo();
-                })
+                this.errors = [];
+                let date =  this.editingStudentInfo.birthday;
+                let studentCode = this.editingStudentInfo.student_code;
+                let className = this.editingStudentInfo.class;
+                if(!this.checkDate(date) | !this.checkStudentCode(studentCode) | !this.checkClass(className)){
+                    console.log("fail");
+            
+
+                }else{
+                    axios.put('/admin/student/' + studentInfoId, this.editingStudentInfo).then(res => {
+                        this.$refs.close.click();
+                        this.getAllStudentInfo();
+                    })
+                }
             }
         },
         created () {
