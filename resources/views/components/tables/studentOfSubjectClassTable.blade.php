@@ -1,9 +1,11 @@
 <div class="container">
     <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4 mr-2" ><button class="btn btn-primary"><i class="far fa-file-alt"></i></button></a>
 </div>
+
 <div class="container">
-    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4 mr-2" ><button class="btn btn-primary"><i class="far fa-file-alt"></i></button></a>
+    <a href="{{ route("admin.import.downloadSampleForm", $name2) }}" class="float-right mb-4 mr-2" ><button class="btn btn-primary"><i class="far fa-file-alt"></i></button></a>
 </div>
+
 <div class="m-5">
     <div class="container mt-3" xmlns:v-bind="http://symfony.com/schema/routing">
         <div class="row mb-3">

@@ -31,6 +31,6 @@
         ]) !!};
     </script>
 <!-- fontawesome -->
-{{--<script src="https://kit.fontawesome.com/2e872f60c5.js" crossorigin="anonymous"></script>--}}
+<script src="https://kit.fontawesome.com/2e872f60c5.js" crossorigin="anonymous"></script>
 </head>
 <body>
