@@ -99,4 +99,40 @@ class ExamRegistration extends BaseModel
 
         return $number == 0 ? false: true;
     }
+
+    public function getAllRoom()
+    {
+        return DB::table('exams_subjects_rooms_student_details')
+            ->join('rooms',
+                'exams_subjects_rooms_student_details.room_id',
+                '=',
+                'rooms.id')
+            ->distinct()
+            ->get();
+    }
+
+    public function getAllStudentByRoomIDAndExamShift($room_id, $exam_shift)
+    {
+        return DB::table('exams_subjects_rooms_student_details')
+            ->where('exams_subjects_rooms_student_details.room_id',
+                '=',
+                $room_id)
+            ->join('exams_subjects_rooms',
+                'exams_subjects_rooms_student_details.exams_subjects_rooms_id',
+                '=',
+                'exams_subjects_rooms.id')
+            ->where('exams_subjects_rooms.exam_shift', '=', $exam_shift)
+            ->join('student_details',
+                'exams_subjects_rooms_student_details.student_id',
+                '=',
+                'student_details.user_id')
+            ->join('users',
+                'student_details.user_id',
+                '=',
+                'users.id')
+            ->select(DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS full_name"),
+                'student_details.birthday',
+                'student_details.student_code')
+            ->get();
+    }
 }

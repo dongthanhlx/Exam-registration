@@ -83,6 +83,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('studentOfSubjectCodeAndExamID/{subjectCode}/{exam_id}', 'StudentController@getBySubjectCodeAndExamID')->name('studentOfSubjectCodeAndExamID');
         Route::get('remainingRoomInfoInDateAndExamShift/{date}/{examShift}', 'SchedulingController@getAllRemainingRoomInfoInDayAndExamShift')->name('remainingRoomInfoInDateAndExamShift')->middleware('auth:admin');
         Route::get('schedulingByExamID/{id}', 'SchedulingController@getAllInfoByExamID')->name('schedulingByExamID');
+//        Route::get('studentOfClass/{student_code}', 'StudentController@')
     });
 
     Route::get('examActive', 'ExamController@getExamActive')->name('examActive');
