@@ -2,7 +2,7 @@
 <div class="container" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div id="message"></div>
     <div class="box-header blue-background">
-        <div class="title">Danh sách tất cả môn thi và ca thi của bạn</div>
+        <h4 class="title">Danh sách tất cả môn thi và ca thi của bạn</h4>
         <br>
     </div>
 
@@ -45,7 +45,7 @@
 
     <div class="box-header blue-background">
         <br>
-        <div class="title">Danh sách môn thi đã được chọn</div>
+        <h4 class="title">Danh sách môn thi đã được chọn</h4>
         <br>
     </div>
 
@@ -78,7 +78,7 @@
     <div class="mt-4">
         <form method="POST">
             @csrf
-            <button type="button" class="btn btn-primary float-right" @click="submit()">Confirm</button>
+            <button type="button" class="btn btn-primary float-right" @click="submit()">Ghi nhận</button>
         </form>
     </div>
 </div>
