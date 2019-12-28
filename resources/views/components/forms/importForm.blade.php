@@ -1,6 +1,6 @@
 <div class="container">
     <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#staticBackdrop">
-        Import
+        Thêm mới
     </button>
 </div>
 
@@ -8,7 +8,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Import file</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Thêm</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -26,8 +26,8 @@
                         </div>
 
                         <div class="float-right">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Import</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                            <button type="submit" class="btn btn-primary">Thêm</button>
                         </div>
                     </form>
                 </div>
