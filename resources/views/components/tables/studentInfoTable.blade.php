@@ -1,5 +1,8 @@
-<div class="mr-5 ml-5 pt-4" >
-    <table class="table table-striped">
+<div class="container">
+    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4 mr-2" ><button class="btn btn-primary"><i class="far fa-file-alt"></i></button></a>
+</div>
+<div class="container-fluid pt-5" >
+    <table class="table table-striped large-table">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -23,14 +26,13 @@
             <td>@{{row.student_code}}</td>
             <td>@{{row.class}}</td>
             <td>
-                <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
-                <button @click="getStudentAccount(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary">Edit</button>
+                <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                <button @click="getStudentAccount(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary"><i class="far fa-edit"></i></button>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4">SampleForm</a>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -13,7 +13,7 @@ class StudentController extends Controller
     public function __construct()
     {
         $this->model = new Student();
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
     public function index()

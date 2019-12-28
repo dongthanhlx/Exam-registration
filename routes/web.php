@@ -22,7 +22,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');
 Route::get('studentInfoByUserID/{id}', 'StudentController@getStudentInfoByUserID')->name('studentInfoByUserID');
 
 Route::resource('examRegistration', 'ExamRegistrationController');
@@ -30,6 +30,7 @@ Route::get('all/infoRegistered/{id}', 'ExamRegistrationController@getRegistered'
 Route::get('checkStatusAt/{time}', 'ExamRegistrationController@checkStatusAt')->name('checkStatusAt');
 Route::get('newestExam', 'ExamRegistrationController@getNewestExam')->name('newestExam');
 Route::get('infoScheduling', 'SchedulingController@getAllInfo')->name('infoScheduling')->middleware('auth');
+Route::get('infoSchedulingByStudentID/{id}', 'SchedulingController@getSchedulingByStudentID')->name('infoSchedulingByStudentID');
 Route::get('infoPrint/{id}', 'ExamRegistrationController@getInfoPrint')->name('infoPrint')->middleware('auth');
 
 Route::get('/contestCard', function () {
@@ -81,7 +82,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('subjectClassOfExam/{year}/{semester}', 'SubjectClassController@getByYearAndSemester')->name('subjectClassOfExam');
         Route::get('studentOfSubjectCodeAndExamID/{subjectCode}/{exam_id}', 'StudentController@getBySubjectCodeAndExamID')->name('studentOfSubjectCodeAndExamID');
         Route::get('remainingRoomInfoInDateAndExamShift/{date}/{examShift}', 'SchedulingController@getAllRemainingRoomInfoInDayAndExamShift')->name('remainingRoomInfoInDateAndExamShift')->middleware('auth:admin');
+        Route::get('schedulingByExamID/{id}', 'SchedulingController@getAllInfoByExamID')->name('schedulingByExamID');
     });
 
-
+    Route::get('examActive', 'ExamController@getExamActive')->name('examActive');
 });

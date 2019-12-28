@@ -97,9 +97,10 @@
         },
         methods: {
             getAll() {
-                axios.get('infoScheduling')
+                axios.get('infoSchedulingByStudentID/' + this.$userId)
                     .then(res => {
                         this.rows = res.data;
+                        console.log(this.rows);
                     })
                     .catch(res => {
                         console.log(res);
@@ -110,6 +111,7 @@
                 axios.get('all/infoRegistered/' + this.$userId)
                     .then(res => {
                         data = res.data;
+                        console.log(data);
                         let record;
 
                         for (record in data) {

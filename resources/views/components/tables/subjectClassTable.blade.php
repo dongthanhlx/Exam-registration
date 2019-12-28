@@ -1,27 +1,12 @@
+<div class="container">
+    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4 mr-2" ><button class="btn btn-primary"><i class="far fa-file-alt"></i></button></a>
+</div>
 <div class="mr-5 ml-5">
-    <div class="row mb-3" >
-        <div class="col">
-            <label for="year">Năm học</label>
-            <select v-model="year" name="year" id="year" class="form-control">
-                <option v-for="year in years" >@{{ year.year }}</option>
-            </select>
-        </div>
-
-        <div class="col">
-            <label for="semester">Học kỳ</label>
-            <select name="semester" id="semester" v-model="semester" class="form-control">
-                <option value="1">1</option>
-                <option value="2">2</option>
-            </select>
-        </div>
-        <div class="col"></div>
-        <div class="col-6"></div>
-    </div>
-
     <table class="table table-striped">
         <thead>
         <tr>
             <th scope="col">#</th>
+            <th scope="col">Tên môn học</th>
             <th scope="col">Mã môn học</th>
             <th scope="col">Lớp học phần</th>
             <th scope="col">Giảng viên</th>
@@ -33,13 +18,14 @@
         <tbody>
         <tr v-for="(row, index) in rows">
             <td>@{{ index+1 }}</td>
+            <td>@{{ row.name }}</td>
             <td>@{{row.subject_code}}</td>
             <td>@{{row.serial}}</td>
             <td>@{{row.teacher}}</td>
             <td>@{{row.maximum_number_of_student}}</td>
             <td>
-                <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
-                <button @click="getSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-secondary">Edit</button>
+                <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                <button @click="getSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-secondary"><i class="far fa-edit"></i></button>
             </td>
         </tr>
         </tbody>
@@ -102,44 +88,27 @@
             </div>
         </div>
     </div>
-    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4">SampleForm</a>
 </div>
 
 <script>
 const App = new Vue({
     el: '#app',
     data: {
-        yearSelected: '',
-        semesterSelected: '',
         idDelete: '',
         editingSubjectClass: {},
-        year:null,
-        semester:null,
-        years:[],
-        rows:[
-        ]
-    },
-    watch:{
-            year: function(newval,oldval) {
-                if(this.semester !== null){
-                this.getAllByYearAndSemester(newval, this.semester);
-                }else{
-                console.log(newval)
-                }
-            },
-            semester: function(newval,oldval) {
-                this.getAllByYearAndSemester(this.year,newval);
-            }
+        rows:[]
     },
     methods: {
-        getAllYear(){
-            axios.get('/admin/all/year')
-                .then((response) => {
-                    this.years = response.data;
-                    console.log(this.years);
+        getExamActive(){
+            axios.get('/admin/examActive')
+                .then(res => {
+                    let exam = res.data;
+                    if (exam != null) {
+                        this.getAllByYearAndSemester(exam.year, exam.semester);
+                    }
                 })
                 .catch(function (error) {
-
+                    console.log(error);
                 });
         },
         getAllByYearAndSemester(year, semester) {
@@ -170,7 +139,7 @@ const App = new Vue({
         }
     },
     created () {
-        this.getAllYear();
+        this.getExamActive();
     }
 })
 </script>

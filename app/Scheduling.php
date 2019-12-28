@@ -100,9 +100,10 @@ class Scheduling extends BaseModel
             ]);
     }
 
-    public function getAll()
+    public function getAllByExamID($examID)
     {
         return DB::table('exams_subjects_rooms')
+            ->where('exam_id', '=', $examID)
             ->join('subjects',
                 'exams_subjects_rooms.subject_id', '=', 'subjects.id')
             ->select('exams_subjects_rooms.date', 'exams_subjects_rooms.exam_shift', 'exams_subjects_rooms.room_id', 'exams_subjects_rooms.id',
@@ -111,11 +112,37 @@ class Scheduling extends BaseModel
             ->get();
     }
 
-    public function getAllInfoConverted()
+    public function getByUserID($id)
+    {
+        return DB::table('student_details')
+            ->where('student_details.user_id', '=', $id)
+            ->join('student_details_subject_classes',
+                'student_details.student_code',
+                '=',
+                'student_details_subject_classes.student_code')
+            ->join('subject_classes',
+                'student_details_subject_classes.subject_class_id',
+                '=',
+                'subject_classes.id')
+            ->join('subjects',
+                'subject_classes.subject_code',
+                '=',
+                'subjects.subject_code')
+            ->join('exams_subjects_rooms',
+                'subjects.id',
+                '=',
+                'exams_subjects_rooms.subject_id')
+            ->select('exams_subjects_rooms.date', 'exams_subjects_rooms.exam_shift', 'exams_subjects_rooms.room_id', 'exams_subjects_rooms.id',
+                'subjects.name', 'subjects.subject_code')
+            ->orderBy('subjects.name')
+            ->get();
+    }
+
+    public function getAllInfoConverted($all)
     {
         $roomModel = new Room();
         $examRegistrationModel = new ExamRegistration();
-        $allSchedulingInfo = $this->getAll();
+        $allSchedulingInfo = $all;
 
         foreach ($allSchedulingInfo as $record) {
             $roomIDs = (array) unserialize($record->room_id);
@@ -142,5 +169,11 @@ class Scheduling extends BaseModel
         }
 
         return $allSchedulingInfo;
+    }
+
+    public function deleteByID($id)
+    {
+        DB::table('exams_subjects_rooms')
+            ->delete($id);
     }
 }

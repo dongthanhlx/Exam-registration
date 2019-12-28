@@ -125,4 +125,10 @@ class ExamController extends Controller
         return response()->json($result, 200);
     }
 
+    public function getExamActive()
+    {
+        $result = $this->model->getExamActive();
+
+        return response()->json($result, 200);
+    }
 }

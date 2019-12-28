@@ -22,3 +22,12 @@
 li.dropdown {
     padding: 0 10px 0 10px;
 }
+
+.large-table {
+  width: 80%!important;
+  margin-left: 10%;
+  /* border: 1px solid black!important; */
+}
+.bordertop {
+  border-top: 1px solid black!important;
+}

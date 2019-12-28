@@ -93,7 +93,9 @@ class SchedulingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->model->deleteByID($id);
+
+        return response()->json('OK', 200);
     }
 
     public function getAllRemainingRoomInfoInDayAndExamShift($date, $examShift)
@@ -103,11 +105,19 @@ class SchedulingController extends Controller
         return response()->json($result, 200);
     }
 
-    public function getAllInfo()
+    public function getAllInfoByExamID($id)
     {
-        $all = $this->model->getAllInfoConverted();
+        $all = $this->model->getAllByExamID($id);
+        $result = $this->model->getAllInfoConverted($all);
 
         return response()->json($all, 200);
     }
 
+    public function getSchedulingByStudentID($studentID)
+    {
+        $allSchedulingByStudentID = $this->model->getByUserID($studentID);
+        $allConverted = $this->model->getAllInfoConverted($allSchedulingByStudentID);
+
+        return response()->json($allConverted, 200);
+    }
 }
