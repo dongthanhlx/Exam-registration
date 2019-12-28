@@ -127,7 +127,9 @@
             editingStudentInfo: {},
             rows:[]
         },
-        methods: {    
+        methods: {   
+            
+
             checkDate(date){
                 if (!date) {
                     this.errors.push('Không được để trống ngày sinh.');
@@ -152,11 +154,19 @@
                     this.errors.push('Không được để trống tên lớp.');
                     return false;
                 }
+                if (this.validClass(className)) {
+                    this.errors.push('Định dạng tên lớp không chính xác.');
+                    return false;
+                }
                 return true;
             },
             validNumber: function (number) {
                 var fnNameRegex = /^[0-9]+$/;
                 return fnNameRegex.test(number);
+                },
+            validClass: function (className) {
+                var fnNameRegex = /[ !@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?]/;
+                return fnNameRegex.test(className);
                 },
             getAllStudentInfo() {
                 axios.get('/admin/all/student')
