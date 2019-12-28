@@ -10,8 +10,6 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use Maatwebsite\Excel\Validators\Failure;
-use Throwable;
 
 class StudentInfoImport implements ToModel, WithValidation, WithStartRow
 {
@@ -31,7 +29,7 @@ class StudentInfoImport implements ToModel, WithValidation, WithStartRow
 
         return new Student([
             'student_code'  => $row[4],
-            'birthday'      => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[5], '+7'),
+            'birthday'      => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[5]),
             'class'         => $row[7],
             'gender'        => $row[6],
             'user_id'       => $user_id,

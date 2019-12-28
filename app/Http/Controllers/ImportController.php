@@ -39,6 +39,7 @@ class ImportController extends AdminController
     public function studentOfSubjectClass()
     {
         $this->import(new StudentListOfSubjectClassImport());
+        return redirect()->route('admin.registrationStudy.index');
     }
 
     public function room()

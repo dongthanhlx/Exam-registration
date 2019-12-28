@@ -40,7 +40,7 @@
             <td>@{{row.student_code}}</td>
             <td>@{{row.subject_code}}</td>
             <td>@{{row.serial}}</td>
-            <td>@{{row.contest_conditions}}</td>
+            <td>@{{row.contest_conditions}} điều kiện dự thi</td>
             <td>@{{row.comments}}</td>
             <td>
                 <button @click="deletingSubjectId = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
@@ -151,15 +151,16 @@ const App = new Vue({
         serials: [],
         rows: [],
         allStudent: [],
-        examID: ''
+        examID: '',
+        exam: ''
     },
     methods: {
         getExamActive(){
             axios.get('/admin/examActive')
                 .then(res => {
-                    let exam = res.data;
-                    if (exam != null) {
-                        this.getAllSubjectClassByExam(exam.year, exam.semester);
+                    this.exam = res.data;
+                    if (this.exam != null) {
+                        this.getAllSubjectClassByExam(this.exam.year, this.exam.semester);
                     }
                 })
                 .catch(function (error) {
@@ -171,7 +172,7 @@ const App = new Vue({
                 .then((res) => {
                     this.subjectClasses = res.data;
                     this.getAllSubject();
-                    this.examID = this.subjectClasses[0].exam_id;
+                    this.examID = this.exam.id;
                 })
         },
         getAllSubject() {
