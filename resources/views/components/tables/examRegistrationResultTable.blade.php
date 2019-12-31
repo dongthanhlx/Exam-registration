@@ -1,9 +1,10 @@
-<div class="container">
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<div class="container" xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="row mb-3" >
         <div class="col">
             <label for="subject">Môn thi</label>
-            <select v-model="subject" name="subject" id="subject" class="form-control">
-                <option v-for="subject in subjects" >@{{ subject.name }}</option>
+            <select v-model="subjectID" name="subject" id="subject" class="form-control">
+                <option v-for="subject in subjects" v-bind:value="subject.id">@{{ subject.name }}</option>
             </select>
         </div>
 
@@ -25,27 +26,28 @@
         </div>
         <div class="col-6"></div>
     </div>
-
+<form id="print">
     <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">SBD</th>
-            <th scope="col">Họ và tên</th>
-            <th scope="col">Mã sinh viên</th>
-        </tr>
-        </thead>
+            <thead>
+            <tr>
+                <th scope="col">SBD</th>
+                <th scope="col">Họ và tên</th>
+                <th scope="col">Mã sinh viên</th>
+            </tr>
+            </thead>
 
-        <tbody>
-        <tr v-for="(row,index) in rows">
-            <td>@{{index + 1}}</td>
-            <td>@{{row.full_name}}</td>
-            <td>@{{row.student_code}}</td>
-        </tr>
-        </tbody>
-    </table>
+            <tbody>
+            <tr v-for="(row,index) in rows">
+                <td>@{{index + 1}}</td>
+                <td>@{{row.full_name}}</td>
+                <td>@{{row.student_code}}</td>
+            </tr>
+            </tbody>
+        </table>
+</form>
+    
 
 </div>
-
 <div class="container pt-4">
     <button class=" btn btn-primary float-right" type="button" onclick="printJS('print', 'html')">
         Print/Download
@@ -56,28 +58,32 @@
     const App = new Vue({
         el: '#app',
         data: {
+            subjectID: '',
             exam: {},
+            examID:null,
             subjects: [],
+            subject:null,
+            id:null,
             rooms:[],
             room:null,
             examShift:null,
             rows:[]
         },
         watch:{
-            room: function(newval,oldval) {
-                if(this.examShift !== null){
-                    this.getAllStudentByRoomAndExamShift(newval, this.examShift);
-                }else{
-                    console.log(newval)
-                }
-            },
             examShift: function(newval,oldval) {
-                if(this.room !== null){
-                    this.getAllStudentByRoomAndExamShift(this.room,newval);
+                if(this.subjectID !== null){
+                    this.getAllRoomBySubjectCodeAndExamShift(this.subjectID,newval,this.exam.id);
                 }else{
                     console.log(newval)
                 }
             },
+            room: function(newval,oldval) {
+                if(this.subject != null && this.examShift !== null){
+                    this.getAllStudentByRoomAndExamShift(newval, this.examShift, this.subject);
+                }else{
+                    console.log(newval)
+                }
+            }
         },
         methods: {
             getExamActive() {
@@ -98,7 +104,8 @@
                         console.log(res);
                     })
             },
-            getAllRoomBySubjectIDAndExamShift(subjectID, examShift, examID) {
+
+            getAllRoomBySubjectCodeAndExamShift(subjectID, examShift, examID) {
                 axios.get('/admin/all/roomBySubjectCodeAndExamShift/' + subjectID + '/' + examShift + '/' + examID)
                     .then(res => {
                         this.rooms = res.data;
@@ -107,6 +114,7 @@
                         console.log(res);
                     })
             },
+            
             getAllStudentBySchedulingID(id) {
                 axios.get('/admin/all/studentBySchedulingID/' + id)
                     .then((response) => {

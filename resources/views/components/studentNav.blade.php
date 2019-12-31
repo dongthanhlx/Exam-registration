@@ -9,19 +9,16 @@
 
         <div class="collapse navbar-collapse my-2 my-sm-0 position-relative" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
-            @if (Auth::user())
+            <ul class="nav navbar-nav position-absolute">
+                <li class="nav-item mx-2">
+                    <a class="nav-link" href="{{ route('examRegistration.index') }}">Đăng ký thi</a>
+                </li>
 
-                <ul class="nav navbar-nav position-absolute">
-                    <li class="nav-item mx-2">
-                        <a class="nav-link" href="{{ route('examRegistration.index') }}">Đăng ký thi</a>
-                    </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link" href="{{ route('contestCard') }}">Kết quả đăng ký</a>
+                </li>
+            </ul>
 
-                    <li class="nav-item mx-2">
-                        <a class="nav-link" href="{{ route('contestCard') }}">Kết quả đăng ký</a>
-                    </li>
-                </ul>
-
-        @endif
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav position-absolute " style="right: 0;">
                 <!-- Authentication Links -->
@@ -29,8 +26,7 @@
                     <li class="mr-2"><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>
                 @else
-
-                    <li class="shadow-sm">
+                    <li class="">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->last_name }} <span class="caret"></span>
                         </a>
@@ -54,3 +50,6 @@
         </div>
     </div>
 </nav>
+
+
+

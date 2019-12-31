@@ -126,7 +126,7 @@ class RoomController extends Controller
 
     public function getBySubjectCodeAndExamShift($subjectCode, $examShift, $examID)
     {
-        $all = $this->getBySubjectCodeAndExamShift($subjectCode, $examID, $examID);
+        $all = $this->model->getBySubjectCodeAndExamShift($subjectCode, $examShift, $examID);
 
         return response()->json($all, 200);
     }

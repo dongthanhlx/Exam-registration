@@ -15,6 +15,7 @@ class ExamRegistrationController extends Controller
     public function __construct()
     {
         $this->model = new ExamRegistration();
+        $this->middleware('auth');
     }
 
     public function showStudentExamIDAndExamShift()
