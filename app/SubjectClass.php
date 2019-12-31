@@ -53,6 +53,11 @@ class SubjectClass extends BaseModel
                 'exams.id', '=', 'subject_classes.exam_id')
             ->join('subjects',
                 'subject_classes.subject_code', '=', 'subjects.subject_code')
+            ->select(
+                'subject_classes.*',
+                'subjects.name',
+                'subjects.subject_code'
+            )
             ->get();
     }
 }

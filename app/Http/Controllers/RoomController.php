@@ -123,4 +123,11 @@ class RoomController extends Controller
     {
         return response()->download(url('../storage/SampleRoom.xlsx'));
     }
+
+    public function getBySubjectCodeAndExamShift($subjectCode, $examShift, $examID)
+    {
+        $all = $this->getBySubjectCodeAndExamShift($subjectCode, $examID, $examID);
+
+        return response()->json($all, 200);
+    }
 }

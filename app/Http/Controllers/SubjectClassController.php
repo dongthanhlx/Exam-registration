@@ -76,16 +76,14 @@ class SubjectClassController extends Controller
     {
         $record = $this->model->getByID($id);
 
-        return response()->json($record)
-                ->header('Content-Type', 'application/json; charset=UTF-8');
+        return response()->json($record, 200);
     }
 
     public function showAll()
     {
         $all = $this->model->getAll();
 
-        return response()->json($all)
-                ->header('Content-Type', 'application/json; charset=UTF-8');
+        return response()->json($all, 200);
 
     }
 
@@ -125,5 +123,4 @@ class SubjectClassController extends Controller
 
         return response()->json($records, 200);
     }
-
 }

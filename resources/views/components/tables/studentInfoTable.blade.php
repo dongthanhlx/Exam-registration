@@ -127,9 +127,7 @@
             editingStudentInfo: {},
             rows:[]
         },
-        methods: {   
-            
-
+        methods: {
             checkDate(date){
                 if (!date) {
                     this.errors.push('Không được để trống ngày sinh.');

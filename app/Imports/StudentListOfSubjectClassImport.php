@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class StudentListOfSubjectClassImport implements ToModel,  WithValidation, WithStartRow
+class StudentListOfSubjectClassImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -18,18 +18,19 @@ class StudentListOfSubjectClassImport implements ToModel,  WithValidation, WithS
      */
     public function model(array $row)
     {
-        $subjectCode = $row[5];
-        $serial = $row[6];
+        $subjectCode = $row['subject_code'];
+        $serial = $row['serial'];
         $model = new SubjectClass();
         $subject = $model->getSubjectClassBySubjectCodeAndSerial($subjectCode, $serial);
-        $subject_class_id = $subject->id;
+        if ($subject == null) return null;
+        $subject_class_id = $subject['id'];
 
         return new StudentDetailSubjectClass([
-            'student_code' => $row[3],
+            'student_code' => $row['student_code'],
             'subject_class_id' => $subject_class_id
         ]);
     }
-
+/*
     public function rules(): array
     {
         return [
@@ -41,7 +42,7 @@ class StudentListOfSubjectClassImport implements ToModel,  WithValidation, WithS
 
     public function startRow(): int
     {
-        return 2;
-    }
+        return 3;
+    }*/
 
 }

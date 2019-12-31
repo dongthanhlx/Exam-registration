@@ -34,5 +34,6 @@ class AdminController extends Controller
         ]);
 
         $result = Excel::import($object, \request()->file('file'));
+        return back();
     }
 }

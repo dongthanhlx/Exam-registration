@@ -23,7 +23,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');
-Route::get('studentInfoByUserID/{id}', 'StudentController@getStudentInfoByUserID')->name('studentInfoByUserID');
+Route::get('studentInfoByUserID/{id}', 'ExamRegistrationController@getStudentInfoByUserID')->name('studentInfoByUserID');
 
 Route::resource('examRegistration', 'ExamRegistrationController');
 Route::get('all/infoRegistered/{id}', 'ExamRegistrationController@getRegistered')->name('all.infoRegistered')->middleware('auth');
@@ -83,7 +83,10 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('studentOfSubjectCodeAndExamID/{subjectCode}/{exam_id}', 'StudentController@getBySubjectCodeAndExamID')->name('studentOfSubjectCodeAndExamID');
         Route::get('remainingRoomInfoInDateAndExamShift/{date}/{examShift}', 'SchedulingController@getAllRemainingRoomInfoInDayAndExamShift')->name('remainingRoomInfoInDateAndExamShift')->middleware('auth:admin');
         Route::get('schedulingByExamID/{id}', 'SchedulingController@getAllInfoByExamID')->name('schedulingByExamID');
+        Route::get('roomBySubjectCodeAndExamShift/{subjectCode}/{examShift}/{examID}', 'RoomController@getBySubjectCodeAndExamShift')->name('roomBySubjectCodeAndExamShift');
+        Route::get('studentBySchedulingID/{id}', 'StudentController@getAllStudentByExamRegistrationID')->name('studentBySchedulingID');
     });
 
+    Route::get('/examRegistrationResult', 'ExamRegistrationController@showStudentExamIDAndExamShift')->name('examRegistrationResult');
     Route::get('examActive', 'ExamController@getExamActive')->name('examActive');
 });

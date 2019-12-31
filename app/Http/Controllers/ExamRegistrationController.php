@@ -6,7 +6,6 @@ use App\Exam;
 use App\ExamRegistration;
 use App\Scheduling;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ExamRegistrationController extends Controller
 {
@@ -19,6 +18,13 @@ class ExamRegistrationController extends Controller
         $this->middleware('auth');
     }
 
+    public function showStudentExamIDAndExamShift()
+    {
+        $all = $this->model->getAllStudentByRoomIDAndExamShift();
+
+        return response()->json($all, 200);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +33,13 @@ class ExamRegistrationController extends Controller
     public function index()
     {
         return view('examRegistration');
+    }
+
+    public function result()
+    {
+        return view('admin.import',[
+            'table' => 'examRegistrationResultTable.blade'
+        ]);
     }
 
     /**
@@ -126,5 +139,12 @@ class ExamRegistrationController extends Controller
         $newest = (new Exam())->getNewestExam();
 
         return response()->json($newest, 200);
+    }
+
+    public function getStudentInfoByUserID($userID)
+    {
+        $studentInfo = $this->model->getStudentInfoByUserID($userID);
+
+        return response()->json($studentInfo, 200);
     }
 }

@@ -1,14 +1,14 @@
 <div class="mr-5 ml-5">
     <table class="table table-striped">
         <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Môn thi</th>
-                <th scope="col">Ngày thi</th>
-                <th scope="col">Ca thi</th>
-                <th scope="col">Phòng thi</th>
-                <th scope="col">Tác vụ</th>
-            </tr>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Môn thi</th>
+            <th scope="col">Ngày thi</th>
+            <th scope="col">Ca thi</th>
+            <th scope="col">Phòng thi</th>
+            <th scope="col">Tác vụ</th>
+        </tr>
         </thead>
 
         <tbody>
@@ -20,11 +20,15 @@
             <td><span v-for="room in row.rooms"><div>@{{room.name}}</div></span></td>
             <td>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
                 <!-- <button @click="getSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-secondary"><i class="far fa-edit"></i></button> -->
 =======
                 <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
 >>>>>>> 38519e073531d5dc3fa390e642aaf7ee5af629ea
+=======
+                <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
+>>>>>>> ae07c5617271740146e573ca2b4dbee7610f5458
             </td>
         </tr>
         </tbody>
@@ -41,6 +45,7 @@
                 </button>
             </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -60,6 +65,11 @@
                 Bạn có chắc chắn muốn xoá ?
             </div>
 >>>>>>> 38519e073531d5dc3fa390e642aaf7ee5af629ea
+=======
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xoá ?
+            </div>
+>>>>>>> ae07c5617271740146e573ca2b4dbee7610f5458
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" ref="delete" data-dismiss="modal">Huỷ</button>
@@ -70,41 +80,41 @@
 </div>
 
 <script>
-const App = new Vue({
-    el: '#app',
-    data: {
-        idDelete: '',
-        rows:[]
-    },
-    methods: {
-        getExamActive() {
-            axios.get('/admin/examActive')
-                .then(res => {
-                    let exam = res.data;
-                    this.getAllByExamID(exam.id);
-                })
+    const App = new Vue({
+        el: '#app',
+        data: {
+            idDelete: '',
+            rows:[]
         },
-        getAllByExamID(id){
-            axios.get('/admin/all/schedulingByExamID/' + id)
-                .then((response) => {
-                    this.rows = response.data;
-                })
-                .catch(function (error) {
+        methods: {
+            getExamActive() {
+                axios.get('/admin/examActive')
+                    .then(res => {
+                        let exam = res.data;
+                        this.getAllByExamID(exam.id);
+                    })
+            },
+            getAllByExamID(id){
+                axios.get('/admin/all/schedulingByExamID/' + id)
+                    .then((response) => {
+                        this.rows = response.data;
+                    })
+                    .catch(function (error) {
 
+                    });
+            },
+            deleteExam(id) {
+                this.$refs.delete.click();
+                axios.delete('/admin/scheduling/' + id).then(res =>{
+                    this.getExamActive();
+                }).catch(err =>{
+                    console.log(err);
                 });
-        },
-        deleteExam(id) {
-            this.$refs.delete.click();
-            axios.delete('/admin/scheduling/' + id).then(res =>{
-                this.getAll();
-            }).catch(err =>{
-                console.log(err);
-            });
-        },
+            },
 
-    },
-    created () {
-        this.getExamActive();
-    }
-})
+        },
+        created () {
+            this.getExamActive();
+        }
+    })
 </script>

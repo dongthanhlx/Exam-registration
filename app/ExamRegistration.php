@@ -99,4 +99,46 @@ class ExamRegistration extends BaseModel
 
         return $number == 0 ? false: true;
     }
+
+    public function getAllRoom()
+    {
+        return DB::table('exams_subjects_rooms_student_details')
+            ->join('rooms',
+                'exams_subjects_rooms_student_details.room_id',
+                '=',
+                'rooms.id')
+            ->distinct()
+            ->get();
+    }
+
+    public function getAllStudentByRoomIDAndExamShift()
+    {
+        return DB::table('exams_subjects_rooms_student_details')
+            ->join('exams_subjects_rooms',
+                'exams_subjects_rooms_student_details.exams_subjects_rooms_id',
+                '=',
+                'exams_subjects_rooms.id')
+            ->join('student_details',
+                'exams_subjects_rooms_student_details.student_id',
+                '=',
+                'student_details.user_id')
+            ->join('users',
+                'student_details.user_id',
+                '=',
+                'users.id')
+            ->select(DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS full_name"),
+                'student_details.birthday',
+                'student_details.student_code')
+            ->get();
+    }
+
+    public function getStudentInfoByUserID($userID)
+    {
+        return DB::table('student_details')
+            ->where('student_details.user_id', '=', $userID)
+            ->join('users', 'student_details.user_id', '=', 'users.id')
+            ->select('student_details.id', 'first_name', 'last_name', 'birthday', 'gender', 'student_code', 'class')
+            ->get()
+            ->first();
+    }
 }

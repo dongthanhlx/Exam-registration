@@ -92,10 +92,10 @@ class StudentController extends Controller
         return response()->json($all, 200);
     }
 
-    public function getStudentInfoByUserID($userID)
+    public function getAllStudentByExamRegistrationID($id)
     {
-        $studentInfo = $this->model->getStudentInfoByUserID($userID);
+        $all = $this->model->getAllStudentByExamRegistrationID($id);
 
-        return response()->json($studentInfo, 200);
+        return response()->json($all, 200);
     }
 }

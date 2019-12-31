@@ -13,7 +13,7 @@
             </div>
 
             <div class="col">
-                <label for="examShift">Học kỳ</label>
+                <label for="examShift">Ca thi</label>
                 <select name="examShift" id="examShift" v-model="examShift" class="form-control">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -64,7 +64,7 @@
         data: {
             rooms:[],
             room:null,
-            examShift:null;
+            examShift:null,
             rows:[]
         },
         watch:{
@@ -84,8 +84,8 @@
             },
         },
         methods: {
-            getAllStudentByRoomAndExamShift(room, examShift) {
-                axios.get('/admin/all/account')
+            getAllStudentByRoomAndExamShift() {
+                axios.get('/admin/examRegistrationResult')
                     .then((response) => {
                         this.rows = response.data;
                         console.log(this.rows);
@@ -94,9 +94,9 @@
 
                     });
             },
-            
         created () {
-            // this.getAllStudentByRoomAndExamShift();
+            this.getAllStudentByRoomAndExamShift();
         }
-    })
+        }
+    });
 </script>

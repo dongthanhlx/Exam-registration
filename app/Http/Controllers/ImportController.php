@@ -27,7 +27,7 @@ class ImportController extends AdminController
     public function studentInfo()
     {
         $this->import(new StudentInfoImport());
-        return redirect()->route('admin.student.index')->with('message', 'Import file successfully');
+        return redirect()->route('admin.student.index');
     }
 
     public function subject()
@@ -57,6 +57,8 @@ class ImportController extends AdminController
     public function studentNotEligible()
     {
         $this->import(new StudentNotEligibleImport());
+
+        return redirect()->route('admin.registrationStudy.index');
     }
 
     public function downloadSampleForm($name)

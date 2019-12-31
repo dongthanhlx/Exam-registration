@@ -3,10 +3,8 @@
 namespace App\Imports;
 
 use App\User;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
@@ -22,7 +20,7 @@ class StudentAccountImport implements ToModel, WithValidation, WithStartRow
         $email = $row[3];
         $user = new User();
         $record = $user->getByEmail($email);
-
+        var_dump($email);
         if ($record != null) return null;
 
         return new User([
