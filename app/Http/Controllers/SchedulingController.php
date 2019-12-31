@@ -110,7 +110,7 @@ class SchedulingController extends Controller
         $all = $this->model->getAllByExamID($id);
         $result = $this->model->getAllInfoConverted($all);
 
-        return response()->json($all, 200);
+        return response()->json($result, 200);
     }
 
     public function getSchedulingByStudentID($studentID)

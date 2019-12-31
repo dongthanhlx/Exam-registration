@@ -25,7 +25,7 @@
             <td>@{{row.maximum_number_of_student}}</td>
             <td>
                 <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-                <button @click="getSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-secondary"><i class="far fa-edit"></i></button>
+                <button @click="getSubjectClass(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-secondary"><i class="far fa-edit"></i></button>
             </td>
         </tr>
         </tbody>
@@ -44,18 +44,23 @@
 
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="name">Tên môn học</label>
-                        <input type="text" id="name" name="name" class="form-control mt-2" v-model="editingSubjectClass.name" >
-                    </div>
-
-                    <div class="form-group">
                         <label for="subject_code">Mã môn học</label>
                         <input type="text" id="subject_code" name="subject_code" class="form-control mt-2" v-model="editingSubjectClass.subject_code" >
                     </div>
 
                     <div class="form-group">
-                        <label for="number_of_credits">Số tín chỉ</label>
-                        <input type="number" id="number_of_credits" name="number_of_credits" class="form-control mt-2" v-model="editingSubjectClass.number_of_credits" >
+                        <label for="serial">Lớp học phần</label>
+                        <input type="text" id="serial" name="serial" class="form-control mt-2" v-model="editingSubjectClass.serial" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teacher">Giảng viên</label>
+                        <input type="text" id="teacher" name="teacher" class="form-control mt-2" v-model="editingSubjectClass.teacher" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="number_of_credits">Số lượng sinh viên tối đa</label>
+                        <input type="number" id="number_of_credits" name="maximum_number_of_student" class="form-control mt-2" v-model="editingSubjectClass.maximum_number_of_student" >
                     </div>
                 </div>
 

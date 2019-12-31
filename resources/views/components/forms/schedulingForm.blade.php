@@ -74,6 +74,7 @@
         //mutiselect
         components: { Multiselect: window.VueMultiselect.default },
         data: {
+            exam: '',
             errors:[],
             selected:'',
             deletingSubjectId:'',
@@ -111,9 +112,9 @@
             getExamActive() {
                 axios.get('/admin/examActive')
                     .then(res => {
-                        let exam = res.data;
-                        if (exam != null) {
-                            this.getSubjectsByYearAndSemester(exam.year, exam.semester);
+                        this.exam = res.data;
+                        if (this.exam != null) {
+                            this.getSubjectsByYearAndSemester(this.exam.year, this.exam.semester);
                         }
                     })
                     .catch(res => {
@@ -204,12 +205,12 @@
             post() {
                 this.errors = [];
                 console.log(this.rooms);
-                if(!this.checkSchoolYear(this.year) | !this.checkSemester(this.semester) | !this.checkSubject(this.subject) | !this.checkDuration(this.duration) | !this.checkDate(this.date) | !this.checkExamShift(this.examShift) | !this.checkRooms(this.rooms[0])){
+                if(!this.checkSubject(this.subject) | !this.checkDuration(this.duration) | !this.checkDate(this.date) | !this.checkExamShift(this.examShift) | !this.checkRooms(this.rooms[0])){
                     console.log("fail");
                 }else{
                     axios.post('/admin/scheduling/', {
-                        year: this.year,
-                        semester: this.semester,
+                        year: this.exam.year,
+                        semester: this.exam.semester,
                         subject: this.subject,
                         duration: this.duration,
                         date: this.date,
@@ -217,10 +218,7 @@
                         room: this.getAllIdOfRooms()
                     })
                         .then(res => {
-                            this.resetInput();
-                            this.resetWatch();
-                            this.resetVariables();
-                            this.getAllYear();
+
                         })
                         .catch(res => {
                             console.log(res);

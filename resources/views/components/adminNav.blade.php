@@ -1,4 +1,6 @@
 <nav class="navbar navbar-default navbar-static-top navbar-expand-lg navbar-light bg-light">
+
+
     <div class="container">
         <div class="navbar-header">
             <!-- Branding Image -->

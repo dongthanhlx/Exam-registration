@@ -49,16 +49,6 @@ class Student extends BaseModel
             ->first();
     }
 
-    public function getStudentInfoByUserID($userID)
-    {
-        return DB::table('student_details')
-            ->where('student_details.user_id', '=', $userID)
-            ->join('users', 'student_details.user_id', '=', 'users.id')
-            ->select('student_details.id', 'first_name', 'last_name', 'birthday', 'gender', 'student_code', 'class')
-            ->get()
-            ->first();
-    }
-
     public function deleteById($id)
     {
         return DB::table('student_details')
@@ -129,6 +119,27 @@ class Student extends BaseModel
                 'subject_classes.serial',
                 'student_details.*',
                 DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS full_name"))
+            ->get();
+    }
+
+    public function getAllStudentByExamRegistrationID($id)
+    {
+        DB::table('exams_subjects_rooms_student_details')
+            ->where('exams_subjects_rooms_student_details.id',
+                '=',
+                '$id')
+            ->join('users',
+                'exams_subjects_rooms_student_details.student_id',
+                '=',
+                'users.id')
+            ->join('student_details',
+                'users.id',
+                '=',
+                'student_details.user_id')
+            ->select(
+                DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS full_name"),
+                'student_details.student_code'
+            )
             ->get();
     }
 }

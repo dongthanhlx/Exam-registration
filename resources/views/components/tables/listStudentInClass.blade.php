@@ -81,8 +81,8 @@
             },
         },
         methods: {
-            getAllStudentByRoomAndExamShift(room, examShift) {
-                axios.get('/admin/all/account')
+            getAllStudentByRoomAndExamShift() {
+                axios.get('/admin/examRegistrationResult')
                     .then((response) => {
                         this.rows = response.data;
                         console.log(this.rows);
@@ -92,7 +92,7 @@
                     });
             },
         created () {
-
+            this.getAllStudentByRoomAndExamShift();
         }
         }
     });

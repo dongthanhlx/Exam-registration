@@ -120,7 +120,7 @@ class Scheduling extends BaseModel
                 'student_details.student_code',
                 '=',
                 'student_details_subject_classes.student_code')
-            ->where('student_details_subject_classes.contest_conditions', '=', 'không')
+            ->where('student_details_subject_classes.contest_conditions', '=', 'đủ')
             ->join('subject_classes',
                 'student_details_subject_classes.subject_class_id',
                 '=',

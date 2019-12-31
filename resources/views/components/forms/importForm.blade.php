@@ -1,11 +1,11 @@
 
 <div class="container">
-    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#staticBackdrop">
+    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#staticBackdrop1">
         Thêm mới
     </button>
 </div>
 
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop1" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -17,13 +17,12 @@
 
             <div class="modal-body">
                 <div class="card-body mx-4" >
-                    <form class="md-form" action="{{ $route }}" method="POST" enctype="multipart/form-data">
+                    <form class="md-form" action="{{ $route }}" method="POST" enctype="multipart/form-data" >
                         @csrf
                         <div class="input-group mb-5 ">
                             <div class="mt-2 ml-5 pl-3">
-                                <input type="file" id="inputGroupFile02" name="file">
-                                <!-- <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label> -->
-                            </div>
+                                <input type="file" name="file">
+                                {{--<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02"></label>--}}                            </div>
                         </div>
 
                         <div class="float-right">
@@ -39,12 +38,12 @@
 
 @isset($route2)
     <div class="container">
-        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#staticBackdrop">
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#staticBackdrop2">
             Thêm ds sv không đủ điều kiện thi
         </button>
     </div>
 
-    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop2" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

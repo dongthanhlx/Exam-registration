@@ -101,4 +101,32 @@ class Room extends BaseModel
 
         return $count;
     }
+
+    public function getBySubjectCodeAndExamShift($subjectCode, $examShift, $examID)
+    {
+        return DB::table('exams_subjects_rooms_student_details')
+            ->where('subject_code', '=', $subjectCode)
+            ->join('exams_subjects_rooms',
+                'exams_subjects_rooms_student_details.exams_subjects_rooms_id',
+                '=',
+                'exams_subjects_rooms.id')
+            ->where([
+                [
+                    'exams_subjects_rooms.exam_shift', '=', $examShift
+                ],
+                [
+                    'exam_id', '=', $examID
+                ]
+            ])
+            ->join('rooms',
+                'exams_subjects_rooms_student_details.room_id',
+                '=',
+                'rooms.id')
+            ->distinct()
+            ->select(
+                DB::raw("CONCAT(rooms.name, ' ', rooms.location) AS name"),
+                'exams_subjects_rooms_student_details.id'
+            )
+            ->get();
+    }
 }

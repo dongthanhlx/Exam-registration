@@ -111,17 +111,13 @@ class ExamRegistration extends BaseModel
             ->get();
     }
 
-    public function getAllStudentByRoomIDAndExamShift($room_id, $exam_shift)
+    public function getAllStudentByRoomIDAndExamShift()
     {
         return DB::table('exams_subjects_rooms_student_details')
-            ->where('exams_subjects_rooms_student_details.room_id',
-                '=',
-                $room_id)
             ->join('exams_subjects_rooms',
                 'exams_subjects_rooms_student_details.exams_subjects_rooms_id',
                 '=',
                 'exams_subjects_rooms.id')
-            ->where('exams_subjects_rooms.exam_shift', '=', $exam_shift)
             ->join('student_details',
                 'exams_subjects_rooms_student_details.student_id',
                 '=',
@@ -134,5 +130,15 @@ class ExamRegistration extends BaseModel
                 'student_details.birthday',
                 'student_details.student_code')
             ->get();
+    }
+
+    public function getStudentInfoByUserID($userID)
+    {
+        return DB::table('student_details')
+            ->where('student_details.user_id', '=', $userID)
+            ->join('users', 'student_details.user_id', '=', 'users.id')
+            ->select('student_details.id', 'first_name', 'last_name', 'birthday', 'gender', 'student_code', 'class')
+            ->get()
+            ->first();
     }
 }
