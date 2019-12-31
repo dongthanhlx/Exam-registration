@@ -25,13 +25,13 @@ Route::get('/home', 'HomeController@index');
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('logout');
 Route::get('studentInfoByUserID/{id}', 'ExamRegistrationController@getStudentInfoByUserID')->name('studentInfoByUserID');
 
-Route::resource('examRegistration', 'ExamRegistrationController')->middleware('auth:user');
-Route::get('all/infoRegistered/{id}', 'ExamRegistrationController@getRegistered')->name('all.infoRegistered')->middleware('auth:user');
-Route::get('checkStatusAt/{time}', 'ExamRegistrationController@checkStatusAt')->name('checkStatusAt')->middleware('auth:user');
-Route::get('newestExam', 'ExamRegistrationController@getNewestExam')->name('newestExam')->middleware('auth:user');
-Route::get('infoScheduling', 'SchedulingController@getAllInfo')->name('infoScheduling')->middleware('auth:user');
-Route::get('infoSchedulingByStudentID/{id}', 'SchedulingController@getSchedulingByStudentID')->name('infoSchedulingByStudentID')->middleware('auth:user');
-Route::get('infoPrint/{id}', 'ExamRegistrationController@getInfoPrint')->name('infoPrint')->middleware('auth:user');
+Route::resource('examRegistration', 'ExamRegistrationController')->middleware('auth');
+Route::get('all/infoRegistered/{id}', 'ExamRegistrationController@getRegistered')->name('all.infoRegistered')->middleware('auth');
+Route::get('checkStatusAt/{time}', 'ExamRegistrationController@checkStatusAt')->name('checkStatusAt')->middleware('auth');
+Route::get('newestExam', 'ExamRegistrationController@getNewestExam')->name('newestExam')->middleware('auth');
+Route::get('infoScheduling', 'SchedulingController@getAllInfo')->name('infoScheduling')->middleware('auth');
+Route::get('infoSchedulingByStudentID/{id}', 'SchedulingController@getSchedulingByStudentID')->name('infoSchedulingByStudentID')->middleware('auth');
+Route::get('infoPrint/{id}', 'ExamRegistrationController@getInfoPrint')->name('infoPrint')->middleware('auth');
 
 Route::get('/contestCard', function () {
     return view('contestCard');
