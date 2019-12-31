@@ -1,9 +1,10 @@
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 <div class="container">
     <div class="row mb-3" >
         <div class="col">
-            <label for="year">Môn thi</label>
-            <select v-model="room" name="room" id="room" class="form-control">
-                <option v-for="room in rooms" >@{{ room.room }}</option>
+            <label for="subject">Môn thi</label>
+            <select v-model="subject" name="subject" id="subject" class="form-control">
+                <option v-for="subject in subjects" >@{{ subject.name }}</option>
             </select>
         </div>
 
@@ -16,30 +17,37 @@
                 <option value="4">4</option>
             </select>
         </div>
-        <div class="col">Phòng thi</div>
+
+        <div class="col">
+            <label for="room">Phòng thi</label>
+            <select v-model="room" name="room" id="room" class="form-control">
+                <option v-for="room in rooms" >@{{ room.name }}</option>
+            </select>
+        </div>
         <div class="col-6"></div>
     </div>
-
+<form id="print">
     <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">SBD</th>
-            <th scope="col">Họ và tên</th>
-            <th scope="col">Mã sinh viên</th>
-        </tr>
-        </thead>
+            <thead>
+            <tr>
+                <th scope="col">SBD</th>
+                <th scope="col">Họ và tên</th>
+                <th scope="col">Mã sinh viên</th>
+            </tr>
+            </thead>
 
-        <tbody>
-        <tr v-for="(row,index) in rows">
-            <td>@{{index + 1}}</td>
-            <td>@{{row.full_name}}</td>
-            <td>@{{row.student_code}}</td>
-        </tr>
-        </tbody>
-    </table>
+            <tbody>
+            <tr v-for="(row,index) in rows">
+                <td>@{{index + 1}}</td>
+                <td>@{{row.full_name}}</td>
+                <td>@{{row.student_code}}</td>
+            </tr>
+            </tbody>
+        </table>
+</form>
+    
 
 </div>
-
 <div class="container pt-4">
     <button class=" btn btn-primary float-right" type="button" onclick="printJS('print', 'html')">
         Print/Download
@@ -51,27 +59,30 @@
         el: '#app',
         data: {
             exam: {},
+            examID:null,
             subjects: [],
+            subject:null,
+            subjectID:null,
             rooms:[],
             room:null,
             examShift:null,
             rows:[]
         },
         watch:{
-            room: function(newval,oldval) {
-                if(this.examShift !== null){
-                    this.getAllStudentByRoomAndExamShift(newval, this.examShift);
-                }else{
-                    console.log(newval)
-                }
-            },
             examShift: function(newval,oldval) {
-                if(this.room !== null){
-                    this.getAllStudentByRoomAndExamShift(this.room,newval);
+                if(this.subject !== null){
+                    this.getAllRoomBySubjectIDAndExamShift(this.subjectID,newval,this.examID);
                 }else{
                     console.log(newval)
                 }
             },
+            room: function(newval,oldval) {
+                if(this.subject != null && this.examShift !== null){
+                    this.getAllStudentByRoomAndExamShift(newval, this.examShift, this.subject);
+                }else{
+                    console.log(newval)
+                }
+            }
         },
         methods: {
             getExamActive() {
@@ -79,19 +90,39 @@
                     .then(res => {
                         this.exam = res.data;
                     })
+                    .catch(res => {
+                        console.log(res);
+                    })
             },
             getAllSubject() {
                 axios.get('/admin/all/subject')
                     .then (res => {
                         this.subjects = res.data;
                     })
+                    .catch(res => {
+                        console.log(res);
+                    })
             },
+            getAllRoomsInExamShift(subject, examShift) {
+                axios.get('/admin/all/subject')
+                    .then (res => {
+                        this.rooms = res.data;
+                    })
+                    .catch(res => {
+                        console.log(res);
+                    })
+            },
+
             getAllRoomBySubjectIDAndExamShift(subjectID, examShift, examID) {
                 axios.get('/admin/all/roomBySubjectCodeAndExamShift/' + subjectID + '/' + examShift + '/' + examID)
                     .then(res => {
                         this.rooms = res.data;
                     })
+                    .catch(res => {
+                        console.log(res);
+                    })
             },
+            
             getAllStudentBySchedulingID(id) {
                 axios.get('/admin/all/studentBySchedulingID/' + id)
                     .then((response) => {
@@ -101,11 +132,11 @@
                     .catch(function (error) {
 
                     });
-            },
-            created () {
-                this.getExamActive();
-                this.getAllSubject();
             }
+        },
+        created () {
+            this.getExamActive();
+            this.getAllSubject();
         }
     });
 </script>
