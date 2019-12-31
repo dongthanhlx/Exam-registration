@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row mb-3" >
         <div class="col">
-            <label for="year">Môn thi</label>
-            <select v-model="room" name="room" id="room" class="form-control">
-                <option v-for="room in rooms" >@{{ room.room }}</option>
+            <label for="subject">Môn thi</label>
+            <select v-model="subject" name="subject" id="subject" class="form-control">
+                <option v-for="subject in subjects" >@{{ subject.name }}</option>
             </select>
         </div>
 
@@ -16,7 +16,13 @@
                 <option value="4">4</option>
             </select>
         </div>
-        <div class="col">Phòng thi</div>
+
+        <div class="col">
+            <label for="room">Phòng thi</label>
+            <select v-model="room" name="room" id="room" class="form-control">
+                <option v-for="room in rooms" >@{{ room.name }}</option>
+            </select>
+        </div>
         <div class="col-6"></div>
     </div>
 
@@ -79,17 +85,26 @@
                     .then(res => {
                         this.exam = res.data;
                     })
+                    .catch(res => {
+                        console.log(res);
+                    })
             },
             getAllSubject() {
                 axios.get('/admin/all/subject')
                     .then (res => {
                         this.subjects = res.data;
                     })
+                    .catch(res => {
+                        console.log(res);
+                    })
             },
             getAllRoomBySubjectIDAndExamShift(subjectID, examShift, examID) {
                 axios.get('/admin/all/roomBySubjectCodeAndExamShift/' + subjectID + '/' + examShift + '/' + examID)
                     .then(res => {
                         this.rooms = res.data;
+                    })
+                    .catch(res => {
+                        console.log(res);
                     })
             },
             getAllStudentBySchedulingID(id) {
@@ -101,11 +116,11 @@
                     .catch(function (error) {
 
                     });
-            },
-            created () {
-                this.getExamActive();
-                this.getAllSubject();
             }
+        },
+        created () {
+            this.getExamActive();
+            this.getAllSubject();
         }
     });
 </script>
