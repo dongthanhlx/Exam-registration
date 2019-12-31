@@ -24,29 +24,32 @@
             <div class="col"></div>
             <div class="col-6"></div>
         </div>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">SBD</th>
-            <th scope="col">Họ và tên</th>
-            <th scope="col">Mã sinh viên</th>
-            <!-- <th scope="col">Tác vụ</th> -->
-        </tr>
-        </thead>
+    <form action="">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="border-top: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000; text-align: center;" scope="col">SBD</th>
+                <th style="border-top: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000; text-align: center;"scope="col">Họ và tên</th>
+                <th style="border-top: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000; text-align: center;"scope="col">Ngày sinh</th>
+                <th style="border-top: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000; text-align: center;" scope="col">Mã sinh viên</th>
+                <!-- <th scope="col">Tác vụ</th> -->
+            </tr>
+            </thead>
 
-        <tbody>
-        <tr v-for="(row,index) in rows">
-            <td>@{{index + 1}}</td>
-            <td>@{{row.full_name}}</td>
-            <td>@{{row.student_code}}</td>
-            <!-- <td>
-                <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-                <button @click="getStudentAccount(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary"><i class="fas fa-edit"></i></button>
-            </td> -->
-        </tr>
-        </tbody>
-    </table>
-
+            <tbody>
+            <tr v-for="(row,index) in rows">
+                <td>@{{index + 1}}</td>
+                <td>@{{row.full_name}}</td>
+                <td>@{{row.birthday}}</td>
+                <td>@{{row.student_code}}</td>
+                <!-- <td>
+                    <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                    <button @click="getStudentAccount(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary"><i class="fas fa-edit"></i></button>
+                </td> -->
+            </tr>
+            </tbody>
+        </table>
+    </form>
 </div>
 
 <div class="container pt-4">

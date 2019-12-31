@@ -11,7 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav position-absolute">
                 <li class="nav-item mx-2">
-                    <a class="nav-link" href="{{ route('examRegistration.index') }}">Đăng ký thi</a>
+                    <a class="nav-link" href="{{ route('examRegistration') }}">Đăng ký thi</a>
                 </li>
 
                 <li class="nav-item mx-2">
@@ -26,7 +26,7 @@
                     <li class="mr-2"><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>
                 @else
-                    <li class="shadow-sm">
+                    <li class="">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->last_name }} <span class="caret"></span>
                         </a>
@@ -50,3 +50,6 @@
         </div>
     </div>
 </nav>
+
+
+

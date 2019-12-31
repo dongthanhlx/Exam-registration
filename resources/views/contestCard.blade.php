@@ -23,13 +23,13 @@
             
         
      <div style="margin-bottom:40px">  
-        <h1 style="text-align: center; text-transform: uppercase; font-weight: bold; font-size: 14pt; margin: 30px 0 0 0; padding: 0;" id="header" v-model="info">Phiếu báo dự thi - @{{info.exam}}</h1>
+        <h1 style="text-align: center; text-transform: uppercase; font-weight: bold; font-size: 14pt; margin: 30px 0 0 0; padding: 0;" id="header" v-model="newestExam">Phiếu báo dự thi - @{{newestExam.name}}</h1>
      </div>       
             <div class="col">
-                <h5 style="margin-bottom:20px" >Họ và tên: <span v-model="info">@{{info.name}}</span></h5>
-                <h5 style="margin-bottom:20px">Ngày sinh: <span v-model="info">@{{info.birthday}}</span></h5>
-                <h5 style="margin-bottom:20px">Lớp: <span v-model="info">@{{info.class}}</span></h5>
-                <h5 style="margin-bottom:20px">Mã sinh viên: <span v-model="info">@{{info.student_code}}</span></h5>
+                <h5 style="margin-bottom:20px">Họ và tên: @{{studentInfo.first_name}} @{{ studentInfo.last_name }}</h5>
+                <h5 style="margin-bottom:20px">Ngày sinh: @{{studentInfo.birthday}}</h5>
+                <h5 style="margin-bottom:20px">Lớp: @{{studentInfo.class}}</h5>
+                <h5 style="margin-bottom:20px">Mã sinh viên: @{{studentInfo.student_code}}</h5>
             </div>
             <div class="col">
             
@@ -76,7 +76,9 @@
         el: '#app',
         data: {
             info:{"exam":"KẾT THÚC HỌC KỲ 2 NĂM HỌC 2019-2020","name":"Cao Huu Hung","birthday":"19/02/1998","class":"K61N","student_code":"16021589"},
-            rows:[]
+            rows:[],
+            newestExam: '',
+            studentInfo: {}
         },
         methods: {
             getInfoRegistered() {
@@ -88,11 +90,28 @@
                         console.log(res);
                     })
             },
-            getAllInfo() {
-                axios.get('')
+            getExamInfo() {
+                axios.get('/newestExam')
+                    .then(res => {
+                        this.newestExam = res.data;
+                    })
+                    .catch(res => {
+                        console.log(res);
+                    })
+            },
+            getUserInfo() {
+                axios.get('/studentInfoByUserID/' + this.$userId)
+                    .then(res => {
+                        this.studentInfo = res.data;
+                    })
+                    .catch(res => {
+                        console.log(res);
+                    })
             }
         },
         created () {
+            this.getExamInfo();
+            this.getUserInfo();
             this.getInfoRegistered();
         }
     })

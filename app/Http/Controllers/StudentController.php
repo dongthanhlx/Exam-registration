@@ -91,4 +91,11 @@ class StudentController extends Controller
 
         return response()->json($all, 200);
     }
+
+    public function getStudentInfoByUserID($userID)
+    {
+        $studentInfo = $this->model->getStudentInfoByUserID($userID);
+
+        return response()->json($studentInfo, 200);
+    }
 }

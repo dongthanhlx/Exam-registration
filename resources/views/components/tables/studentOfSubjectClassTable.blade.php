@@ -1,27 +1,6 @@
-<div class="container">
-    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4 mr-2" ><button class="btn btn-primary"><i class="far fa-file-alt"></i></button></a>
-</div>
-<div class="container">
-    <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4 mr-2" ><button class="btn btn-primary"><i class="far fa-file-alt"></i></button></a>
-</div>
 <div class="m-5">
     <div class="container mt-3" xmlns:v-bind="http://symfony.com/schema/routing">
         <div class="row mb-3">
-            <div class="col">
-                <label for="year">Năm học</label>
-                <select v-model="yearSelected" name="year" class="form-control" id="year">
-                    <option v-for="year in years">@{{ year.year }}</option>
-                </select>
-            </div>
-
-            <div class="col">
-                <label for="semester">Học kỳ</label>
-                <select name="semester" id="semester" v-model="semesterSelected" class="form-control"  @click="getAllSubjectClassByExam()">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                </select>
-            </div>
-
             <div class="col">
                 <label for="subject">Môn học</label>
                 <select name="subject" id="subject" v-model="subjectSelected" class="form-control" @click="getAllStudentBySubjectCode()">
@@ -61,16 +40,16 @@
             <td>@{{row.student_code}}</td>
             <td>@{{row.subject_code}}</td>
             <td>@{{row.serial}}</td>
-            <td>@{{row.contest_conditions}}</td>
+            <td>@{{row.contest_conditions}} điều kiện dự thi</td>
             <td>@{{row.comments}}</td>
             <td>
-                <button @click="deletingSubjectId = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></button>
-                <button @click="getStudentOfSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary"><i class="far fa-edit"></button>
+                <button @click="deletingSubjectId = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                <button @click="getStudentOfSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary"><i class="far fa-edit"></i></button>
             </td>
         </tr>
         </tbody>
     </table>
-
+{{--
     <!-- <div class="float-right"> -->
         <!-- <div>
             <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="mb-4">SampleForm1</a>
@@ -78,7 +57,16 @@
         <div>
             <a href="{{ route("admin.import.downloadSampleForm", $name2) }}" class="mb-4">SampleForm2</a>
         </div> -->
-    <!-- </div> -->
+    <!-- </div> -->--}}
+
+    <div class="container">
+        <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4 mr-2" ><button class="btn btn-primary"><i class="far fa-file-alt"></i></button></a>
+    </div>
+
+    <div class="container">
+        <a href="{{ route("admin.import.downloadSampleForm", $name2) }}" class="float-right mb-4 mr-2" ><button class="btn btn-primary"><i class="far fa-file-alt"></i></button></a>
+    </div>
+
 </div>
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -148,46 +136,43 @@
     </div>
 </div>
 
-
 <script>
 const App = new Vue({
     el: '#app',
     data: {
-        yearSelected: '',
-        semesterSelected: '',
         subjectSelected: '',
         serialSelected: '',
         subjectClassSelected: '',
         deletingSubjectId:'',
         err: '',
         editingSubject: {},
-        years: [],
         subjectClasses: [],
         subjects: [],
         serials: [],
         rows: [],
         allStudent: [],
-        examID: ''
+        examID: '',
+        exam: ''
     },
     methods: {
-        getAllYear(){
-            axios.get('/admin/all/year')
-                .then((response) => {
-                    this.years = response.data;
-                    console.log(this.years);
+        getExamActive(){
+            axios.get('/admin/examActive')
+                .then(res => {
+                    this.exam = res.data;
+                    if (this.exam != null) {
+                        this.getAllSubjectClassByExam(this.exam.year, this.exam.semester);
+                    }
                 })
                 .catch(function (error) {
-
+                    console.log(error);
                 });
         },
-        getAllSubjectClassByExam() {
-            if (this.semesterSelected === '') return;
-
-            axios.get('/admin/all/subjectClassOfExam/' + this.yearSelected + '/' + this.semesterSelected)
+        getAllSubjectClassByExam(year, semester) {
+            axios.get('/admin/all/subjectClassOfExam/' + year + '/' + semester)
                 .then((res) => {
                     this.subjectClasses = res.data;
                     this.getAllSubject();
-                    this.examID = this.subjectClasses[0].exam_id;
+                    this.examID = this.exam.id;
                 })
         },
         getAllSubject() {
@@ -256,7 +241,7 @@ const App = new Vue({
         }
     },
     created () {
-        this.getAllYear();
+        this.getExamActive();
     }
 })
 </script>

@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse my-2 my-sm-0 position-relative" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
 
-            @if (Auth::user())
+            @if (auth('admin')->user())
                 @include('components.managerNav')
             @endif
             <!-- Right Side Of Navbar -->
@@ -18,7 +18,7 @@
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li><a href="{{ route('login') }}">Login</a></li>
-                @else
+                @elseif (auth('admin')->user())
                     <li>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->last_name }} <span class="caret"></span>
@@ -32,7 +32,7 @@
                                     Logout
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('admin.logout') }}" style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
                             </li>
@@ -42,5 +42,4 @@
             </ul>
         </div>
     </div>
-
 </nav>

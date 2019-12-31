@@ -9,7 +9,7 @@ class StudentDetailSubjectClass extends BaseModel
     protected $table = 'student_details_subject_classes';
 
     protected $fillable = [
-        'student_code', 'subject_code', 'serial', 'contest_conditions', 'comments'
+        'student_code', 'subject_class_id', 'contest_conditions', 'comments'
     ];
 
     public function studentsWithContestConditions($contestConditions)

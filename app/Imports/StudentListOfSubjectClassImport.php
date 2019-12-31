@@ -18,10 +18,15 @@ class StudentListOfSubjectClassImport implements ToModel,  WithValidation, WithS
      */
     public function model(array $row)
     {
+        $subjectCode = $row[5];
+        $serial = $row[6];
+        $model = new SubjectClass();
+        $subject = $model->getSubjectClassBySubjectCodeAndSerial($subjectCode, $serial);
+        $subject_class_id = $subject->id;
+
         return new StudentDetailSubjectClass([
             'student_code' => $row[3],
-            'subject_code' => $row[5],
-            'serial' => $row[6]
+            'subject_class_id' => $subject_class_id
         ]);
     }
 
@@ -36,7 +41,7 @@ class StudentListOfSubjectClassImport implements ToModel,  WithValidation, WithS
 
     public function startRow(): int
     {
-        return 3;
+        return 2;
     }
 
 }

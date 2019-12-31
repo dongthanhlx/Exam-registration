@@ -28,8 +28,7 @@
 
     </div>
 
-
-    <table class="table table-striped large-table">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th scope="col">#</th>
@@ -105,9 +104,11 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
                 <div class="modal-body">
                     Bạn có chắc chắn muốn xoá ?
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" ref="delete" data-dismiss="modal">Huỷ</button>
                     <button type="button" class="btn btn-primary" @click="deleteSubject(deletingSubjectId)">Xoá</button>
@@ -128,8 +129,7 @@
             err: '',
             editingSubject: {},
             years: [],
-            rows:[
-            ]
+            rows:[]
         },
         methods: {
             getAllYear(){

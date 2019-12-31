@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exam;
 use App\ExamRegistration;
 use App\Scheduling;
 use Illuminate\Http\Request;
@@ -48,8 +49,10 @@ class ExamRegistrationController extends Controller
     {
         $input = $request->input();
         $this->model->store($input);
-        $all = (new Scheduling())->getAllInfoConverted();
-        return response()->json($all, 200);
+        /*$all = (new Scheduling())->getAllInfoConverted();
+        return response()->json($all, 200);*/
+
+        return response()->json('OK', 200);
     }
 
     /**
@@ -60,7 +63,7 @@ class ExamRegistrationController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -116,5 +119,12 @@ class ExamRegistrationController extends Controller
         $result = $this->model->checkActive($time);
 
         return response()->json($result, 200);
+    }
+
+    public function getNewestExam()
+    {
+        $newest = (new Exam())->getNewestExam();
+
+        return response()->json($newest, 200);
     }
 }

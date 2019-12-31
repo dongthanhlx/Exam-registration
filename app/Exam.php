@@ -82,4 +82,27 @@ class Exam extends BaseModel
                 ]);
         }
     }
+
+    public function getNewestExam()
+    {
+        $schedulingID = DB::table('exams_subjects_rooms_student_details')->latest()->get()->first()->exams_subjects_rooms_id;
+
+        return DB::table('exams_subjects_rooms')
+            ->where('exams_subjects_rooms.id', '=', $schedulingID)
+            ->join('exams',
+                'exams_subjects_rooms.exam_id',
+                '=',
+                'exams.id')
+            ->select(DB::raw("CONCAT(exams.name, ' ', exams.semester, ' năm học ', exams.year) as name"))
+            ->get()
+            ->first();
+    }
+
+    public function getExamActive()
+    {
+        return DB::table('exams')
+            ->where('status', '=', 'STOP')
+            ->get()
+            ->first();
+    }
 }

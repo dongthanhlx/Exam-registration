@@ -19,12 +19,7 @@ class SubjectClassImport implements ToModel, WithValidation, WithStartRow
     */
     public function model(array $row)
     {
-        $semester = $row[5];
-        $year = $row[6];
-
-        $examModel = new Exam();
-        $exam = $examModel->getByYearAndSemester($year, $semester);
-
+        $exam = (new Exam)->getExamActive();
         if ($exam == null) return null;
         $exam_id = $exam->id;
 

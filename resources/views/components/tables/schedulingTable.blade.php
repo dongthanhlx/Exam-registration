@@ -1,6 +1,5 @@
-
-<div class="mr-5 ml-5 mt-3">
-    <table class="table table-striped large-table">
+<div class="mr-5 ml-5">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -15,54 +14,34 @@
         <tbody>
         <tr v-for="(row, index) in rows">
             <td>@{{ index+1 }}</td>
-            <td>@{{row.subject}}</td>
+            <td>@{{row.name}}</td>
             <td>@{{row.date}}</td>
-            <td>@{{row.examShift}}</td>
-            <td>@{{row.room}}</td>
+            <td>@{{row.exam_shift}}</td>
+            <td><span v-for="room in row.rooms"><div>@{{room.name}}</div></span></td>
             <td>
+<<<<<<< HEAD
                 <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
                 <!-- <button @click="getSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-secondary"><i class="far fa-edit"></i></button> -->
+=======
+                <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
+>>>>>>> 38519e073531d5dc3fa390e642aaf7ee5af629ea
             </td>
         </tr>
         </tbody>
     </table>
+</div>
 
-    <!-- Modal -->
-    <!-- <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="name">Tên môn học</label>
-                        <input type="text" id="name" name="name" class="form-control mt-2" v-model="editingScheme.name" >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="subject_code">Mã môn học</label>
-                        <input type="text" id="subject_code" name="subject_code" class="form-control mt-2" v-model="editingScheme.subject_code" >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="number_of_credits">Số tín chỉ</label>
-                        <input type="number" id="number_of_credits" name="number_of_credits" class="form-control mt-2" v-model="editingScheme.number_of_credits" >
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" ref="close" data-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary" @click="editScheme(editingScheme.id)">Sửa</button>
-                </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tạo mới</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
-    </div> -->
 
+<<<<<<< HEAD
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -76,11 +55,15 @@
                 <div class="modal-body">
                     Bạn có chắc chắn muốn xoá ?
                 </div>
+=======
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xoá ?
+            </div>
+>>>>>>> 38519e073531d5dc3fa390e642aaf7ee5af629ea
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" ref="delete" data-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary" @click="deleteSubject(idDelete)">Xoá</button>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" ref="delete" data-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary" @click="deleteExam(idDelete)">Xoá</button>
             </div>
         </div>
     </div>
@@ -94,8 +77,15 @@ const App = new Vue({
         rows:[]
     },
     methods: {
-        getAll(){
-            axios.get('/admin/all/year')
+        getExamActive() {
+            axios.get('/admin/examActive')
+                .then(res => {
+                    let exam = res.data;
+                    this.getAllByExamID(exam.id);
+                })
+        },
+        getAllByExamID(id){
+            axios.get('/admin/all/schedulingByExamID/' + id)
                 .then((response) => {
                     this.rows = response.data;
                 })
@@ -105,8 +95,8 @@ const App = new Vue({
         },
         deleteExam(id) {
             this.$refs.delete.click();
-            axios.delete('/admin/SubjectClass/' +id).then(res =>{
-
+            axios.delete('/admin/scheduling/' + id).then(res =>{
+                this.getAll();
             }).catch(err =>{
                 console.log(err);
             });
@@ -114,24 +104,7 @@ const App = new Vue({
 
     },
     created () {
-        this.getAll();
+        this.getExamActive();
     }
 })
 </script>
-
-<div class="modal fade" id="createScheme" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Tạo mới</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            
-            <div class="modal-body">
-                @include('components.forms.schedulingForm');
-            </div>
-            </div>
-        </div>
-    </div>

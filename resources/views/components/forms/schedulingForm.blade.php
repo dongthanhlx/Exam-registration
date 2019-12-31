@@ -9,22 +9,6 @@
                             <li v-for="error in errors" class="text-danger">@{{ error }}</li>
                             </ul>
                         </p>
-        <div class="form-group">
-            <label for="year">Năm học</label>
-
-            <select v-model="year" name="year" class="form-control mt-2">
-                <option v-for="year in years" >@{{ year.year }}</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="exam">Kỳ thi</label>
-
-            <select v-model="semester" name="semester" id="semester" class="form-control mt-2">
-                <option value="1">Thi cuối kỳ 1</option>
-                <option value="2">Thi cuối kỳ 2</option>
-            </select>
-        </div>
 
         <div class="form-group">
             <label for="subject">Môn thi</label>
@@ -80,8 +64,8 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+<script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
 
 <script>
 
@@ -94,12 +78,9 @@
             selected:'',
             deletingSubjectId:'',
             editingSubject: {},
-            years:[],
             subjects:[],
             remainRooms: [],
 
-            year: null,
-            semester: null,
             subject: null,
             duration: null,
             date: null,
@@ -107,19 +88,6 @@
             rooms: [],
         },
         watch:{
-            year: function(newval,oldval) {
-                if (this.semester != null) {
-                    this.getSubjectsByYearAndSemester(newval, this.semester);
-                } else {
-                    document.getElementById("semester").disabled = false;
-                }
-            },
-            semester: function(newval,oldval) {
-                this.getSubjectsByYearAndSemester(this.year,newval);
-                if (this.subjects != null) {
-                    document.getElementById('subject').disabled = false;
-                }
-            },
             subject: function(newval,oldval) {
                 document.getElementById('duration').disabled = false;
             },
@@ -140,19 +108,17 @@
             }
         },
         methods: {
-            checkSchoolYear(year){
-                if (!year) {
-                    this.errors.push('Không được để trống năm học.');
-                    return false;
-                }
-                return true;
-            },  
-            checkSemester(semester){
-                if (!semester) {
-                    this.errors.push('Không được để trống học kỳ.');
-                    return false;
-                }
-                return true;
+            getExamActive() {
+                axios.get('/admin/examActive')
+                    .then(res => {
+                        let exam = res.data;
+                        if (exam != null) {
+                            this.getSubjectsByYearAndSemester(exam.year, exam.semester);
+                        }
+                    })
+                    .catch(res => {
+                        console.log(res);
+                    })
             },
             checkSubject(subject){
                 if (!subject) {
@@ -190,16 +156,12 @@
                 return true;
             },
             resetInput() {
-                document.getElementById("semester").disabled = true;
-                document.getElementById("subject").disabled = true;
                 document.getElementById("duration").disabled = true;
                 document.getElementById("date").disabled = true;
                 document.getElementById("examShift").disabled = true;
                 document.getElementById("remainRooms").disabled = true;
             },
             resetWatch() {
-                this.year = null;
-                this.semester = null;
                 this.subject = null;
                 this.duration = null;
                 this.date = null;
@@ -210,15 +172,6 @@
                 this.years = [];
                 this.subjects = [];
                 this.remainRooms = [];
-            },
-            getAllYear(){
-                axios.get('/admin/all/year')
-                    .then((response) => {
-                        this.years = response.data;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
             },
             getSubjectsByYearAndSemester(year,semester) {
                 axios.get('/admin/all/subjectOfExam/' + year + "/" + semester )
@@ -279,7 +232,7 @@
             this.resetInput();
             this.resetWatch();
             this.resetVariables();
-            this.getAllYear();
+            this.getExamActive();
         }
     })
 </script>

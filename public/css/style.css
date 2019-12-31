@@ -31,3 +31,58 @@ li.dropdown {
 .bordertop {
   border-top: 1px solid black!important;
 }
+
+.wrapper {
+  display: flex;
+  width: 100%;
+}
+#sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+}
+
+#sidebar ul.components {
+  padding: 20px 0;
+}
+
+#sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: transparent;
+}
+a:hover {
+  color: #507eaf;
+  text-decoration: underline;
+}
+
+.dropdown-toggle::after {
+  margin-right: 10px;
+  margin-top: 7px;
+  display: inline-block;
+  float: right;
+  vertical-align: .255em;
+  content: "";
+  border-top: .3em solid;
+  border-right: .3em solid transparent;
+  border-bottom: 0;
+  border-left: .3em solid transparent;
+}
+
+#sidebar {
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 999;
+  background: rgb(36, 49, 103);
+  color: #fff;
+  transition: all 0.3s;
+}

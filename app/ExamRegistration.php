@@ -35,17 +35,6 @@ class ExamRegistration extends BaseModel
             $registeredComputer = $this->countRegistrationBySchedulingIDAndRoomID($schedulingID, $roomID);
 
             if ($allComputer > $registeredComputer) {
-                /*DB::table('exams_subjects_rooms_student_details')
-                    ->updateOrInsert([
-                        'student_id' => $studentID,
-                        'subject_code' => $subjectCode
-                    ], [
-                        'exams_subjects_rooms_id' => $schedulingID,
-                        'student_id' => $studentID,
-                        'room_id' => $roomID,
-                        'subject_code' => $subjectCode
-                    ]);*/
-
                 DB::table('exams_subjects_rooms_student_details')
                     ->insert([
                         'exams_subjects_rooms_id' => $schedulingID,
@@ -62,16 +51,6 @@ class ExamRegistration extends BaseModel
         return DB::table('exams_subjects_rooms_student_details')
             ->where([['exams_subjects_rooms_id', '=', $schedulingID], ['room_id', '=', $roomID]])
             ->count();
-    }
-
-    public function getAllRootInfo()
-    {
-        return DB::table('exams_subjects_rooms_student_details')
-            ->join('exams_subjects_rooms',
-                'exams_subjects_rooms_student_details.exams_subjects_rooms_id', '=', 'exams_subjects_rooms.id')
-            ->join('subjects',
-                'exams_subjects_rooms.subject_id', '=', 'subjects.id')
-            ->get();
     }
 
     public function getAllByStudentID($studentID)
@@ -120,11 +99,4 @@ class ExamRegistration extends BaseModel
 
         return $number == 0 ? false: true;
     }
-/*
-    public function getAllInfo($id)
-    {
-        $studentInfo = (new Student())->getInfoStudentByID($id);
-
-        (new Exam())->get
-    }*/
 }
