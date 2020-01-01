@@ -4,16 +4,16 @@
 <div class="container-fluid pt-5" >
     <table class="table table-striped large-table">
         <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Họ và tên đệm</th>
-                <th scope="col">Tên</th>
-                <th scope="col">Ngày sinh</th>
-                <th scope="col">Giới tính</th>
-                <th scope="col">Mã sinh viên</th>
-                <th scope="col">Lớp</th>
-                <th scope="col">Tác vụ</th>
-            </tr>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Họ và tên đệm</th>
+            <th scope="col">Tên</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Mã sinh viên</th>
+            <th scope="col">Lớp</th>
+            <th scope="col">Tác vụ</th>
+        </tr>
         </thead>
 
         <tbody>
@@ -47,11 +47,11 @@
 
             <div class="modal-body">
                 <p v-if="errors.length">
-                            <b>Lỗi:</b>
-                            <ul>
-                            <li v-for="error in errors" class="text-danger">@{{ error }}</li>
-                            </ul>
-                        </p>
+                    <b>Lỗi:</b>
+                <ul>
+                    <li v-for="error in errors" class="text-danger">@{{ error }}</li>
+                </ul>
+                </p>
                 <div class="form-group">
                     <label for="firstName">Họ và tên đệm</label>
                     <input type="text" id="firstName" name="first_name" class="form-control mt-2" v-model="editingStudentInfo.first_name" disabled>
@@ -67,11 +67,11 @@
                     <input type="date" id="birthday" name="birthday" class="form-control mt-2" v-model="editingStudentInfo.birthday" >
                 </div>
 
-                <div class="form-group">    
+                <div class="form-group">
                     <label for="gender">Giới tính</label>
                     <select name="gender" id="gender" class="form-control mt-2" v-model="editingStudentInfo.gender">
-                        <option value="nam">nam</option>
-                        <option value="nữ">nữ</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
                     </select>
                 </div>
 
@@ -134,7 +134,7 @@
                     return false;
                 }
                 return true;
-            },        
+            },
             checkStudentCode(studentCode){
                 if (!studentCode) {
                     this.errors.push('Không được để trống mã sinh viên.');
@@ -161,11 +161,11 @@
             validNumber: function (number) {
                 var fnNameRegex = /^[0-9]+$/;
                 return fnNameRegex.test(number);
-                },
+            },
             validClass: function (className) {
                 var fnNameRegex = /[ !@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?]/;
                 return fnNameRegex.test(className);
-                },
+            },
             getAllStudentInfo() {
                 axios.get('/admin/all/student')
                     .then((response) => {
@@ -198,7 +198,7 @@
                 let className = this.editingStudentInfo.class;
                 if(!this.checkDate(date) | !this.checkStudentCode(studentCode) | !this.checkClass(className)){
                     console.log("fail");
-            
+
 
                 }else{
                     axios.put('/admin/student/' + studentInfoId, this.editingStudentInfo).then(res => {
@@ -210,6 +210,6 @@
         },
         created () {
             this.getAllStudentInfo();
-        } 
+        }
     })
-</script> 
+</script>

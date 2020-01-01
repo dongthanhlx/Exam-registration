@@ -4,7 +4,7 @@
         <div class="col">
             <label for="subject">Môn thi</label>
             <select v-model="subjectID" name="subject" id="subject" class="form-control">
-                <option v-for="subject in subjects" v-bind:value="subject.id">@{{ subject.name }}</option>
+                <option v-for="subject in subjects" v-bind:value="subject.subject_code">@{{ subject.name }}</option>
             </select>
         </div>
 
@@ -21,7 +21,7 @@
         <div class="col">
             <label for="room">Phòng thi</label>
             <select v-model="room" name="room" id="room" class="form-control">
-                <option v-for="room in rooms" >@{{ room.name }}</option>
+                <option v-for="room in rooms" v-bind:value="room">@{{ room.name }}</option>
             </select>
         </div>
         <div class="col-6"></div>
@@ -78,11 +78,7 @@
                 }
             },
             room: function(newval,oldval) {
-                if(this.subject != null && this.examShift !== null){
-                    this.getAllStudentByRoomAndExamShift(newval, this.examShift, this.subject);
-                }else{
-                    console.log(newval)
-                }
+                this.getAllStudentByScheduling(newval);
             }
         },
         methods: {
@@ -104,9 +100,8 @@
                         console.log(res);
                     })
             },
-
-            getAllRoomBySubjectCodeAndExamShift(subjectID, examShift, examID) {
-                axios.get('/admin/all/roomBySubjectCodeAndExamShift/' + subjectID + '/' + examShift + '/' + examID)
+            getAllRoomBySubjectCodeAndExamShift(subjectCode, examShift, examID) {
+                axios.get('/admin/all/roomBySubjectCodeAndExamShift/' + subjectCode + '/' + examShift + '/' + examID)
                     .then(res => {
                         this.rooms = res.data;
                     })
@@ -114,9 +109,9 @@
                         console.log(res);
                     })
             },
-            
-            getAllStudentBySchedulingID(id) {
-                axios.get('/admin/all/studentBySchedulingID/' + id)
+
+            getAllStudentByScheduling(room) {
+                axios.get('/admin/all/studentBySchedulingID/' + room.exams_subjects_rooms_id + '/' + room.id)
                     .then((response) => {
                         this.rows = response.data;
                         console.log(this.rows);

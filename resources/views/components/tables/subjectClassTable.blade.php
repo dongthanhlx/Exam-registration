@@ -88,7 +88,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" ref="delete" data-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary" @click="deleteSubject(idDelete)">Xoá</button>
+                    <button type="button" class="btn btn-primary" @click="deleteSubjectClass(idDelete)">Xoá</button>
                 </div>
             </div>
         </div>
@@ -127,7 +127,7 @@ const App = new Vue({
         deleteSubjectClass(id) {
             this.$refs.delete.click();
             axios.delete('/admin/SubjectClass/' +id).then(res =>{
-
+                this.getExamActive();
             }).catch(err =>{
                 console.log(err);
             });
@@ -138,9 +138,11 @@ const App = new Vue({
             })
         },
         editSubjectClass(id) {
-            axios.put('/admin/SubjectClass/' + id, this.editingSubject).then(res => {
-                this.$refs.close.click();
-            })
+            axios.put('/admin/SubjectClass/' + id, this.editingSubjectClass)
+                .then(res => {
+                    this.$refs.close.click();
+                    this.getExamActive();
+                })
         }
     },
     created () {

@@ -152,7 +152,7 @@ class Scheduling extends BaseModel
             for ($i=0; $i<count($roomIDs); $i++) {
                 $roomCollect = collect();
                 $room = $roomModel->getByID((integer) $roomIDs[$i]);
-
+                if ($room == null) continue;
                 $roomID = $room->id;
                 $roomName = $room->name;
                 $maxNum = $room->number_of_computer;

@@ -99,7 +99,7 @@ class SubjectClassController extends Controller
         $this->validator($request);
         $input = $request->all();
 
-        $result = $this->model->updateById($input, ['id', '=', $id]);
+        $result = $this->model->updateById($input, $id);
 
         return $result;
     }

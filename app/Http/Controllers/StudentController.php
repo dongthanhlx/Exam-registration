@@ -92,9 +92,9 @@ class StudentController extends Controller
         return response()->json($all, 200);
     }
 
-    public function getAllStudentByExamRegistrationID($id)
+    public function getAllStudentByExamRegistrationID($schedulingID, $roomID)
     {
-        $all = $this->model->getAllStudentByExamRegistrationID($id);
+        $all = $this->model->getAllStudentByExamRegistrationID($schedulingID, $roomID);
 
         return response()->json($all, 200);
     }

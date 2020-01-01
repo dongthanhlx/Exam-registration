@@ -52,7 +52,7 @@
 
                     <div class="form-group">
                         <label for="name">Tên phòng</label>
-                        <input type="text" id="name" name="name" class="form-control mt-2" v-model="editingRoom.name" >
+                        <input type="text" id="name" name="name" class="form-control mt-2" v-model="editingRoom.roomName" >
                     </div>
 
                     <div class="form-group">
@@ -155,7 +155,7 @@
             editRoom(roomId) {
                 this.errors = [];
                 let location = this.editingRoom.location;
-                let room = this.editingRoom.name;
+                let room = this.editingRoom.roomName;
                 let numberOfComputers = this.editingRoom.number_of_computer;
                 if(!this.checkLocation(location) | !this.checkRoom(room) | !this.checkNumberOfComputers(numberOfComputers)){
                     console.log("fail");

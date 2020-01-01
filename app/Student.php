@@ -122,12 +122,21 @@ class Student extends BaseModel
             ->get();
     }
 
-    public function getAllStudentByExamRegistrationID($id)
+    public function getAllStudentByExamRegistrationID($schedulingID, $roomID)
     {
-        DB::table('exams_subjects_rooms_student_details')
-            ->where('exams_subjects_rooms_student_details.id',
-                '=',
-                '$id')
+        return DB::table('exams_subjects_rooms_student_details')
+            ->where([
+                [
+                    'exams_subjects_rooms_student_details.exams_subjects_rooms_id',
+                    '=',
+                    $schedulingID
+                ],
+                [
+                    'exams_subjects_rooms_student_details.room_id',
+                    '=',
+                    $roomID
+                ]
+            ])
             ->join('users',
                 'exams_subjects_rooms_student_details.student_id',
                 '=',

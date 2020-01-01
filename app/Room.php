@@ -29,7 +29,7 @@ class Room extends BaseModel
             ->where('id', '=', $id)
             ->update([
                 'location' => $input['location'],
-                'name' => $input['name'],
+                'name' => $input['roomName'],
                 'number_of_computer' => $input['number_of_computer']
             ]);
 
@@ -82,7 +82,9 @@ class Room extends BaseModel
             ->select(
                 'id',
                 DB::raw("CONCAT(rooms.name, ' ', rooms.location) AS name"),
-                'number_of_computer'
+                'number_of_computer',
+                DB::raw("rooms.name AS roomName"),
+                'location'
             )
             ->get()
             ->first();
@@ -122,11 +124,12 @@ class Room extends BaseModel
                 'exams_subjects_rooms_student_details.room_id',
                 '=',
                 'rooms.id')
-            ->distinct()
             ->select(
                 DB::raw("CONCAT(rooms.name, ' ', rooms.location) AS name"),
-                'exams_subjects_rooms_student_details.id'
+                'rooms.id',
+                'exams_subjects_rooms_student_details.exams_subjects_rooms_id'
             )
+            ->distinct()
             ->get();
     }
 }
