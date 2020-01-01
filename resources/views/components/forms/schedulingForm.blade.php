@@ -58,7 +58,7 @@
             ></multiselect>
         </div>
 
-        <button style="width:100px" type="button" class="btn btn-outline-primary float-right" @click="post()">Tạo</button>
+        <button style="width:100px" type="button" class="btn btn-primary float-right" @click="post()">Tạo</button>
     </form>
 </div>
 

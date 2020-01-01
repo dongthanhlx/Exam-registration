@@ -38,7 +38,7 @@
 
 @isset($route2)
     <div class="container">
-        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#staticBackdrop2">
+        <button type="button" class="btn btn-danger float-right mr-2" data-toggle="modal" data-target="#staticBackdrop2">
             Thêm ds sv không đủ điều kiện thi
         </button>
     </div>
