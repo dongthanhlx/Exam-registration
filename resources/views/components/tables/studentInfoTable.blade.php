@@ -2,37 +2,38 @@
     <a href="{{ route("admin.import.downloadSampleForm", $name) }}" class="float-right mb-4 mr-2" ><button class="btn btn-primary"><i class="far fa-file-alt"></i></button></a>
 </div>
 <div class="container-fluid pt-5" >
-    <table class="table table-striped large-table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Họ và tên đệm</th>
-            <th scope="col">Tên</th>
-            <th scope="col">Ngày sinh</th>
-            <th scope="col">Giới tính</th>
-            <th scope="col">Mã sinh viên</th>
-            <th scope="col">Lớp</th>
-            <th scope="col">Tác vụ</th>
-        </tr>
-        </thead>
+    <div style='overflow:auto; width:100%;height:800px;'>
+        <table class="table table-striped large-table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Họ và tên đệm</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Ngày sinh</th>
+                <th scope="col">Giới tính</th>
+                <th scope="col">Mã sinh viên</th>
+                <th scope="col">Lớp</th>
+                <th scope="col">Tác vụ</th>
+            </tr>
+            </thead>
 
-        <tbody>
-        <tr v-for="(row,index) in rows">
-            <td>@{{index + 1}}</td>
-            <td>@{{row.first_name}}</td>
-            <td>@{{row.last_name}}</td>
-            <td>@{{row.birthday}}</td>
-            <td>@{{row.gender}}</td>
-            <td>@{{row.student_code}}</td>
-            <td>@{{row.class}}</td>
-            <td>
-                <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-                <button @click="getStudentAccount(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary"><i class="far fa-edit"></i></button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
+            <tbody>
+            <tr v-for="(row,index) in rows">
+                <td>@{{index + 1}}</td>
+                <td>@{{row.first_name}}</td>
+                <td>@{{row.last_name}}</td>
+                <td>@{{row.birthday}}</td>
+                <td>@{{row.gender}}</td>
+                <td>@{{row.student_code}}</td>
+                <td>@{{row.class}}</td>
+                <td>
+                    <button @click="idDelete = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                    <button @click="getStudentAccount(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary"><i class="far fa-edit"></i></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

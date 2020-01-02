@@ -27,38 +27,39 @@
         <div class="col"></div>
 
     </div>
-
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Họ và tên</th>
-            <th scope="col">Mã sinh viên</th>
-            <th scope="col">Tên môn thi</th>
-            <th scope="col">Mã môn thi</th>
-            <th scope="col">Lớp học phần</th>
-            <th scope="col">Điều kiện dự thi</th>
-            <th scope="col">Ghi chú</th>
-            <th scope="col">Tác vụ</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(row, index) in rows">
-            <td>@{{ index+1 }}</td>
-            <td>@{{row.full_name}}</td>
-            <td>@{{row.student_code}}</td>
-            <td>@{{row.subject}}</td>
-            <td>@{{row.subject_code}}</td>
-            <td>@{{row.subject_class}}</td>
-            <td>@{{row.contest_condition}}</td>
-            <td>@{{row.comment}}</td>
-            <td>
-                <button @click="deletingSubjectId = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
-                <button @click="getSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary">Edit</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div style='overflow:auto; width:100%;height:800px;'>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Họ và tên</th>
+                <th scope="col">Mã sinh viên</th>
+                <th scope="col">Tên môn thi</th>
+                <th scope="col">Mã môn thi</th>
+                <th scope="col">Lớp học phần</th>
+                <th scope="col">Điều kiện dự thi</th>
+                <th scope="col">Ghi chú</th>
+                <th scope="col">Tác vụ</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(row, index) in rows">
+                <td>@{{ index+1 }}</td>
+                <td>@{{row.full_name}}</td>
+                <td>@{{row.student_code}}</td>
+                <td>@{{row.subject}}</td>
+                <td>@{{row.subject_code}}</td>
+                <td>@{{row.subject_class}}</td>
+                <td>@{{row.contest_condition}}</td>
+                <td>@{{row.comment}}</td>
+                <td>
+                    <button @click="deletingSubjectId = row.id" data-toggle="modal" data-target="#deleteModal" class="btn btn-outline-danger">Delete</button>
+                    <button @click="getSubject(row.id)" data-toggle="modal" data-target="#editModal" class="btn btn-outline-primary">Edit</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>    
 
     <!-- Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
